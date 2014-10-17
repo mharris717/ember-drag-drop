@@ -44,7 +44,12 @@
     "andThen",
     "currentURL",
     "currentPath",
-    "currentRouteName"
+    "currentRouteName",
+    "hasActivePage",
+    "clickPage",
+    "equalLength",
+    "equalProp",
+    "dispatchDomEvent"
   ],
   "node": false,
   "browser": false,
