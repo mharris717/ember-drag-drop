@@ -1,0 +1,29 @@
+<div id="posts">
+  {{#rating-bin name="All" model=this}}
+    {{partial "post"}}
+  {{/rating-bin}}
+
+  <br>
+
+  <a href="#" {{action "resetRatings"}}>Reset Statuses</a>
+</div>
+
+<div id="bin">
+  <div class="bin-1">
+    {{#rating-bin name="Drafts" rating="draft" model=draftPosts}}
+      {{partial "post"}}
+    {{/rating-bin}}
+  </div>
+  <br><br>
+  <div class="bin-2">
+    {{#rating-bin name="Ready to Publish" rating="ready" model=readyPosts}}
+      {{partial "post"}}
+    {{/rating-bin}}
+  </div>
+  <br><br>
+  <div class="bin-3">
+    {{#rating-bin name="Unclassified" rating="unclassified" model=unclassifiedPosts}}
+      {{partial "post"}}
+    {{/rating-bin}}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{{#draggable-object-target action="handleObjectDropped"}}
+  <div class="object-bin-title">{{name}}</div>
+  <br>
+
+  {{#each obj in model}}
+    {{#draggable-object content=obj action="handleObjectDragged"}}
+      {{#with obj}}
+        {{yield}}
+      {{/with}}
+    {{/draggable-object}}
+  {{/each}}
+{{/draggable-object-target}}

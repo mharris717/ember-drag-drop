@@ -1,0 +1,7 @@
+{{#if enableClicking}}
+  <a href="#" {{action "selectForDrag"}}>
+    {{yield}}
+  </a>
+{{else}}
+  {{yield}}
+{{/if}}

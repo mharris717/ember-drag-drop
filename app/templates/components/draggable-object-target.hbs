@@ -1,0 +1,7 @@
+{{#if enableClicking}}
+  <a href="#" {{action "acceptForDrop"}}>
+    {{yield}}
+  </a>
+{{else}}
+  {{yield}}
+{{/if}}
