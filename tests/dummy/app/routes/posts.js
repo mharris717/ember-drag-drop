@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import Post from '../models/post';
+import log from '../helpers/log';
 
 export default Ember.Route.extend({
   beforeModel: function() {
     var me = this;
     var p = this.store.find('post');
     p.then(function(res) {
-      console.debug(res);
+      log(res);
       if (res.get('length') === 0) {
         var fixtures = Post.FIXTURES;
         for(var i=0;i<fixtures.length;i++) {

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import log from '../helpers/log';
 
 export default Ember.Component.extend({
   tagName: "div", 
@@ -11,7 +12,7 @@ export default Ember.Component.extend({
   }.property(),
 
   handleDragStart: function(event) {
-    console.debug("handleDragStart");
+    log("handleDragStart");
     
     var dataTransfer = event.dataTransfer;
 
@@ -24,13 +25,13 @@ export default Ember.Component.extend({
   }.on("dragStart"),
 
   handleDragEnd: function() {
-    console.debug("handleDragEnd");
+    log("handleDragEnd");
     this.set('isDraggingObject',false);
   }.on("dragEnd"),
 
   actions: {
     selectForDrag: function() {
-      console.debug("selectForDrag");
+      log("selectForDrag");
       var obj = this.get('content');
       var hashId = this.get('coordinator').setObject(obj, {source: this});
       this.get('coordinator').set("clickedId",hashId);

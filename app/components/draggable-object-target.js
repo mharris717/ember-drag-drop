@@ -1,11 +1,12 @@
 import Ember from 'ember';
-import Droppable from '../mixins/droppable';
+import Droppable from 'ember-drag-drop/mixins/droppable';
+import log from '../helpers/log';
 
 export default Ember.Component.extend(Droppable, {
   classNames: ["draggable-object-target"],
   
   handlePayload: function(payload) {
-    console.debug("in handlePayload");
+    log("in handlePayload");
     var obj = this.get('coordinator').getObject(payload,{target: this});
     this.sendAction('action',obj);
     //throw obj.get("rating");

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import log from '../helpers/log';
 
 var YieldLocalMixin = Ember.Mixin.create({
   _yield: function(context, options) {
@@ -39,29 +40,30 @@ export default Ember.Component.extend(YieldLocalMixin, {
   manageList: true,
 
   handleObjectMoved: function() {
-    console.debug("bin objectMoved");
+    log("bin objectMoved");
   }.on("objectMoved"),
 
   actions: {
     handleObjectDropped: function(obj) {
-      console.debug("bin handleObjectDropped");
-      console.debug("manageList " + this.get('manageList'));
+      log("bin handleObjectDropped");
+      log("manageList " + this.get('manageList'));
       
       if (this.get('manageList')) {
-        console.debug("pushing object");
+        log("pushing object");
         this.get("model").pushObject(obj);
       }
-      
-      // obj.set("title","FIXME");
-      // obj.save();
-      this.trigger("objectDropped",obj);
+
+      this.trigger("objectDroppedInternal",obj);
+      this.sendAction("objectDropped",{obj: obj, bin: this});
     },
 
     handleObjectDragged: function(obj) {
-      console.debug("bin handleObjectDragged");
+      log("bin handleObjectDragged");
       if (this.get('manageList')) {
         removeOne(this.get('model'),obj);
       }
+      this.trigger("objectDraggedInternal",obj);
+      this.sendAction("objectDragged");
       
     }
   }
