@@ -74,7 +74,7 @@ The two things to provide to the component are:
 
 ## Object Bin
 
-No docs yet.
+No docs yet, builds on primitives.
 
 # Other
 

@@ -1,28 +1,18 @@
-# Ember-drag-drop
+# Ember Drag Drop
 
-This README outlines the details of collaborating on this Ember addon.
+[![Build Status](https://travis-ci.org/mharris717/ember-drag-drop.svg?branch=master)](https://travis-ci.org/mharris717/ember-drag-drop)
+
+Simple drag and drop addon for your Ember CLI app.
+
+## Requirements
+
+- ember-cli 0.0.39 or higher
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-## Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-## Running Tests
-
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+```
+npm install ember-drag-drop --save-dev
+```
 
 <!--- START GENERATED DOCS -->
 
@@ -102,7 +92,7 @@ The two things to provide to the component are:
 
 ## Object Bin
 
-No docs yet.
+No docs yet, builds on primitives.
 
 # Other
 
