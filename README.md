@@ -55,11 +55,11 @@ The `draggable-object` component represents an object you want to drag onto a ta
 
 The two things to provide to the component are:
 
-* The model - Represents the object to be dragged. Will be passed to the target after a completed drag.
+* The content - Represents the object to be dragged. Will be passed to the target after a completed drag.
 * The template code to render for the draggable object
 
 ```handlebars
-{{#draggable-object model=this}}
+{{#draggable-object content=this}}
   {{name}}
 {{/draggable-object}}
 ```
