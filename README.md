@@ -148,7 +148,7 @@ app/templates/posts.hbs
 ```handlebars
 <h3>Unclassified Posts</h3>
 {{#each post in unclassifiedPosts}}
-  {{#draggable-object model=post}}
+  {{#draggable-object content=post}}
     {{post.title}}
   {{/draggable-object}}
 {{/each}}
