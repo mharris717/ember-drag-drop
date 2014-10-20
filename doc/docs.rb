@@ -140,4 +140,4 @@ end
 full = Full.new
 File.create("doc/full.md",full.to_s)
 
-Readme.new.full_body
+Readme.new.write!
