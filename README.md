@@ -24,6 +24,10 @@ When using this addon, you get to work with objects in your domain layer, just l
 npm install ember-drag-drop --save-dev
 ```
 
+## Thanks
+
+Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from which I shamelessly stole as promised. 
+
 <!--- START GENERATED DOCS -->
 
 # Usage
