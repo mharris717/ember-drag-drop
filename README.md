@@ -11,7 +11,7 @@ To use this addon, you don't need to:
 * Know anything about how the browser implements drag and drop.
 * Ever deal with a browser drag and drop event, or even know that they exist.
 
-When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember.
+When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember. The only two things you need to use are (as you might expect) [Draggable Object](#draggable-object) and [Draggable Object Target](#draggable-object-target)
 
 ## Requirements
 
