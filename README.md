@@ -4,6 +4,15 @@
 
 Simple drag and drop addon for your Ember CLI app.
 
+The goal is to allow you to add drag and drop to your app without having to become an expert in the browser's low level D&D API.
+
+To use this addon, you don't need to:
+
+* Know anything about how the browser implements drag and drop.
+* Ever deal with a browser drag and drop event, or even know that they exist.
+
+When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember.
+
 ## Requirements
 
 - ember-cli 0.0.39 or higher
