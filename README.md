@@ -7,6 +7,7 @@ Simple drag and drop addon for your Ember CLI app.
 ## Requirements
 
 - ember-cli 0.0.39 or higher
+- ember-drag-drop 0.1.0 or higher (to match current docs)
 
 ## Installation
 
