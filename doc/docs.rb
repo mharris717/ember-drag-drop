@@ -37,38 +37,79 @@ class Entry
       Dir["#{dir}/*.md"].map { |x| new(path: x) }.select { |x| x.body.present? }
     end
     fattr(:primitives) do
-      get(:primitives)
+      Primitive.all
     end
 
     fattr(:scenarios) do
-      sort_order = ["local-store","remote-paginated-api","remote-unpaginated-api","paginating-a-filtered-list"]
-      get(:scenarios).sort_by { |x| sort_order.index(x.dash_name) || (raise "nothing for #{x.dash_name}") }
+      #sort_order = ["local-store","remote-paginated-api","remote-unpaginated-api","paginating-a-filtered-list"]
+      #get(:scenarios).sort_by { |x| sort_order.index(x.dash_name) || (raise "nothing for #{x.dash_name}") }
+      Scenario.all
     end
 
     fattr(:others) do
-      get(:other)
+      Other.all
+    end
+
+    def sort_order
+      []
+    end
+
+    fattr(:all) do
+      get(base_path).sort_by { |x| sort_order.index(x.dash_name) || 99 }
     end
   end
 end
+
+class Primitive < Entry
+  class << self
+    def base_path; :primitives; end
+    def sort_order
+      ["draggable-object","draggable-object-target"]
+    end
+  end
+end
+
+class Scenario < Entry
+  class << self
+    def base_path; :scenarios; end
+  end
+end
+
+class Other < Entry
+  class << self
+    def base_path; :other; end
+  end
+end
+
+class Example < Entry
+  class << self
+    def base_path; :examples; end
+  end
+end
+
 
 class TableOfContents
   include FromHash
   fattr(:primitives) { Entry.primitives }
   fattr(:scenarios) { Entry.scenarios }
   fattr(:others) { Entry.others }
+  fattr(:examples) { Example.all }
 
   def to_s
     prim = primitives.map { |x| "* #{x.link}" }.join("\n")
     scen = scenarios.map { |x| "* #{x.link}" }.join("\n")
     other = others.map { |x| "* #{x.link}" }.join("\n")
+    example = examples.map { |x| "* #{x.link}" }.join("\n")
 
     res = []
     res << "# Usage"
-    res << '#### Scenarios'
+    res << '#### Scenarios' if scen.present?
     res << scen
-    res << '#### Primitives'
+    res << '#### Primitives' if prim.present?
     res << prim
-    res << '#### Other'
+    res << '#### Examples' if example.present?
+    res << example
+    res << '#### Other' if other.present?
     res << other
     
     res.join("\n\n")
@@ -80,16 +121,19 @@ class Body
   fattr(:primitives) { Entry.primitives }
   fattr(:scenarios) { Entry.scenarios }
   fattr(:others) { Entry.others }
+  fattr(:examples) { Example.all }
 
   def to_s
     rule = "\n\n--------------\n\n"
 
     res = []
-    res << "# Scenarios"
+    res << "# Scenarios" unless scenarios.empty?
     res << scenarios.join(rule)
-    res << "# Primitives"
+    res << "# Primitives" unless primitives.empty?
     res << primitives.join(rule)
-    res << "# Other"
+    res << "# Examples" unless examples.empty?
+    res << examples.join(rule)
+    res << "# Other" unless others.empty?
     res << others.join(rule)
 
     res.join("\n\n")
