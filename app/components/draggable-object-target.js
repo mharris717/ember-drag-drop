@@ -8,7 +8,7 @@ export default Ember.Component.extend(Droppable, {
   handlePayload: function(payload) {
     log("in handlePayload");
     var obj = this.get('coordinator').getObject(payload,{target: this});
-    this.sendAction('action',obj);
+    this.sendAction('action',obj,{target: this});
     //throw obj.get("rating");
     // obj.set('rating','good');
     // if (obj.save) {
