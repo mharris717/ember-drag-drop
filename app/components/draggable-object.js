@@ -21,11 +21,13 @@ export default Ember.Component.extend({
 
     dataTransfer.setData('Text', id);
 
+    obj.set('isDraggingObject',true);
     this.set('isDraggingObject',true);
   }.on("dragStart"),
 
   handleDragEnd: function() {
     log("handleDragEnd");
+    this.set('content.isDraggingObject',false);
     this.set('isDraggingObject',false);
   }.on("dragEnd"),
 
