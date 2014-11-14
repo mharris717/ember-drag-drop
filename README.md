@@ -58,13 +58,12 @@ The two things to provide to the component are:
 * The content - Represents the object to be dragged. Will be passed to the target after a completed drag.
 * The template code to render for the draggable object
 
-At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
-
 ```handlebars
 {{#draggable-object content=this}}
   {{name}}
 {{/draggable-object}}
 ```
+At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
 
 --------------
 
