@@ -63,6 +63,7 @@ The two things to provide to the component are:
   {{name}}
 {{/draggable-object}}
 ```
+At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
 
 --------------
 
