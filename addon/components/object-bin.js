@@ -44,7 +44,6 @@ export default Ember.Component.extend(YieldLocalMixin, {
   actions: {
     handleObjectDropped: function(obj) {
       if (this.get('manageList')) {
-        log("pushing object");
         this.get("model").pushObject(obj);
       }
 
