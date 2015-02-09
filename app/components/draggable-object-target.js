@@ -3,7 +3,7 @@ import Droppable from 'ember-drag-drop/mixins/droppable';
 import log from '../helpers/log';
 
 export default Ember.Component.extend(Droppable, {
-  classNamesBindings: ['droppableClass'],
+  classNameBindings: ['droppableClass'],
 
   droppableClass: 'draggable-object-target',
 
