@@ -2,7 +2,7 @@ import Ember from 'ember';
 import log from '../helpers/log';
 
 export default Ember.Component.extend({
-  tagName: "div", 
+  tagName: "div",
   classNames: ["draggable-object"],
   classNameBindings: ["isDraggingObject"],
   attributeBindings: ['draggable'],
@@ -13,7 +13,7 @@ export default Ember.Component.extend({
 
   handleDragStart: function(event) {
     log("handleDragStart");
-    
+
     var dataTransfer = event.dataTransfer;
 
     var obj = this.get('content');
@@ -23,12 +23,14 @@ export default Ember.Component.extend({
 
     obj.set('isDraggingObject',true);
     this.set('isDraggingObject',true);
+    this.sendAction('isDragging', obj);
   }.on("dragStart"),
 
   handleDragEnd: function() {
     log("handleDragEnd");
     this.set('content.isDraggingObject',false);
     this.set('isDraggingObject',false);
+    this.sendAction('isNotDragging');
   }.on("dragEnd"),
 
   actions: {
