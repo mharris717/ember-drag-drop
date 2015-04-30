@@ -17,6 +17,8 @@ export default Ember.Component.extend(Droppable, {
 
   acceptDrop: function(event) {
     this.handleDrop(event);
+    //Firefox is navigating to a url on drop sometimes, this prevents that from happening
+    event.preventDefault();
   },
 
   actions: {
