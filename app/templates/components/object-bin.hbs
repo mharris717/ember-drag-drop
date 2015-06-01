@@ -2,7 +2,7 @@
   <div class="object-bin-title">{{name}}</div>
   <br>
 
-  {{#each obj in model}}
+  {{#each model as |obj|}}
     {{#draggable-object content=obj action="handleObjectDragged"}}
       {{#with obj}}
         {{yield}}
