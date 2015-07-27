@@ -1,3 +1,4 @@
+/*global equal*/
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
@@ -6,10 +7,10 @@ import MockDataTransfer from '../../helpers/data-transfer';
 var Thing = Ember.Object.extend({});
 
 moduleForComponent("draggable-object","DraggableObjectComponent", {
-
+  unit: true
 });
 
-test("handleDragStart", function() {
+test("dragStart", function() {
   var thing = Thing.create({id: 1});
   var coordinator = Coordinator.create();
 
@@ -18,7 +19,7 @@ test("handleDragStart", function() {
 
   var event = MockDataTransfer.makeMockEvent();
   Ember.run(function() {
-    s.handleDragStart(event);
+    s.dragStart(event);
   });
 
   var keys = coordinator.get("objectMap").keys();

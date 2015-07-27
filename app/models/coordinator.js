@@ -2,9 +2,9 @@ import Ember from 'ember';
 import ObjHash from './obj-hash';
 
 export default Ember.Object.extend(Ember.Evented, {
-  objectMap: function() {
+  objectMap: Ember.computed(function() {
     return ObjHash.create();
-  }.property(),
+  }),
 
   getObject: function(id,ops) {
     ops = ops || {};

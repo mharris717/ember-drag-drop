@@ -11,6 +11,7 @@ export default function startApp(attrs) {
 
   Ember.run(function() {
     application = Application.create(attributes);
+    application.rootElement = '#ember-testing-new';
     application.setupForTesting();
     application.injectTestHelpers();
   });

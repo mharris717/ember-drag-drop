@@ -76,7 +76,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  _handleDragOver: function(event) {
+  dragOver: function(event) {
     if (this._droppableIsDraggable(event)) {
       this.set('self-drop', true);
     }
@@ -89,14 +89,14 @@ var Droppable = Ember.Mixin.create({
     } else {
       this._resetDroppability();
     }
-  }.on('dragOver'),
+  },
 
   /**
    * @method _handleDrop
    * @private
    */
 
-  _handleDrop: function(event) {
+  drop: function(event) {
     // have to validate on drop because you may have nested sortables the
     // parent allows the drop but the child receives it, revalidating allows
     // the event to bubble up to the parent to handle it
@@ -108,7 +108,7 @@ var Droppable = Ember.Mixin.create({
     // TODO: might not need this? I can't remember why its here
     event.stopPropagation();
     return false;
-  }.on('drop'),
+  },
 
   /**
    * Tells the browser we have an acceptable drag event.
@@ -143,10 +143,10 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  _resetDroppability: function() {
+  dragLeave: function() {
     this.set('accepts-drag', false);
     this.set('self-drop', false);
-  }.on('dragLeave')
+  }
 
 });
 

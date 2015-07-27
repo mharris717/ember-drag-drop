@@ -4,9 +4,7 @@
 
   {{#each obj in model}}
     {{#draggable-object content=obj action="handleObjectDragged"}}
-      {{#with obj}}
-        {{yield}}
-      {{/with}}
+      {{yield}}
     {{/draggable-object}}
   {{/each}}
 {{/draggable-object-target}}

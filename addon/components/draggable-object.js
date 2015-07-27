@@ -6,8 +6,9 @@ export default Ember.Component.extend({
   classNameBindings: ["isDraggingObject:is-dragging-object:"],
   attributeBindings: ['draggable'],
   isDraggable: true,
+  title: Ember.computed.alias('content.title'),
 
-  draggable: function() {
+  draggable: Ember.computed('isDraggable', function() {
     var isDraggable = this.get('isDraggable');
 
     if (isDraggable) {
@@ -16,9 +17,9 @@ export default Ember.Component.extend({
     else {
       return null;
     }
-  }.property('isDraggable'),
+  }),
 
-  handleDragStart: function(event) {
+  dragStart: function(event) {
 
     var dataTransfer = event.dataTransfer;
 
@@ -31,16 +32,16 @@ export default Ember.Component.extend({
       Ember.set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
-  }.on("dragStart"),
+  },
 
-  handleDragEnd: function() {
+  dragEnd: function() {
     var obj = this.get('content');
 
     if (obj) {
       Ember.set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
-  }.on("dragEnd"),
+  },
 
   actions: {
     selectForDrag: function() {

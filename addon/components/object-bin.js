@@ -1,27 +1,5 @@
 import Ember from 'ember';
 
-var YieldLocalMixin = Ember.Mixin.create({
-  _yield: function(context, options) {
-    var view = options.data.view;
-    var parentView = this._parentView;
-    var template = Ember.get(this, 'template');
-
-    if (template) {
-      Ember.assert("A Component must have a parent view in order to yield.", parentView);
-
-      view.appendChild(Ember.View, {
-        isVirtual: true,
-        tagName: '',
-        _contextView: parentView,
-        template: template,
-        context: Ember.get(view, 'context'),
-        controller: Ember.get(view, 'controller'),
-        templateData: { keywords: {} }
-      });
-    }
-  }
-});
-
 var removeOne = function(arr,obj) {
   var l = arr.get('length');
   arr.removeObject(obj);
@@ -32,14 +10,14 @@ var removeOne = function(arr,obj) {
   }
 };
 
-export default Ember.Component.extend(YieldLocalMixin, {
+export default Ember.Component.extend( {
   model: [],
   classNames: ['draggable-object-bin'],
 
   manageList: true,
 
-  handleObjectMoved: function() {
-  }.on("objectMoved"),
+  objectMoved: function() {
+  },
 
   actions: {
     handleObjectDropped: function(obj) {

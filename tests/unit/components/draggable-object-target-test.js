@@ -1,3 +1,4 @@
+/* global equal, equalLength, equalProp*/
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
@@ -6,7 +7,9 @@ import Equals from '../../helpers/equals';
 import MockDataTransfer from '../../helpers/data-transfer';
 
 var Thing = Ember.Object.extend({});
-moduleForComponent("draggable-object-target");
+moduleForComponent("draggable-object-target", {
+  unit: true
+});
 
 var randId = function() {
   var res = Math.random() * 500.0;

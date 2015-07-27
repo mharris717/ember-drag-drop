@@ -1,3 +1,4 @@
+/* global equal*/
 import Ember from 'ember';
 
 var f = function() {

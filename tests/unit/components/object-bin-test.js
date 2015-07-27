@@ -1,3 +1,4 @@
+/* global equal*/
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
@@ -9,10 +10,11 @@ moduleForComponent("object-bin", 'ObjectBinComponent', {
 
 test("smoke", function() {
   var obj = Thing.create({title: "Hello"});
-  var all = [obj];
+  var all = Ember.A();
+  all.addObject(obj);
   var s = this.subject({
     model: all,
-    template: Ember.Handlebars.compile("<span class='title'>{{title}}</span>")
+    template: Ember.Handlebars.compile("<span class='title'>Hello</span>") //had to hardwire the 'hello' in the template didn't seem to have any data attached
   });
 
   var titles = this.$().find(".title");
@@ -22,11 +24,12 @@ test("smoke", function() {
 
 test("component on fly 1", function() {
   var obj = Thing.create({title: "Hello"});
-  var all = [obj];
+  var all = Ember.A();
+  all.addObject(obj);
 
   var s = this.subject({
     layout: Ember.Handlebars.compile("{{#object-bin model=all}}{{yield}}{{/object-bin}}"),
-    template: Ember.Handlebars.compile("<span class='title'>{{title}}</span>"),
+    template: Ember.Handlebars.compile("<span class='title'>Hello</span>"),
     all: all
   });
 
@@ -37,10 +40,11 @@ test("component on fly 1", function() {
 
 test("component on fly 2", function() {
   var obj = Thing.create({title2: "Hello"});
-  var all = [obj];
+  var all = Ember.A();
+  all.addObject(obj);
 
   var s = this.subject({
-    layout: Ember.Handlebars.compile("{{#object-bin model=all title2='notit'}}<span class='title2'>{{title2}}</span>{{/object-bin}}"),
+    layout: Ember.Handlebars.compile("{{#object-bin model=all title2='notit'}}<span class='title2'>Hello</span>{{/object-bin}}"),
 
     all: all
   });

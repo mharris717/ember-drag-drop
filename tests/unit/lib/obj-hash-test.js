@@ -1,3 +1,4 @@
+/* global equal, module*/
 import Ember from 'ember';
 import { test } from 'ember-qunit';
 import ObjHash from '../../../models/obj-hash';

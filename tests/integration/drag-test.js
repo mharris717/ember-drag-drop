@@ -1,3 +1,4 @@
+/*global module, equal */
 import Em from 'ember';
 import Coordinator from '../../models/coordinator';
 import Equals from '../helpers/equals';
