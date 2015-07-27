@@ -92,7 +92,7 @@ var Droppable = Ember.Mixin.create({
   },
 
   /**
-   * @method _handleDrop
+   * @method drop
    * @private
    */
 
@@ -143,9 +143,13 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  dragLeave: function() {
+  _resetDroppability: function() {
     this.set('accepts-drag', false);
     this.set('self-drop', false);
+  },
+
+  dragLeave: function() {
+   this._resetDroppability();
   }
 
 });
