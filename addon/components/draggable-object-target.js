@@ -2,7 +2,8 @@ import Ember from 'ember';
 import Droppable from 'ember-drag-drop/mixins/droppable';
 
 export default Ember.Component.extend(Droppable, {
-  classNames: ["draggable-object-target"],
+  classNameBindings: ['overrideClass'],
+  overrideClass: 'draggable-object-target',
 
   handlePayload: function(payload) {
     var obj = this.get('coordinator').getObject(payload,{target: this});

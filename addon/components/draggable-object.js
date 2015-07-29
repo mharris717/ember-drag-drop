@@ -2,8 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: "div",
-  classNames: ["draggable-object"],
-  classNameBindings: ["isDraggingObject:is-dragging-object:"],
+  overrideClass: 'draggable-object',
+  classNameBindings: ["isDraggingObject:is-dragging-object:", 'overrideClass'],
   attributeBindings: ['draggable'],
   isDraggable: true,
   title: Ember.computed.alias('content.title'),

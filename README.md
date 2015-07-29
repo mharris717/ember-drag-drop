@@ -105,6 +105,18 @@ Ember.Controller.extend({
 }
 });
 ```
+## Component Class Overrides
+
+For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an overrideClass property to the component.
+
+An Example:
+
+```handlebars
+{{#draggable-object-target overrideClass='my-new-class-name'}}
+ 
+{{/draggable-object-target}}
+```
+
 
 # Examples
 
