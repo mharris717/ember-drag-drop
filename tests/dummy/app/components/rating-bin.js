@@ -12,7 +12,7 @@ export default ObjectBin.extend({
     this.set('manageList',false);
   },
 
-  setTitle: function(obj) {
+  objectDroppedInternal: function(obj) {
 
     var rating = this.get('rating');
     log("setting rating "+rating);
@@ -20,5 +20,5 @@ export default ObjectBin.extend({
     obj.save();
     //obj.set("author",name);
     //obj.save();
-  }.on("objectDroppedInternal")
+  }
 });

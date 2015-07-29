@@ -6,13 +6,13 @@ export default Ember.ArrayController.extend({
   readyPosts: Ember.computed.filterBy("model","rating","ready"),
   unclassifiedPosts: Ember.computed.filterBy("model","rating","unclassified"),
 
-  watchObjectDropped: function() {
+  /*objectDropped: function() {
     log("posts controller objectDropped");
-  }.on("objectDropped"),
+  },*/
 
-  watchObjectDroppedc: function() {
+  objectDroppedc: function() {
     log("posts controller objectDroppedc");
-  }.on("objectDroppedc"),
+  },
 
   objectDropped: function() {
     log("posts controller objectDropped method");

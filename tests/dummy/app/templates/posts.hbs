@@ -1,5 +1,5 @@
 <div id="posts">
-  {{#rating-bin name="All" model=this}}
+  {{#rating-bin name="All" model=this as |obj|}}
     {{partial "post"}}
   {{/rating-bin}}
 
@@ -10,19 +10,19 @@
 
 <div id="bin">
   <div class="bin-1">
-    {{#rating-bin name="Drafts" rating="draft" model=draftPosts objectDropped="objectDropped"}}
+    {{#rating-bin name="Drafts" rating="draft" objectDropped="objectDropped" model=draftPosts as |obj|}}
       {{partial "post"}}
     {{/rating-bin}}
   </div>
   <br><br>
   <div class="bin-2">
-    {{#rating-bin name="Ready to Publish" rating="ready" model=readyPosts}}
+    {{#rating-bin name="Ready to Publish" rating="ready" model=readyPosts as |obj|}}
       {{partial "post"}}
     {{/rating-bin}}
   </div>
   <br><br>
   <div class="bin-3">
-    {{#rating-bin name="Unclassified" rating="unclassified" model=unclassifiedPosts}}
+    {{#rating-bin name="Unclassified" rating="unclassified" model=unclassifiedPosts as |obj|}}
       {{partial "post"}}
     {{/rating-bin}}
   </div>
