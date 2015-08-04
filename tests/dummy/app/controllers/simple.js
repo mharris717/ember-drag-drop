@@ -10,11 +10,11 @@ export default Ember.Controller.extend({
     dragResult: function(obj,ops) {
       this.set('dragFinishText', ops.target.resultText);
     },
-    dragStart: function(obj) {
+    dragStart: function() {
       this.set('dragEndedText', false);
       this.set('dragStartedText','Drag Has Started');
     },
-    dragEnd: function(obj) {
+    dragEnd: function() {
       this.set('dragStartedText', false);
       this.set('dragEndedText','Drag Has Ended');
     },

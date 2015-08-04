@@ -153,7 +153,7 @@ var Droppable = Ember.Mixin.create({
     this.set('self-drop', false);
   },
 
-  dragLeave: function(event) {
+  dragLeave: function() {
    this._resetDroppability();
   }
 
