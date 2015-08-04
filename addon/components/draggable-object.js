@@ -32,6 +32,7 @@ export default Ember.Component.extend({
       Ember.set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
+    this.sendAction('dragStartAction', obj);
   },
 
   dragEnd: function() {
@@ -41,6 +42,7 @@ export default Ember.Component.extend({
       Ember.set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
+    this.sendAction('dragEndAction', obj);
   },
 
   actions: {

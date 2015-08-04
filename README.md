@@ -64,6 +64,13 @@ The two things to provide to the component are:
 {{/draggable-object}}
 ```
 At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
+Optionally you can set actions on the component to get notified on drag start and end. The current object being dragged is sent as a parameter.
+
+```handlebars
+{{#draggable-object content=this dragStartAction='myStartAction' dragEndAction='myEndAction'}}
+  {{name}}
+{{/draggable-object}}
+```
 
 --------------
 
@@ -88,6 +95,14 @@ The action is called with two arguments:
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
+Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
+
+```handlebars
+{{#draggable-object-target action="increaseRating" amount="5" dragOverAction='myOverAction' dragOutAction='myDragOutAction'}}
+  Drag here to increase rating
+{{/draggable-object-target}}
+```
+
 
 ```javascript
 // represents the controller backing the above template

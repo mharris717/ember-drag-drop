@@ -4,6 +4,7 @@ import Droppable from 'ember-drag-drop/mixins/droppable';
 export default Ember.Component.extend(Droppable, {
   classNameBindings: ['overrideClass'],
   overrideClass: 'draggable-object-target',
+  isOver: false,
 
   handlePayload: function(payload) {
     var obj = this.get('coordinator').getObject(payload,{target: this});
@@ -20,6 +21,17 @@ export default Ember.Component.extend(Droppable, {
     this.handleDrop(event);
     //Firefox is navigating to a url on drop sometimes, this prevents that from happening
     event.preventDefault();
+  },
+  handleDragOver: function(event) {
+    if (!this.get('isOver')) {
+      //only send once per hover event
+      this.set('isOver', true);
+      this.sendAction('dragOverAction');
+    }
+  },
+  handleDragOut: function(event) {
+    this.set('isOver', false);
+    this.sendAction('dragOutAction');
   },
 
   actions: {

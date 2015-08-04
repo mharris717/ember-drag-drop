@@ -37,16 +37,11 @@ html, body {
 .object-bin-title {
   font-size: 140%;
   font-weight: bold;
-/*
-  border-style: solid;
-  border-width: 10px;*/
 }
 
 #bin .object-bin-title {
   text-align: center;
 }
-
-
 
 #bin .draggable-object-bin {
   border-width: 1px;
@@ -61,4 +56,29 @@ body {
 
 .draggable-object {
   padding-bottom: 2px;
+}
+
+.dropTarget {
+  width: 300px;
+  height: 100px;
+  background-color: darkgray;
+  color: white;
+  line-height: 100px;
+  text-align: center;
+  font-size: 16px;
+  padding: 1em;
+}
+.dropTarget.accepts-drag {
+  background-color: cadetblue;
+}
+.dragObject {
+  margin-top: 100px;
+  width: 300px;
+  height: 100px;
+  background-color: blueviolet;
+  line-height: 100px;
+  text-align: center;
+  font-size: 16px;
+  padding: 1em;
+  color: white;
 }

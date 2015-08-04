@@ -1,0 +1,21 @@
+<h1>A simple example of one drag and one drop</h1>
+
+{{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' overrideClass='dropTarget'}}
+  {{#if dragFinishText}}
+    {{dragFinishText}}
+  {{else}}
+    Drag here to complete Action
+  {{/if}}
+{{/draggable-object-target}}
+
+{{#draggable-object content=myObject  dragStartAction='dragStart' dragEndAction='dragEnd' overrideClass='dragObject'}}
+
+  {{#if dragStartedText}}
+    {{dragStartedText}}
+  {{else if dragEndedText}}
+    {{dragEndedText}}
+  {{else}}
+    Drag Me
+  {{/if}}
+
+{{/draggable-object}}
