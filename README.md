@@ -64,12 +64,31 @@ The two things to provide to the component are:
 {{/draggable-object}}
 ```
 At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
-Optionally you can set actions on the component to get notified on drag start and end. The current object being dragged is sent as a parameter.
+
+Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
 
 ```handlebars
 {{#draggable-object content=this dragStartAction='myStartAction' dragEndAction='myEndAction'}}
   {{name}}
 {{/draggable-object}}
+```
+
+```javascript
+// represents the controller backing the above template
+
+Ember.Controller.extend({
+  // your regular controller code
+
+  actions: {
+    myStartAction: function(content) {
+     //Content is the same as the content parameter set above
+    },
+    myEndAction: function(content) {
+      //Content is the same as the content parameter set above
+    },
+  }
+}
+});
 ```
 
 --------------
@@ -95,6 +114,7 @@ The action is called with two arguments:
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
+
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
@@ -115,7 +135,13 @@ Ember.Controller.extend({
       var amount = parseInt(ops.target.amount);
       obj.incrementProperty("rating",amount);
       obj.save();
-    }
+    },
+    myOverAction: function() {
+      //will notify you when an object is being dragged over the drop target
+    },
+    myDragOutAction: function() {
+      //will notify you when an object has left the drop target area
+    },
   }
 }
 });
