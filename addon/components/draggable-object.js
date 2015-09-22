@@ -20,6 +20,10 @@ export default Ember.Component.extend({
   }),
 
   dragStart: function(event) {
+    if (!this.get('isDraggable')) {
+      event.preventDefault();
+      return;
+    }
 
     var dataTransfer = event.dataTransfer;
 
@@ -36,6 +40,10 @@ export default Ember.Component.extend({
   },
 
   dragEnd: function() {
+    if (!this.get('isDraggable')) {
+      return;
+    }
+
     var obj = this.get('content');
 
     if (obj) {
@@ -49,7 +57,7 @@ export default Ember.Component.extend({
     selectForDrag: function() {
       var obj = this.get('content');
       var hashId = this.get('coordinator').setObject(obj, { source: this });
-      this.get('coordinator').set("clickedId", hashId);
+      this.set('coordinator.clickedId', hashId);
     }
   }
 });
