@@ -40,7 +40,7 @@ export default Ember.Component.extend({
   },
 
   dragEnd: function() {
-    if (!this.get('isDraggable')) {
+    if (!this.get('isDraggingObject')) {
       return;
     }
 
