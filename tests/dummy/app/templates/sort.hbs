@@ -1,0 +1,21 @@
+<h1>A simple sorting example</h1>
+
+{{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' overrideClass='dropTarget'}}
+  {{#if dragFinishText}}
+    {{dragFinishText}}
+  {{else}}
+    Optional End Drag Locaiton
+  {{/if}}
+{{/draggable-object-target}}
+
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction'}}
+  {{#each sortableObjectList as |item|}}
+    {{#draggable-object content=item  overrideClass='sortObject' isSortable=true}}
+      {{item.title}}
+    {{/draggable-object}}
+  {{/each}}
+{{/sortable-objects}}
+
+
+
+

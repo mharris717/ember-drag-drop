@@ -8,6 +8,7 @@ var Router = Ember.Router.extend({
 Router.map(function() {
   this.resource("posts");
   this.resource("simple");
+  this.resource("sort");
 });
 
 export default Router;

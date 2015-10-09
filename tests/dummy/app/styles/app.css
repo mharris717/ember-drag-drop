@@ -82,3 +82,15 @@ body {
   padding: 1em;
   color: white;
 }
+.sortObject {
+  margin: 1em 0;
+  width: 300px;
+  height: 100px;
+  background-color: blueviolet;
+  line-height: 100px;
+  text-align: center;
+  font-size: 16px;
+  padding: 1em;
+  color: white;
+
+}
