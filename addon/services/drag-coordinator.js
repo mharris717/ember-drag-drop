@@ -1,10 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  arrayList: Ember.A(),
+  arrayList: null,
   newSortedList: Ember.computed('arrayList', function(){
-    //TODO: take a copy because, we don't want to trigger changes to the passed in array until after we drop.
-    return this.get('arrayList');
+    //copy the passed in array so things aren't triggered while swapping items
+    var simpleArray = [];
+    this.get('arrayList').forEach(function(item){
+      simpleArray.push(item);
+    });
+    return simpleArray;
   }),
   currentDragObject: null,
   currentDragEvent: null,
@@ -88,7 +92,12 @@ export default Ember.Service.extend({
     };
   },
   getChangedArray: function() {
-    this.set('arrayList', this.get('newSortedList'));
-    return this.get('arrayList');
+    //rebuild the passed in array
+    var arrayList = this.get('arrayList');
+    arrayList.clear();
+    this.get('newSortedList').forEach(function(item){
+      arrayList.addObject(item);
+    });
+    return arrayList;
   }
 });
