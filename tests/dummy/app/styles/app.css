@@ -1,5 +1,6 @@
 html, body {
   margin: 20px;
+  font-size: 14px;
 }
 
 #main {
@@ -50,10 +51,6 @@ html, body {
   padding: 15px;
 }
 
-body {
-  font-size: 80%;
-}
-
 .draggable-object {
   padding-bottom: 2px;
 }
@@ -81,4 +78,26 @@ body {
   font-size: 16px;
   padding: 1em;
   color: white;
+}
+.sortObject {
+  margin: 1em 0;
+  width: 300px;
+  height: 100px;
+  background-color: blueviolet;
+  line-height: 100px;
+  text-align: center;
+  font-size: 16px;
+  padding: 1em;
+  color: white;
+
+}
+.u-pullLeft {
+  float: left;
+}
+.u-marginLeft {
+  margin-left: 10%;
+}
+.u-fullBlock {
+  display: inline-block;
+  width: 100%;
 }

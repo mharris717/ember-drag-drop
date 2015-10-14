@@ -7,6 +7,7 @@ import MockDataTransfer from '../../helpers/data-transfer';
 var Thing = Ember.Object.extend({});
 
 moduleForComponent("draggable-object","DraggableObjectComponent", {
+  needs: ['service:drag-coordinator'], //TODO: this should be an inject as needs will be deprecated
   unit: true
 });
 
