@@ -5,10 +5,12 @@ export default Ember.Controller.extend({
   dragFinishText: false,
   dragStartedText: false,
   dragEndedText: false,
+  myObject:{id:1, name:'objectName'},
 
   actions: {
     dragResult: function(obj,ops) {
       this.set('dragFinishText', ops.target.resultText);
+      console.log('Content of draggable-object :',obj);
     },
     dragStart: function() {
       this.set('dragEndedText', false);

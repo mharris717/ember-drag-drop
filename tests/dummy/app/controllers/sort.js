@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  dragFinishText: false,
+  sortFinishText: null,
   sortableObjectList: Ember.A(
     [{id: 1, title:'Number 1'},
     {id: 2, title:'Number 2'},
@@ -11,20 +11,11 @@ export default Ember.Controller.extend({
   ),
 
   actions: {
-    dragResult: function(obj,ops) {
-      this.set('dragFinishText', ops.target.resultText);
-    },
     dragStart: function(object) {
       console.log('Drag Start', object);
     },
-    draggingOverTarget: function() {
-      console.log('Over target');
-    },
-    leftDragTarget: function() {
-      console.log('Off target');
-    },
     sortEndAction: function() {
-      console.log('sort Ended', this.get('sortableObjectList'));
+      console.log('Sort Ended', this.get('sortableObjectList'));
     }
   }
 });

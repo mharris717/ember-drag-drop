@@ -38,6 +38,7 @@ Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from
 
 * [Draggable Object](#draggable-object)
 * [Draggable Object Target](#draggable-object-target)
+* [Sortable Objects](#sorting-of-objects-beta)
 
 #### Examples
 
@@ -146,6 +147,38 @@ Ember.Controller.extend({
 }
 });
 ```
+
+## Sorting of objects (beta)
+
+We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `{{#draggable-object}}` components you can get an array of sorted elements returned.
+
+An Example:
+
+```handlebars
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction'}}
+  {{#each sortableObjectList as |item|}}
+    {{#draggable-object content=item isSortable=true}}
+      {{item.name}}
+    {{/draggable-object}}
+  {{/each}}
+{{/sortable-objects}}
+```
+
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired.
+
+**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
+
+### TODO
+
+Theses additions to sort are still incoming:
+
+1. Tests for sortable-objects
+2. Transforms for visual indicator of changing order
+3. Ability to drag between sortable containers
+4. Sorting of horizontal containers (currently on vertical sorting works)
+
+If anyone has any feedback/ideas on sorting, please open an issue.
+
 ## Component Class Overrides
 
 For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an overrideClass property to the component.
@@ -201,7 +234,7 @@ app/templates/posts.hbs
 
 ```handlebars
 <h3>Unclassified Posts</h3>
-{{#each post in unclassifiedPosts}}
+{{#each unclassifiedPosts as |post|}}
   {{#draggable-object content=post}}
     {{post.title}}
   {{/draggable-object}}
