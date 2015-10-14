@@ -42,6 +42,7 @@ Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from
 
 #### Examples
 
+* [Live simple demos](http://mharris717.github.io/ember-drag-drop/)
 * [Classify Posts](#classify-posts)
 
 
@@ -147,6 +148,7 @@ Ember.Controller.extend({
 }
 });
 ```
+You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/simple)
 
 ## Sorting of objects (beta)
 
@@ -164,7 +166,7 @@ An Example:
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired.
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/sort)
 
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
 
