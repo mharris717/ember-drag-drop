@@ -66,6 +66,10 @@ export default Ember.Component.extend({
    }
     return false;
   },
+  drop: function(event) {
+    //Firefox is navigating to a url on drop, this prevents that from happening
+    event.preventDefault();
+  },
 
   actions: {
     selectForDrag: function() {
