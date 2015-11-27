@@ -26,6 +26,13 @@ export default Ember.Component.extend({
       event.preventDefault();
       return;
     }
+    if (this.get('dragHandle')) {
+      //only start when drag handle is activated
+      if (!this.$(this.get('dragHandle')).is(':hover')) {
+        event.preventDefault();
+        return;
+      }
+    }
 
     var dataTransfer = event.dataTransfer;
 

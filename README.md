@@ -75,6 +75,14 @@ Optionally you can set actions on the component to get notified on drag start an
 {{/draggable-object}}
 ```
 
+If you wish to have a drag handle in your component to be the trigger for a drag start action, instead of the whole wrapped template you can specify the jquery selector in the component.
+
+```handlebars
+{{#draggable-object content=this dragHandle='.js-dragHandle'}}
+  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
+{{/draggable-object}}
+```
+
 ```javascript
 // represents the controller backing the above template
 

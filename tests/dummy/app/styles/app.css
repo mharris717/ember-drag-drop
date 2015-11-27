@@ -69,6 +69,7 @@ html, body {
   background-color: cadetblue;
 }
 .dragObject {
+  position: relative;
   margin-top: 100px;
   width: 300px;
   height: 100px;
@@ -100,4 +101,16 @@ html, body {
 .u-fullBlock {
   display: inline-block;
   width: 100%;
+}
+
+.dragHandle {
+  display: inline-block;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #fff;
+  border: 1px solid #333;
+  cursor: move;
 }
