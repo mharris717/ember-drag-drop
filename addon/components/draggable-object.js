@@ -37,7 +37,11 @@ export default Ember.Component.extend({
     var dataTransfer = event.dataTransfer;
 
     var obj = this.get('content');
-    var id = this.get('coordinator').setObject(obj, { source: this });
+    var id = null;
+    if (this.get('coordinator')) {
+       id = this.get('coordinator').setObject(obj, { source: this });
+    }
+
 
     dataTransfer.setData('Text', id);
 

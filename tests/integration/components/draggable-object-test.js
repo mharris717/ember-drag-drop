@@ -1,0 +1,96 @@
+import Ember from 'ember';
+import { moduleForComponent, test } from 'ember-qunit';
+import hbs from 'htmlbars-inline-precompile';
+import Coordinator from '../../../models/coordinator';
+import MockDataTransfer from '../../helpers/data-transfer';
+import startApp from '../../helpers/start-app';
+
+let App;
+
+moduleForComponent('draggable-object', 'Integration | Component | draggable object', {
+  integration: true,
+  setup: function() {
+    App = startApp();
+  },
+  teardown: function() {
+    Ember.run(App, 'destroy');
+  }
+
+});
+
+test('draggable object renders', function(assert) {
+  assert.expect(2);
+
+  // Set any properties with this.set('myProperty', 'value');
+  // Handle any actions with this.on('myAction', function(val) { ... });
+
+  this.render(hbs`{{draggable-object}}`);
+
+  assert.equal(this.$().text().trim(), '');
+
+  this.render(hbs`
+    {{#draggable-object}}
+      template block text
+    {{/draggable-object}}
+  `);
+
+  assert.equal(this.$().text().trim(), 'template block text');
+});
+
+test('Draggable Object is draggable', function(assert) {
+  assert.expect(2);
+
+  let myObject = {'id':0, data: 'Test Data'};
+  let event = MockDataTransfer.makeMockEvent();
+
+  this.render(hbs`
+    {{#draggable-object content=myObject class='draggable-object'}}
+      Hi
+      <a class="js-dragHandle dragHandle"></a>
+    {{/draggable-object}}
+  `);
+  let $component = this.$('.draggable-object');
+
+
+  Ember.run(function() {
+    triggerEvent($component, 'dragstart', event);
+  });
+
+  assert.equal($component.hasClass('is-dragging-object'), true);
+
+  Ember.run(function() {
+    triggerEvent($component, 'dragend', event);
+  });
+
+  assert.equal($component.hasClass('is-dragging-object'), false);
+});
+
+test('Draggable Object is only draggable from handle', function(assert) {
+  assert.expect(2);
+
+  let myObject = {'id':0, data: 'Test Data'};
+  let event = MockDataTransfer.makeMockEvent();
+
+  this.render(hbs`
+    {{#draggable-object content=myObject class='draggable-object' dragHandle='.js-dragHandle'}}
+      Main Component
+      <a class="js-dragHandle dragHandle"></a>
+    {{/draggable-object}}
+  `);
+  let $component = this.$('.draggable-object');
+
+  //does not drag from main component
+  Ember.run(function() {
+    triggerEvent($component, 'dragstart', event);
+  });
+  assert.equal($component.hasClass('is-dragging-object'), false);
+  //end drag
+  Ember.run(function() {
+    triggerEvent($component, 'dragend', event);
+  });
+
+  assert.equal($component.hasClass('is-dragging-object'), false);
+
+  //I would test if it works from testing from the drag handle, but I can't create a hover event on it
+
+});
