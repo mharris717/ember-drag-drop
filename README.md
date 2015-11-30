@@ -157,7 +157,7 @@ We now have a basic sorting capabilities in this library. If you wrap the `{{#so
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction'}}
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true}}
   {{#each sortableObjectList as |item|}}
     {{#draggable-object content=item isSortable=true}}
       {{item.name}}
@@ -166,7 +166,7 @@ An Example:
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
 
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
 
