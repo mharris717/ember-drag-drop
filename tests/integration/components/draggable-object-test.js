@@ -96,7 +96,7 @@ test('Draggable Object is only draggable from handle', function(assert) {
   assert.equal($component.attr('draggable'), "false");
 
   Ember.run(function() {
-    triggerEvent($handle, 'mousedown');
+    triggerEvent($handle, 'mouseover');
   });
 
   assert.equal($component.attr('draggable'), "true");

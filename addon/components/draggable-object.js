@@ -28,10 +28,10 @@ export default Ember.Component.extend({
       //only start when drag handle is activated
       if (this.$(this.get('dragHandle'))) {
         this.set('dragReady', false);
-        this.$(this.get('dragHandle')).on('mousedown', function(){
+        this.$(this.get('dragHandle')).on('mouseover', function(){
           self.set('dragReady', true);
         });
-        this.$(this.get('dragHandle')).on('mouseup', function(){
+        this.$(this.get('dragHandle')).on('mouseout', function(){
           self.set('dragReady', false);
         });
       }
@@ -44,6 +44,7 @@ export default Ember.Component.extend({
   },
 
   dragStart: function(event) {
+    console.log(this.get('dragReady'));
     if (!this.get('isDraggable') || !this.get('dragReady')) {
       event.preventDefault();
       return;
