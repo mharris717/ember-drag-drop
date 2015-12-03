@@ -44,7 +44,6 @@ export default Ember.Component.extend({
   },
 
   dragStart: function(event) {
-    console.log(this.get('dragReady'));
     if (!this.get('isDraggable') || !this.get('dragReady')) {
       event.preventDefault();
       return;
