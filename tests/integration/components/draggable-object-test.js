@@ -66,7 +66,7 @@ test('Draggable Object is draggable', function(assert) {
 });
 
 test('Draggable Object is only draggable from handle', function(assert) {
-  assert.expect(2);
+  assert.expect(6);
 
   let myObject = {'id':0, data: 'Test Data'};
   let event = MockDataTransfer.makeMockEvent();
@@ -91,6 +91,28 @@ test('Draggable Object is only draggable from handle', function(assert) {
 
   assert.equal($component.hasClass('is-dragging-object'), false);
 
-  //I would test if it works from testing from the drag handle, but I can't create a hover event on it
+  let $handle = this.$('.js-dragHandle');
+  //make sure parent element does not have draggable attribute until handle is clicked
+  assert.equal($component.attr('draggable'), "false");
+
+  Ember.run(function() {
+    triggerEvent($handle, 'mousedown');
+  });
+
+  assert.equal($component.attr('draggable'), "true");
+
+  //Drag should start now that the handle is down
+  Ember.run(function() {
+    triggerEvent($component, 'dragstart', event);
+  });
+
+  assert.equal($component.hasClass('is-dragging-object'), true);
+
+  //Drag has ended draggable attribute should be removed
+  Ember.run(function() {
+    triggerEvent($component, 'dragend', event);
+  });
+
+  assert.equal($component.attr('draggable'), "false");
 
 });

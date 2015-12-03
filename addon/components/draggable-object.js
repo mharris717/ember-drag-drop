@@ -5,8 +5,9 @@ export default Ember.Component.extend({
   tagName: "div",
   overrideClass: 'draggable-object',
   classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
-  attributeBindings: ['draggable'],
+  attributeBindings: ['dragReady:draggable'],
   isDraggable: true,
+  dragReady: true,
   isSortable: false,
   title: Ember.computed.alias('content.title'),
 
@@ -20,18 +21,32 @@ export default Ember.Component.extend({
       return null;
     }
   }),
-
-  dragStart: function(event) {
-    if (!this.get('isDraggable')) {
-      event.preventDefault();
-      return;
-    }
+  didInsertElement: function() {
+    let self = this;
+    //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
     if (this.get('dragHandle')) {
       //only start when drag handle is activated
-      if (!this.$(this.get('dragHandle')).is(':hover')) {
-        event.preventDefault();
-        return;
+      if (this.$(this.get('dragHandle'))) {
+        this.set('dragReady', false);
+        this.$(this.get('dragHandle')).on('mousedown', function(){
+          self.set('dragReady', true);
+        });
+        this.$(this.get('dragHandle')).on('mouseup', function(){
+          self.set('dragReady', false);
+        });
       }
+    }
+  },
+  willDestroyElement: function(){
+    if (this.$(this.get('dragHandle'))) {
+      this.$(this.get('dragHandle')).off();
+    }
+  },
+
+  dragStart: function(event) {
+    if (!this.get('isDraggable') || !this.get('dragReady')) {
+      event.preventDefault();
+      return;
     }
 
     var dataTransfer = event.dataTransfer;
@@ -69,6 +84,9 @@ export default Ember.Component.extend({
     this.set('isDraggingObject', false);
     this.get('dragCoordinator').dragEnded(event);
     this.sendAction('dragEndAction', obj);
+    if (this.get('dragHandle')) {
+      this.set('dragReady', false);
+    }
   },
 
   dragOver: function(event) {
