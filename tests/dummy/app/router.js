@@ -9,6 +9,7 @@ Router.map(function() {
   this.resource("posts");
   this.resource("simple");
   this.resource("sort");
+  this.resource("sortdata");
   this.resource("handle");
 });
 
