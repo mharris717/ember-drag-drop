@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Coordinator from '../../../models/coordinator';
 import MockDataTransfer from '../../helpers/data-transfer';
 import startApp from '../../helpers/start-app';
 
@@ -40,7 +39,7 @@ test('draggable object renders', function(assert) {
 test('Draggable Object is draggable', function(assert) {
   assert.expect(2);
 
-  let myObject = {'id':0, data: 'Test Data'};
+  //let myObject = {'id':0, data: 'Test Data'};
   let event = MockDataTransfer.makeMockEvent();
 
   this.render(hbs`
@@ -68,7 +67,7 @@ test('Draggable Object is draggable', function(assert) {
 test('Draggable Object is only draggable from handle', function(assert) {
   assert.expect(6);
 
-  let myObject = {'id':0, data: 'Test Data'};
+  //let myObject = {'id':0, data: 'Test Data'};
   let event = MockDataTransfer.makeMockEvent();
 
   this.render(hbs`

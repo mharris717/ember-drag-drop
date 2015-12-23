@@ -12,7 +12,7 @@ var f = function() {
     });
   });
   
-  Ember.Test.registerAsyncHelper('hasButtons', function(app, ops, context) {
+  Ember.Test.registerAsyncHelper('hasButtons', function(app, ops) {
     for (var name in ops) {
       var present = ops[name];
 
@@ -24,15 +24,15 @@ var f = function() {
     }
   });
 
-  Ember.Test.registerAsyncHelper('hasTodos', function(app, l, context) {
+  Ember.Test.registerAsyncHelper('hasTodos', function(app, l) {
     equal(find("table tr.todo").length, l);
   });
 
-  Ember.Test.registerAsyncHelper('hasPages', function(app, l, context) {
+  Ember.Test.registerAsyncHelper('hasPages', function(app, l) {
     equal(find(".pagination li.page-number").length, l);
   });
 
-  Ember.Test.registerAsyncHelper('clickPage', function(app, i, context) {
+  Ember.Test.registerAsyncHelper('clickPage', function(app, i) {
     if (i === "prev" || i === "next") {
       click(".pagination ." + i + " a");
     } else {

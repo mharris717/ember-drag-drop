@@ -9,7 +9,7 @@ var isNumber = function(obj) {
 var FakeStore = Ember.Object.extend({
   findSingle: function(name,id) {
     var me = this;
-    return new Ember.RSVP.Promise(function(success,failure) {
+    return new Ember.RSVP.Promise(function(success) {
       var all = me.get('all');
       var res  = null;
       all.forEach(function(obj) {

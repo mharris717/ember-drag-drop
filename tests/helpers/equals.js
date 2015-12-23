@@ -2,11 +2,11 @@
 import Ember from 'ember';
 
 var f = function() {
-  Ember.Test.registerHelper('equalProp', function(app,obj,prop,exp,context) {
+  Ember.Test.registerHelper('equalProp', function(app,obj,prop,exp) {
     equal(obj.get(prop),exp,"Expected " + prop + " to equal " + exp);
   });
 
-  Ember.Test.registerHelper('equalLength', function(app,arr,expLength,context) {
+  Ember.Test.registerHelper('equalLength', function(app,arr,expLength) {
     var l = arr.length;
     if (!l && arr.get) {
       l = arr.get('length');
