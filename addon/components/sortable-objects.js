@@ -11,13 +11,16 @@ export default Ember.Component.extend( {
   sortableObjectList: Ember.A(),
 
   didInsertElement() {
-    this.set('dragCoordinator.componentController', this);
+    this.set('dragCoordinator.sortComponentController', this);
   },
   willDestroyElement() {
-    this.set('dragCoordinator.componentController', null);
+    this.set('dragCoordinator.sortComponentController', null);
   },
-  dragStart: function() {
-    //left blank on purpose
+  dragStart: function(event) {
+    if (!this.get('enableSort')) {
+      event.preventDefault();
+      return;
+    }
   },
   dragOver: function() {
     //needed so drop event will fire

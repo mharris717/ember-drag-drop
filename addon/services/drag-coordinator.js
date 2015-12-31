@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  componentController: null,
+  sortComponentController: null,
   currentDragObject: null,
   currentDragEvent: null,
   currentDragItem: null,
@@ -9,11 +9,12 @@ export default Ember.Service.extend({
   isMoving: false,
   lastEvent: null,
 
-  arrayList: Ember.computed.alias('componentController.sortableObjectList'),
-  enableSort: Ember.computed.alias('componentController.enableSort'),
+  arrayList: Ember.computed.alias('sortComponentController.sortableObjectList'),
+  enableSort: Ember.computed.alias('sortComponentController.enableSort'),
 
   dragStarted: function(object, event, emberObject) {
-    if (!this.get('enableSort')) {
+    if (!this.get('enableSort') && this.get('sortComponentController')) {
+      //disable drag if sorting is disabled this is not used for regular
       event.preventDefault();
       return;
     }
@@ -26,9 +27,6 @@ export default Ember.Service.extend({
     event.dataTransfer.effectAllowed = 'move';
   },
   dragEnded: function(event) {
-    if (!this.get('enableSort')) {
-      return;
-    }
     Ember.$(event.target).css('opacity', '1');
     this.set('currentDragObject', null);
     this.set('currentDragEvent', null);
@@ -36,9 +34,6 @@ export default Ember.Service.extend({
     this.set('currentOffsetItem', null);
   },
   draggingOver: function(event, emberObject) {
-    if (!this.get('enableSort')) {
-      return;
-    }
     var currentOffsetItem = this.get('currentOffsetItem');
     var pos = this.relativeClientPosition(emberObject.$()[0], event);
     var moveDirection = false;
@@ -77,12 +72,12 @@ export default Ember.Service.extend({
     newList.forEach(function(item){
       newArray.push(item);
     });
-    this.set('componentController.sortableObjectList', newArray);
+    this.set('sortComponentController.sortableObjectList', newArray);
   },
   swapElements: function(overElement) {
     var draggingItem = this.get('currentDragItem');
     this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
-    this.get('componentController').rerender();
+    this.get('sortComponentController').rerender();
   },
   relativeClientPosition: function (el, event) {
     var rect = el.getBoundingClientRect();

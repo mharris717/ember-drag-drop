@@ -162,6 +162,11 @@ You can check out an example of this is action [here](http://mharris717.github.i
 
 We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `{{#draggable-object}}` components you can get an array of sorted elements returned.
 
+**Important Note on Ember Versions:
+If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting
+If you use Ember version 1.12.1 and below you must use 0.2.3 is you use sorting
+This only applies if you use the sort capabilities, regular dragging is not version specific.
+
 An Example:
 
 ```handlebars
