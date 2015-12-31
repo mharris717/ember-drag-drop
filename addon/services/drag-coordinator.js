@@ -1,22 +1,22 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  arrayList: null,
-  newSortedList: Ember.computed('arrayList', function(){
-    //copy the passed in array so things aren't triggered while swapping items
-    var simpleArray = [];
-    this.get('arrayList').forEach(function(item){
-      simpleArray.push(item);
-    });
-    return simpleArray;
-  }),
+  componentController: null,
   currentDragObject: null,
   currentDragEvent: null,
   currentDragItem: null,
   currentOffsetItem: null,
   isMoving: false,
   lastEvent: null,
+
+  arrayList: Ember.computed.alias('componentController.sortableObjectList'),
+  enableSort: Ember.computed.alias('componentController.enableSort'),
+
   dragStarted: function(object, event, emberObject) {
+    if (!this.get('enableSort')) {
+      event.preventDefault();
+      return;
+    }
     Ember.run.later(function(){
       Ember.$(event.target).css('opacity', '0.5');
     });
@@ -26,6 +26,9 @@ export default Ember.Service.extend({
     event.dataTransfer.effectAllowed = 'move';
   },
   dragEnded: function(event) {
+    if (!this.get('enableSort')) {
+      return;
+    }
     Ember.$(event.target).css('opacity', '1');
     this.set('currentDragObject', null);
     this.set('currentDragEvent', null);
@@ -33,6 +36,9 @@ export default Ember.Service.extend({
     this.set('currentOffsetItem', null);
   },
   draggingOver: function(event, emberObject) {
+    if (!this.get('enableSort')) {
+      return;
+    }
     var currentOffsetItem = this.get('currentOffsetItem');
     var pos = this.relativeClientPosition(emberObject.$()[0], event);
     var moveDirection = false;
@@ -61,24 +67,22 @@ export default Ember.Service.extend({
       }
     }
   },
-  swapNodes: function(a, b) {
-    var aparent = a.parentNode;
-    var asibling = a.nextSibling === b ? a : a.nextSibling;
-    b.parentNode.insertBefore(a, b);
-    aparent.insertBefore(b, asibling);
-  },
   swapObjectPositions: function(a, b) {
-    var newList = this.get('newSortedList');
+    var newList = this.get('arrayList').toArray();
+    var newArray = Ember.A();
     var aPos = newList.indexOf(a);
     var bPos = newList.indexOf(b);
     newList[aPos] = b;
     newList[bPos] = a;
-    this.set('newSortedList', newList);
+    newList.forEach(function(item){
+      newArray.push(item);
+    });
+    this.set('componentController.sortableObjectList', newArray);
   },
   swapElements: function(overElement) {
     var draggingItem = this.get('currentDragItem');
-    this.swapNodes(draggingItem.$()[0], overElement.$()[0]);
     this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
+    this.get('componentController').rerender();
   },
   relativeClientPosition: function (el, event) {
     var rect = el.getBoundingClientRect();
@@ -90,14 +94,5 @@ export default Ember.Service.extend({
       px: x / rect.width,
       py: y / rect.height
     };
-  },
-  getChangedArray: function() {
-    //rebuild the passed in array
-    var arrayList = this.get('arrayList');
-    arrayList.clear();
-    this.get('newSortedList').forEach(function(item){
-      arrayList.addObject(item);
-    });
-    return arrayList;
   }
 });
