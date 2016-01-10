@@ -23,7 +23,7 @@ moduleForComponent('sortable-objects', 'Integration | Component | sortable objec
 });
 
 test('sortable object renders', function(assert) {
-  assert.expect(5);
+  assert.expect(3);
 
   this.render(hbs`{{sortable-objects}}`);
 
@@ -53,13 +53,17 @@ test('sortable object renders', function(assert) {
 test('sortable object renders draggable objects', function(assert) {
   const self = this;
   let event = MockDataTransfer.makeMockEvent();
-  assert.expect(13);
+  assert.expect(17);
 
   this.set('pojoData', pojoData);
   this.on('sortEndAction', function() {
-    //on sort end
-    //left off test data
-    console.log(pojoData);
+    const pojoObj = self.get('pojoData');
+    //make sure object is in the right order
+    assert.equal(pojoObj[0].id, 2);
+    assert.equal(pojoObj[1].id, 1);
+    assert.equal(pojoObj[2].id, 3);
+    assert.equal(pojoObj[3].id, 4);
+
   });
   this.render(hbs`
     {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer'}}
@@ -128,11 +132,7 @@ test('sortable object renders draggable objects', function(assert) {
     assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
   });
 
-  //debugger;
-  //pauseTest();
-
 });
 //need to test to make sure sorting doesn't happen if off
-//need to test data object to make sure it swapped
 //need to test ember data objects
 
