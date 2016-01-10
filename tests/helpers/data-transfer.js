@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 var c = Ember.Object.extend({
-  getData: function(dataType) {
+  getData: function() {
     return this.get('payload');
   },
 

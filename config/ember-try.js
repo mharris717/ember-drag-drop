@@ -1,3 +1,4 @@
+/*jshint node:true*/
 module.exports = {
   scenarios: [
     {
@@ -12,8 +13,8 @@ module.exports = {
       resolutions: {
         'ember': 'release'
       }
-    },
-    {
+    }
+    /*{
       name: 'ember-beta',
       dependencies: {
         'ember': 'components/ember#beta'
@@ -30,6 +31,6 @@ module.exports = {
       resolutions: {
         'ember': 'canary'
       }
-    }
+    }*/
   ]
 };

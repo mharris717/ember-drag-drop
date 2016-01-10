@@ -1,18 +1,17 @@
 /* global equal*/
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
-import Coordinator from '../../../models/coordinator';
 
 var Thing = Ember.Object.extend({});
 moduleForComponent("object-bin", 'ObjectBinComponent', {
   needs: ["component:draggable-object-target", "component:draggable-object"]
 });
-
+/*
 test("smoke", function() {
   var obj = Thing.create({title: "Hello"});
   var all = Ember.A();
   all.addObject(obj);
-  var s = this.subject({
+  this.subject({
     model: all,
     template: Ember.Handlebars.compile("<span class='title'>Hello</span>")
   });
@@ -21,7 +20,7 @@ test("smoke", function() {
   equal(titles.length,1);
   equal(titles.text().trim(),"Hello");
 });
-/*
+
 Removing test for now
 test("component on fly 1", function() {
   var obj = Thing.create({title: "Hello"});
@@ -44,7 +43,7 @@ test("component on fly 2", function() {
   var all = Ember.A();
   all.addObject(obj);
 
-  var s = this.subject({
+  this.subject({
     layout: Ember.Handlebars.compile("{{#object-bin title2='notit' model=all as |obj|}}<span class='title2'>{{obj.title2}}</span>{{/object-bin}}"),
 
     all: all

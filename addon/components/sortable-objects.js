@@ -9,8 +9,18 @@ export default Ember.Component.extend( {
   classNameBindings: ['overrideClass'],
   enableSort: true,
   sortableObjectList: Ember.A(),
-  dragStart: function() {
-    this.set('dragCoordinator.arrayList', this.get('sortableObjectList'));
+
+  didInsertElement() {
+    this.set('dragCoordinator.sortComponentController', this);
+  },
+  willDestroyElement() {
+    this.set('dragCoordinator.sortComponentController', null);
+  },
+  dragStart: function(event) {
+    if (!this.get('enableSort')) {
+      event.preventDefault();
+      return;
+    }
   },
   dragOver: function() {
     //needed so drop event will fire
@@ -18,7 +28,6 @@ export default Ember.Component.extend( {
   },
   drop: function() {
     if (this.get('enableSort')) {
-      this.set('sortableObjectList', this.get('dragCoordinator').getChangedArray());
       this.sendAction('sortEndAction');
     }
   }

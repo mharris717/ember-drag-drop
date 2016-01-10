@@ -1,12 +1,10 @@
-/* global equal, equalLength, equalProp*/
+/* global equal */
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
 import FakeStore from '../../helpers/fake-store';
-import Equals from '../../helpers/equals';
 import MockDataTransfer from '../../helpers/data-transfer';
 
-var Thing = Ember.Object.extend({});
 moduleForComponent("draggable-object-target", {
   unit: true
 });
@@ -24,7 +22,7 @@ test("smoke", function() {
   equal(s.get('thing'),1);
 });
 
-var getCordId = function(o,obj) {
+var getCordId = function(o) {
   var hashId = null;
   Ember.run(function() {
     hashId = o.coordinator.setObject(o.obj);
@@ -72,9 +70,8 @@ testWithObjects("handlePayload", function(o) {
 
   s.handlePayload(o.hashId);
 
-  equalLength(content,1);
+  equal(content.length,1);
   equal(content.get('firstObject.id'),o.id,"Expected ID to be "+o.id);
-  equalProp(content,"firstObject.id",o.id);
 });
 
 // testWithObjects("handlePayload twice", function(o) {
