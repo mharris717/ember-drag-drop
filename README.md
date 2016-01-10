@@ -16,7 +16,7 @@ When using this addon, you get to work with objects in your domain layer, just l
 ## Requirements
 
 - ember-cli 0.2.7 or higher (may work with lower version, but this is what is tested)
-- ember-drag-drop 0.1.0 or higher (to match current docs)
+- If you use the sorting object, you will need Ember 1.13.2 or higher.
 
 ## Installation
 
