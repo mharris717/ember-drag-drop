@@ -11,6 +11,7 @@ export default Ember.Component.extend( {
   sortableObjectList: Ember.A(),
   dragStart: function() {
     this.set('dragCoordinator.arrayList', this.get('sortableObjectList'));
+    this.get('dragCoordinator').populateList();
   },
   dragOver: function() {
     //needed so drop event will fire

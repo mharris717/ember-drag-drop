@@ -2,14 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   arrayList: null,
-  newSortedList: Ember.computed('arrayList', function(){
-    //copy the passed in array so things aren't triggered while swapping items
-    var simpleArray = [];
-    this.get('arrayList').forEach(function(item){
-      simpleArray.push(item);
-    });
-    return simpleArray;
-  }),
+  newSortedList: Ember.A(),
   currentDragObject: null,
   currentDragEvent: null,
   currentDragItem: null,
@@ -60,6 +53,14 @@ export default Ember.Service.extend({
         this.set('currentOffsetItem', null);
       }
     }
+  },
+  populateList: function() {
+    //copy the passed in array so things aren't triggered while swapping items
+    var simpleArray = [];
+    this.get('arrayList').forEach(function(item){
+      simpleArray.push(item);
+    });
+    this.set('newSortedList', simpleArray);
   },
   swapNodes: function(a, b) {
     var aparent = a.parentNode;
