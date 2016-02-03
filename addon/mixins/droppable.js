@@ -161,9 +161,10 @@ var Droppable = Ember.Mixin.create({
 
 // Need to track this so we can determine `self-drop`.
 // It's on `Droppable` so we can test :\
-Droppable._currentDrag = null;
 window.addEventListener('dragstart', function(event) {
-  Droppable._currentDrag = event.target;
+  Droppable.reopenClass({
+    _currentDrag: event.target
+  });
 }, true);
 
 export default Droppable;
