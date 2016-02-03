@@ -164,7 +164,7 @@ We now have a basic sorting capabilities in this library. If you wrap the `{{#so
 
 **Important Note on Ember Versions:
 If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting
-If you use Ember version 1.12.1 and below you must use 0.2.3 is you use sorting
+If you use Ember version 1.12.1 and below you must use 0.2.3 if you use sorting
 This only applies if you use the sort capabilities, regular dragging is not version specific.
 
 An Example:
@@ -187,10 +187,10 @@ On drop of an item in the list, the sortableObjectList is re-ordered and the sor
 
 Theses additions to sort are still incoming:
 
-1. Tests for sortable-objects
+1. ~~Tests for sortable-objects~~
 2. Transforms for visual indicator of changing order
 3. Ability to drag between sortable containers
-4. Sorting of horizontal containers (currently on vertical sorting works)
+4. Sorting of horizontal containers (currently only vertical sorting works)
 
 If anyone has any feedback/ideas on sorting, please open an issue.
 
