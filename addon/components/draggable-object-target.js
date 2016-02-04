@@ -34,6 +34,13 @@ export default Ember.Component.extend(Droppable, {
     this.sendAction('dragOutAction');
   },
 
+  click(e) {
+    let onClick = this.get('onClick');
+    if (onClick) {
+      onClick(e.originalEvent);
+    }
+  },
+
   actions: {
     acceptForDrop: function() {
       var hashId = this.get('coordinator.clickedId');
