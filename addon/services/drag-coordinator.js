@@ -1,29 +1,48 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  sortComponentController: null,
+  sortComponents: {}, // Use object for sortComponents so that we can scope per overrideClass
+
   currentDragObject: null,
   currentDragEvent: null,
   currentDragItem: null,
   currentOffsetItem: null,
+
   isMoving: false,
   lastEvent: null,
 
-  arrayList: Ember.computed.alias('sortComponentController.sortableObjectList'),
-  enableSort: Ember.computed.alias('sortComponentController.enableSort'),
+  enableSort: Ember.computed.notEmpty('sortComponents'),
 
-  dragStarted: function(object, event, emberObject) {
-    if (!this.get('enableSort') && this.get('sortComponentController')) {
+  pushSortComponent(component) {
+    var overrideClass = component.get('overrideClass');
+    if (!this.get('sortComponents')[overrideClass]) {
+      this.get('sortComponents')[overrideClass] = Ember.A();
+    }
+    this.get('sortComponents')[overrideClass].pushObject(component);
+  },
+
+  removeSortComponent(component) {
+    var overrideClass = component.get('overrideClass');
+    this.get('sortComponents')[overrideClass].removeObject(component);
+  },
+
+  dragStarted: function(object, event, dragItem) {
+    if (!this.get('enableSort')) {
       //disable drag if sorting is disabled this is not used for regular
       event.preventDefault();
       return;
     }
+    if (this.get('currentDragItem') !== null) {
+      //ignore secondary drag event eg. nested sortable-objects
+      return;
+    }
+
     Ember.run.later(function(){
       Ember.$(event.target).css('opacity', '0.5');
     });
     this.set('currentDragObject', object);
     this.set('currentDragEvent', event);
-    this.set('currentDragItem', emberObject);
+    this.set('currentDragItem', dragItem);
     event.dataTransfer.effectAllowed = 'move';
   },
   dragEnded: function(event) {
@@ -33,10 +52,12 @@ export default Ember.Service.extend({
     this.set('currentDragItem', null);
     this.set('currentOffsetItem', null);
   },
-  draggingOver: function(event, emberObject) {
+
+  draggingOver: function(event, overElement) {
     var currentOffsetItem = this.get('currentOffsetItem');
-    var pos = this.relativeClientPosition(emberObject.$()[0], event);
+    var pos = this.relativeClientPosition(overElement.$()[0], event);
     var moveDirection = false;
+
     if (!this.get('lastEvent')) {
       this.set('lastEvent', event);
     }
@@ -48,36 +69,67 @@ export default Ember.Service.extend({
     }
     this.set('lastEvent', event);
 
+    var isOverSimilarElement = this.get('currentDragItem.overrideClass') === overElement.get('overrideClass');
+
     if (!this.get('isMoving')) {
-      if (event.target !== this.get('currentDragEvent').target) { //if not dragging over self
-        if (currentOffsetItem !== emberObject) {
+      if (event.target !== this.get('currentDragEvent').target && isOverSimilarElement) {
+        //if dragging over another, similar element
+        if (currentOffsetItem !== overElement) {
           if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
-            this.swapElements(emberObject);
-            this.set('currentOffsetItem', emberObject);
+            this.moveElements(overElement);
+            this.set('currentOffsetItem', overElement);
           }
         }
       } else {
-        //reset because the node moved under the mouse with a swap
+        //reset because the node moved under the mouse with a move
         this.set('currentOffsetItem', null);
       }
     }
   },
-  swapObjectPositions: function(a, b) {
-    var newList = this.get('arrayList').toArray();
-    var newArray = Ember.A();
-    var aPos = newList.indexOf(a);
-    var bPos = newList.indexOf(b);
-    newList[aPos] = b;
-    newList[bPos] = a;
-    newList.forEach(function(item){
-      newArray.push(item);
+  moveObjectPositions: function(a, b, sortComponents) {
+    var aSortable = sortComponents.find((component) => {
+      return component.get('sortableObjectList').findBy('id', a.get('id'));
     });
-    this.set('sortComponentController.sortableObjectList', newArray);
+
+    var bSortable = sortComponents.find((component) => {
+      return component.get('sortableObjectList').findBy('id', b.get('id'));
+    });
+
+    var swap = aSortable === bSortable;
+
+    if (swap) {
+      // Swap if items are in the same sortable-objects component
+      var newList = aSortable.get('sortableObjectList').toArray();
+      var newArray = Ember.A();
+      var aPos = newList.indexOf(a);
+      var bPos = newList.indexOf(b);
+
+      newList[aPos] = b;
+      newList[bPos] = a;
+
+      newList.forEach(function(item){
+        newArray.push(item);
+      });
+      aSortable.set('sortableObjectList', newArray);
+    } else {
+      // Move if items are in different sortable-objects component
+      var aList = aSortable.get('sortableObjectList');
+      var bList = bSortable.get('sortableObjectList');
+
+      // Remove from aList and insert into bList
+      aList.removeObject(a);
+      bList.insertAt(bList.indexOf(b), a);
+    }
   },
-  swapElements: function(overElement) {
+  moveElements: function(overElement) {
     var draggingItem = this.get('currentDragItem');
-    this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
-    this.get('sortComponentController').rerender();
+    var sortComponents = this.get('sortComponents')[draggingItem.get('overrideClass')];
+
+    this.moveObjectPositions(draggingItem.get('content'), overElement.get('content'), sortComponents);
+
+    sortComponents.forEach((component) => {
+      component.rerender();
+    });
   },
   relativeClientPosition: function (el, event) {
     var rect = el.getBoundingClientRect();

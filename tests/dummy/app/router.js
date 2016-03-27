@@ -11,6 +11,7 @@ Router.map(function() {
   this.resource("sort");
   this.resource("sortdata");
   this.resource("handle");
+  this.resource("nesteddata");
 });
 
 export default Router;

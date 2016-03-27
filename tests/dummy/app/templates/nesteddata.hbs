@@ -1,0 +1,68 @@
+<h3>A sorting example between multiple and nested lists</h3>
+<p>Drag to sort the list of books or book pages</p>
+
+<div class="u-pullLeft">
+
+  {{#sortable-objects
+    sortableObjectList=books
+    sortEndAction='sortEndAction'
+    overrideClass='book'
+  }}
+
+    {{#each books as |book|}}
+      {{#draggable-object
+        content=book
+        overrideClass='book'
+        isSortable=true
+      }}
+        <h3>{{book.title}}</h3>
+        <ul>
+          {{#sortable-objects
+            sortableObjectList=book.pages
+            sortEndAction='sortEndAction'
+            overrideClass='page'
+          }}
+            {{#each book.pages as |page|}}
+              {{#draggable-object
+                content=page
+                overrideClass='page'
+                isSortable=true
+              }}
+                <h5>{{page.title}}</h5>
+              {{/draggable-object}}
+            {{/each}}
+          {{/sortable-objects}}
+
+        </ul>
+
+      {{/draggable-object}}
+    {{/each}}
+  {{/sortable-objects}}
+
+</div>
+<div class="u-pullLeft u-marginLeft">
+
+  <h3>Order of books:</h3>
+  <ul>
+    {{#each books as |book|}}
+      <li>id:{{book.id}}, title:{{book.title}}</li>
+    {{/each}}
+  </ul>
+
+  {{#each books as |book|}}
+    <h3>Order of '{{book.title}}'' pages:</h3>
+    <ul>
+      {{#each book.pages as |page|}}
+        <li>id:{{page.id}}, title:{{page.title}}</li>
+      {{/each}}
+    </ul>
+  {{/each}}
+</div>
+<br><br>
+<div class="u-fullBlock">
+  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/nesteddata.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/nesteddata.hbs</a>
+  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/nesteddata.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/nesteddata.js</a>
+</div>
+
+
+
