@@ -1,0 +1,16 @@
+.books{
+  .book{
+    display: block;
+    background: pink;
+    padding: 10px;
+    margin: 10px;
+    .pages{
+      .page{
+        display: block;
+        background: darken(pink, 10%);
+        padding: 10px;
+        margin: 10px;
+      }
+    }
+  }
+}

@@ -7,12 +7,14 @@
     sortableObjectList=books
     sortEndAction='sortEndAction'
     overrideClass='book'
+    class='books'
   }}
 
     {{#each books as |book|}}
       {{#draggable-object
         content=book
         overrideClass='book'
+        class='book'
         isSortable=true
       }}
         <h3>{{book.title}}</h3>
@@ -21,11 +23,13 @@
             sortableObjectList=book.pages
             sortEndAction='sortEndAction'
             overrideClass='page'
+            class='pages'
           }}
             {{#each book.pages as |page|}}
               {{#draggable-object
                 content=page
                 overrideClass='page'
+                class='page'
                 isSortable=true
               }}
                 <h5>{{page.title}}</h5>
