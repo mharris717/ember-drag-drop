@@ -179,9 +179,9 @@ An Example:
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
 
-**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
+**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom groupName they should be the same for the sortable-object and the draggable-objects it contains.**
 
 ### TODO
 
@@ -191,17 +191,18 @@ Theses additions to sort are still incoming:
 2. Transforms for visual indicator of changing order
 3. Ability to drag between sortable containers
 4. Sorting of horizontal containers (currently only vertical sorting works)
+5. Mobile support - integration with a gesture library like hammerjs perhaps
 
 If anyone has any feedback/ideas on sorting, please open an issue.
 
 ## Component Class Overrides
 
-For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an groupName property to the component.
+For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an groupName property to the component. This is used internally and should not be used for styling purposes, instead rather add a seperate class for styling.
 
 An Example:
 
 ```handlebars
-{{#draggable-object-target groupName='my-new-class-name'}}
+{{#draggable-object-target groupName='my-group-name' class='my-style-class'}}
  
 {{/draggable-object-target}}
 ```
