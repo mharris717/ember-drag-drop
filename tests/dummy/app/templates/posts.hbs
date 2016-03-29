@@ -1,29 +1,32 @@
-<div id="posts">
-  {{#rating-bin name="All" model=this as |obj|}}
-    {{partial "post"}}
-  {{/rating-bin}}
+<div class="grid">
+  <div id="posts" class="block">
+    {{#rating-bin name="All" model=this as |obj|}}
+      {{partial "post"}}
+    {{/rating-bin}}
 
-  <br>
-
-  <a href="#" {{action "resetRatings"}}>Reset Statuses</a>
+    <br>
+    <a href="#" {{action "resetRatings"}}>Reset Statuses</a>
+  </div>
+  <div id="bin" class="block center">
+    <div class="bin-1">
+      {{#rating-bin name="Drafts" rating="draft" objectDropped="objectDropped" model=draftPosts as |obj|}}
+        {{partial "post"}}
+      {{/rating-bin}}
+    </div>
+    <br><br>
+    <div class="bin-2">
+      {{#rating-bin name="Ready to Publish" rating="ready" model=readyPosts as |obj|}}
+        {{partial "post"}}
+      {{/rating-bin}}
+    </div>
+    <br><br>
+    <div class="bin-3">
+      {{#rating-bin name="Unclassified" rating="unclassified" model=unclassifiedPosts as |obj|}}
+        {{partial "post"}}
+      {{/rating-bin}}
+    </div>
+  </div>
 </div>
 
-<div id="bin">
-  <div class="bin-1">
-    {{#rating-bin name="Drafts" rating="draft" objectDropped="objectDropped" model=draftPosts as |obj|}}
-      {{partial "post"}}
-    {{/rating-bin}}
-  </div>
-  <br><br>
-  <div class="bin-2">
-    {{#rating-bin name="Ready to Publish" rating="ready" model=readyPosts as |obj|}}
-      {{partial "post"}}
-    {{/rating-bin}}
-  </div>
-  <br><br>
-  <div class="bin-3">
-    {{#rating-bin name="Unclassified" rating="unclassified" model=unclassifiedPosts as |obj|}}
-      {{partial "post"}}
-    {{/rating-bin}}
-  </div>
-</div>
+
+

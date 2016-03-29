@@ -12,7 +12,7 @@ var removeOne = function(arr,obj) {
 
 export default Ember.Component.extend( {
   model: Ember.A(),
-  classNames: ['draggable-object-bin'],
+  classNames: ['c_object-bin'],
 
   manageList: true,
 

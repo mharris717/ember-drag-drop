@@ -1,0 +1,34 @@
+.c_draggable-object{
+  display: block;
+  background: $core-colour;
+  padding: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+  position: relative;
+  & > ul {
+    /* nested items are just darkened progressively */
+    .c_draggable-object{
+      background: darken($core-colour, 10%);
+    }
+  }
+  .drag-handle {
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: $core-colour;
+    border: 1px solid darken($core-colour, 10%);
+    cursor: move;
+    &:hover{
+      background: darken($core-colour, 10%);
+    }
+  }
+  .title {
+    font-size: 125%;
+  }
+  .author {
+    font-size: 70%;
+  }
+}
