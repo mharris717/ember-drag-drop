@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   dragCoordinator: Ember.inject.service(),
   tagName: "div",
   overrideClass: 'draggable-object',
+  draggableType: 'default',
   classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
   isDraggable: true,

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  sortComponents: {}, // Use object for sortComponents so that we can scope per overrideClass
+  sortComponents: {}, // Use object for sortComponents so that we can scope per draggableType
 
   currentDragObject: null,
   currentDragEvent: null,
@@ -14,20 +14,22 @@ export default Ember.Service.extend({
   enableSort: Ember.computed.notEmpty('sortComponents'),
 
   pushSortComponent(component) {
-    var overrideClass = component.get('overrideClass');
-    if (!this.get('sortComponents')[overrideClass]) {
-      this.get('sortComponents')[overrideClass] = Ember.A();
+    var draggableType = component.get('draggableType');
+    if (!this.get('sortComponents')[draggableType]) {
+      this.get('sortComponents')[draggableType] = Ember.A();
     }
-    this.get('sortComponents')[overrideClass].pushObject(component);
+    this.get('sortComponents')[draggableType].pushObject(component);
   },
 
   removeSortComponent(component) {
-    var overrideClass = component.get('overrideClass');
-    this.get('sortComponents')[overrideClass].removeObject(component);
+    var draggableType = component.get('draggableType');
+    this.get('sortComponents')[draggableType].removeObject(component);
   },
 
   dragStarted: function(object, event, dragItem) {
-    if (!this.get('enableSort')) {
+    var isEnabled = Object.keys(this.get('sortComponents')).length;
+
+    if (!isEnabled) {
       //disable drag if sorting is disabled this is not used for regular
       event.preventDefault();
       return;
@@ -69,7 +71,7 @@ export default Ember.Service.extend({
     }
     this.set('lastEvent', event);
 
-    var isOverSimilarElement = this.get('currentDragItem.overrideClass') === overElement.get('overrideClass');
+    var isOverSimilarElement = this.get('currentDragItem.draggableType') === overElement.get('draggableType');
 
     if (!this.get('isMoving')) {
       if (event.target !== this.get('currentDragEvent').target && isOverSimilarElement) {
@@ -87,12 +89,18 @@ export default Ember.Service.extend({
     }
   },
   moveObjectPositions: function(a, b, sortComponents) {
-    var aSortable = sortComponents.find((component) => {
-      return component.get('sortableObjectList').findBy('id', a.get('id'));
+    var aSortable, bSortable;
+
+    aSortable = sortComponents.find((component) => {
+      return component.get('sortableObjectList').find((sortable) => {
+        return sortable === a;
+      });
     });
 
-    var bSortable = sortComponents.find((component) => {
-      return component.get('sortableObjectList').findBy('id', b.get('id'));
+    bSortable = sortComponents.find((component) => {
+      return component.get('sortableObjectList').find((sortable) => {
+        return sortable === b;
+      });
     });
 
     var swap = aSortable === bSortable;
@@ -122,9 +130,13 @@ export default Ember.Service.extend({
     }
   },
   moveElements: function(overElement) {
-    var draggingItem = this.get('currentDragItem');
-    var sortComponents = this.get('sortComponents')[draggingItem.get('overrideClass')];
+    var isEnabled = Object.keys(this.get('sortComponents')).length;
+    if (!isEnabled) {
+      return;
+    }
 
+    var draggingItem = this.get('currentDragItem');
+    var sortComponents = this.get('sortComponents')[draggingItem.get('draggableType')];
     this.moveObjectPositions(draggingItem.get('content'), overElement.get('content'), sortComponents);
 
     sortComponents.forEach((component) => {

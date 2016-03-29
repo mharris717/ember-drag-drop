@@ -6,6 +6,7 @@ export default Ember.Component.extend( {
   draggable: 'true',
   tagName: 'div',
   overrideClass: 'sortable-objects',
+  draggableType: 'default',
   classNameBindings: ['overrideClass'],
   enableSort: true,
   sortableObjectList: Ember.A(),
