@@ -2,8 +2,9 @@ import Ember from 'ember';
 import Droppable from 'ember-drag-drop/mixins/droppable';
 
 export default Ember.Component.extend(Droppable, {
-  classNameBindings: ['overrideClass'],
-  overrideClass: 'draggable-object-target',
+  
+  classNameBindings: [':c_draggable-object-target', 'draggableType'],
+  draggableType: 'draggable-object-target',
   isOver: false,
 
   handlePayload: function(payload) {
