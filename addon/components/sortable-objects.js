@@ -1,17 +1,23 @@
 import Ember from 'ember';
 
+const {
+  computed, inject: { service }
+} = Ember;
+
 export default Ember.Component.extend( {
   
-  dragCoordinator: Ember.inject.service(),
+  dragCoordinator: service(),
 
-  tagName: 'div',
-  classNameBindings: [':c_sortable-objects', 'draggableType'],
+  groupName: null,
 
+  classNameBindings: [':c_sortable-objects', '_group'],
   attributeBindings: ['draggable'],
+
+  _group: computed('groupName', function() {
+    return this.get('groupName') ? 'js-' + this.get('groupName') : 'js-drag-objects'; 
+  }),
   
   draggable: 'true',
-
-  draggableType: 'sortable-objects',
 
   enableSort: true,
   sortableObjectList: Ember.A(),

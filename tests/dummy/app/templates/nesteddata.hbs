@@ -10,14 +10,14 @@
       sortableObjectList=books
       sortEndAction='sortEndAction'
       class='books'
-      draggableType='book'
+      groupName='book'
     }}
 
       {{#each books as |book|}}
         {{#draggable-object
           content=book
           class='book draggable-object'
-          draggableType='book'
+          groupName='book'
           isSortable=true
         }}
           <h3>{{book.title}}</h3>
@@ -26,13 +26,13 @@
               sortableObjectList=book.pages
               sortEndAction='sortEndAction'
               class='pages'
-              draggableType='page'
+              groupName='page'
             }}
               {{#each book.pages as |page|}}
                 {{#draggable-object
                   content=page
                   class='page draggable-object'
-                  draggableType='page'
+                  groupName='page'
                   isSortable=true
                 }}
                   <h5>{{page.title}}</h5>

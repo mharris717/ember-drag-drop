@@ -1,29 +1,30 @@
 import Ember from 'ember';
 
+const {
+  inject: { service }, computed, computed: { alias }, set
+} = Ember;
+
 export default Ember.Component.extend({
 
-  dragCoordinator: Ember.inject.service(),
-  tagName: "div",
+  dragCoordinator: service(),
 
-  draggableType: 'draggable-object',
-
-  classNameBindings: [':c_draggable-object', ':js-draggableObject','isDraggingObject:is-dragging-object:', 'draggableType'],
+  classNameBindings: [':c_draggable-object', 'isDraggingObject', '_group'],
   attributeBindings: ['dragReady:draggable'],
+
+  groupName: null,
+
+  _group: computed('groupName', function() {
+    return this.get('groupName') ? 'js-' + this.get('groupName') : 'js-drag-objects'; 
+  }),
 
   isDraggable: true,
   dragReady: true,
   isSortable: false,
-  title: Ember.computed.alias('content.title'),
 
-  draggable: Ember.computed('isDraggable', function() {
-    var isDraggable = this.get('isDraggable');
+  title: alias('content.title'),
 
-    if (isDraggable) {
-      return true;
-    }
-    else {
-      return null;
-    }
+  draggable: computed('isDraggable', function() {
+    return this.get('isDraggable')? true : null;
   }),
 
   didInsertElement: function() {
@@ -67,7 +68,7 @@ export default Ember.Component.extend({
     dataTransfer.setData('Text', id);
 
     if (obj) {
-      Ember.set(obj, 'isDraggingObject', true);
+      set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
     this.get('dragCoordinator').dragStarted(obj, event, this);
@@ -85,7 +86,7 @@ export default Ember.Component.extend({
     var obj = this.get('content');
 
     if (obj) {
-      Ember.set(obj, 'isDraggingObject', false);
+      set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
     this.get('dragCoordinator').dragEnded(event);

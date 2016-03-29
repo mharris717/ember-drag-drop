@@ -4,7 +4,7 @@
   <div class="block">
     <h4>Demo:</h4>
 
-    {{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' draggableType='dropTarget' }}
+    {{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' groupName='dropTarget' }}
       {{#if dragFinishText}}
         {{dragFinishText}}
       {{else}}

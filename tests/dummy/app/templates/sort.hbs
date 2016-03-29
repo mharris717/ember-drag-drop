@@ -5,9 +5,9 @@
   <div class="block">
     <h4>Demo:</h4>
 
-    {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction'}}
+    {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' }}
       {{#each sortableObjectList as |item|}}
-        {{#draggable-object content=item  draggableType='sortObject' isSortable=true}}
+        {{#draggable-object content=item isSortable=true}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}

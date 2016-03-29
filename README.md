@@ -196,12 +196,12 @@ If anyone has any feedback/ideas on sorting, please open an issue.
 
 ## Component Class Overrides
 
-For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an draggableType property to the component.
+For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an groupName property to the component.
 
 An Example:
 
 ```handlebars
-{{#draggable-object-target draggableType='my-new-class-name'}}
+{{#draggable-object-target groupName='my-new-class-name'}}
  
 {{/draggable-object-target}}
 ```
