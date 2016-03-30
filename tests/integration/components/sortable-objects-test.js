@@ -66,9 +66,9 @@ test('sortable object renders draggable objects', function(assert) {
 
   });
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' groupName='sortable-objects'}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
-        {{#draggable-object content=item groupName='sortable-objects' isSortable=true}}
+        {{#draggable-object content=item sortingScope='sortable-objects' isSortable=true}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}

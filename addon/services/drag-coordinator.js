@@ -6,7 +6,7 @@ const {
 
 export default Ember.Service.extend({
   
-  sortComponents: {}, // Use object for sortComponents so that we can scope per groupName
+  sortComponents: {}, // Use object for sortComponents so that we can scope per sortingScope
 
   currentDragObject: null,
   currentDragEvent: null,
@@ -19,16 +19,16 @@ export default Ember.Service.extend({
   enableSort: notEmpty('sortComponents'),
 
   pushSortComponent(component) {
-    var groupName = component.get('groupName');
-    if (!this.get('sortComponents')[groupName]) {
-      this.get('sortComponents')[groupName] = A();
+    var sortingScope = component.get('sortingScope');
+    if (!this.get('sortComponents')[sortingScope]) {
+      this.get('sortComponents')[sortingScope] = A();
     }
-    this.get('sortComponents')[groupName].pushObject(component);
+    this.get('sortComponents')[sortingScope].pushObject(component);
   },
 
   removeSortComponent(component) {
-    var groupName = component.get('groupName');
-    this.get('sortComponents')[groupName].removeObject(component);
+    var sortingScope = component.get('sortingScope');
+    this.get('sortComponents')[sortingScope].removeObject(component);
   },
 
   dragStarted: function(object, event, dragItem) {
@@ -81,7 +81,7 @@ export default Ember.Service.extend({
     }
     this.set('lastEvent', event);
 
-    var isOverSimilarElement = this.get('currentDragItem.groupName') === overElement.get('groupName');
+    var isOverSimilarElement = this.get('currentDragItem.sortingScope') === overElement.get('sortingScope');
 
     if (!this.get('isMoving')) {
       if (event.target !== this.get('currentDragEvent').target && isOverSimilarElement) {
@@ -150,7 +150,7 @@ export default Ember.Service.extend({
 
     var draggingItem = this.get('currentDragItem');
 
-    var sortComponents = this.get('sortComponents')[draggingItem.get('groupName')];
+    var sortComponents = this.get('sortComponents')[draggingItem.get('sortingScope')];
 
     this.moveObjectPositions(draggingItem.get('content'), overElement.get('content'), sortComponents);
 

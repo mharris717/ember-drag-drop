@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 
   dragCoordinator: service(),
 
-  classNameBindings: [':c_draggable-object', 'isDraggingObject', '_group', 'overrideClass'],
+  classNameBindings: [':c_draggable-object', 'isDraggingObject', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
 
   /* 
@@ -18,11 +18,7 @@ export default Ember.Component.extend({
   */
   overrideClass: null,
 
-  groupName: null,
-
-  _group: computed('groupName', function() {
-    return this.get('groupName') ? 'js-' + this.get('groupName') : 'js-drag-objects'; 
-  }),
+  sortingScope: 'drag-objects',
 
   isDraggable: true,
   dragReady: true,
