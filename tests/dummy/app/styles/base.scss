@@ -45,3 +45,9 @@ h2 {
   text-align: center;
   margin-bottom: 30px;
 }
+
+a{
+  -webkit-touch-callout: initial; /* iOS Safari */
+  -webkit-user-select: initial; /* Chrome/Safari/Opera */
+  -moz-user-select: initial; /* Firefox */
+}

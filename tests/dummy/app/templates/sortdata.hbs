@@ -7,7 +7,7 @@
 
     {{#sortable-objects sortableObjectList=model.pages sortEndAction='sortEndAction' enableSort=true}}
       {{#each model.pages as |item|}}
-        {{#draggable-object content=item draggableType='sortObject' isSortable=true}}
+        {{#draggable-object content=item isSortable=true}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}

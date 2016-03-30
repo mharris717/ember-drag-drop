@@ -3,8 +3,15 @@ import Droppable from 'ember-drag-drop/mixins/droppable';
 
 export default Ember.Component.extend(Droppable, {
   
-  classNameBindings: [':c_draggable-object-target', 'draggableType'],
-  draggableType: 'draggable-object-target',
+  classNameBindings: [':c_draggable-object-target', 'overrideClass'],
+
+  /* 
+    This overrideClass should be deprecated as classes dont need to be passed in via a property
+    Functionality and styling should be seperated and theres a bit of an overlap here
+    Adding it back for backwards compatibility
+  */
+  overrideClass: null,
+
   isOver: false,
 
   handlePayload: function(payload) {

@@ -66,19 +66,19 @@ test('sortable object renders draggable objects', function(assert) {
 
   });
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer'}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
-        {{#draggable-object content=item draggableType='sortObject' isSortable=true}}
+        {{#draggable-object content=item sortingScope='sortable-objects' isSortable=true}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}
     {{/sortable-objects}}
   `);
 
-  assert.equal(this.$('.sortObject').size(), 4);
+  assert.equal(this.$('.c_draggable-object').size(), 4);
 
-  let $component = this.$('.sortObject');
-  let $container = this.$('.sortContainer');
+  let $component = this.$('.c_draggable-object');
+  let $container = this.$('.c_sortable-objects');
 
   //Starts drag as usual
   //set fake positions
@@ -107,7 +107,7 @@ test('sortable object renders draggable objects', function(assert) {
   });
   andThen(function() {
     //Drag over shows swapped items correctly
-    let $components = self.$('.sortObject');
+    let $components = self.$('.c_draggable-object');
     assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
     assert.equal(self.$($components.get(1)).text().trim(), 'Number 1');
     assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
@@ -125,7 +125,7 @@ test('sortable object renders draggable objects', function(assert) {
   });
   andThen(function() {
     //Items are still visually in the correct order after drag end
-    let $components = self.$('.sortObject');
+    let $components = self.$('.c_draggable-object');
     assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
     assert.equal(self.$($components.get(1)).text().trim(), 'Number 1');
     assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
