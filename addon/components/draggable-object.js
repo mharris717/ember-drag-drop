@@ -8,8 +8,15 @@ export default Ember.Component.extend({
 
   dragCoordinator: service(),
 
-  classNameBindings: [':c_draggable-object', 'isDraggingObject', '_group'],
+  classNameBindings: [':c_draggable-object', 'isDraggingObject', '_group', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
+
+  /* 
+    This overrideClass should be deprecated as classes dont need to be passed in via a property
+    Functionality and styling should be seperated and theres a bit of an overlap here
+    Adding it back for backwards compatibility
+  */
+  overrideClass: null,
 
   groupName: null,
 
