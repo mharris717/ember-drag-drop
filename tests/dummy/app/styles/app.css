@@ -98,9 +98,13 @@ html, body {
 .u-marginLeft {
   margin-left: 10%;
 }
-.u-fullBlock {
+.u-halfBlock {
   display: inline-block;
   width: 100%;
+}
+.u-halfBlock {
+  display: inline-block;
+  width: 50%;
 }
 
 .dragHandle {

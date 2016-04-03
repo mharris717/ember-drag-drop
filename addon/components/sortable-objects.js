@@ -10,12 +10,6 @@ export default Ember.Component.extend( {
   enableSort: true,
   sortableObjectList: Ember.A(),
 
-  didInsertElement() {
-    this.set('dragCoordinator.sortComponentController', this);
-  },
-  willDestroyElement() {
-    this.set('dragCoordinator.sortComponentController', null);
-  },
   dragStart: function(event) {
     if (!this.get('enableSort')) {
       event.preventDefault();
@@ -24,6 +18,8 @@ export default Ember.Component.extend( {
    if (!this.get('dragCoordinator.currentDragObject')) {
      //prevent dragging if a drag object is not currently being targeted
      return false;
+   } else {
+     this.set('dragCoordinator.sortComponentController', this);
    }
   },
   dragOver: function() {
@@ -34,5 +30,6 @@ export default Ember.Component.extend( {
     if (this.get('enableSort')) {
       this.sendAction('sortEndAction');
     }
+    this.set('dragCoordinator.sortComponentController', null);
   }
 });
