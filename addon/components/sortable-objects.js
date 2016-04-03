@@ -21,6 +21,10 @@ export default Ember.Component.extend( {
       event.preventDefault();
       return;
     }
+   if (!this.get('dragCoordinator.currentDragObject')) {
+     //prevent dragging if a drag object is not currently being targeted
+     return false;
+   }
   },
   dragOver: function() {
     //needed so drop event will fire
