@@ -1,0 +1,15 @@
+.c_draggable-object-target{
+  display: block;
+  background: complement($core-colour);
+  padding: 50px 10px;
+  margin: 10px 0;
+  text-align: center;
+  &.accepts-drag {
+    background-color: darken(complement($core-colour), 10%);
+  }
+  .object-bin-title {
+    text-align: center;
+    font-size: 140%;
+    font-weight: bold;
+  }
+}

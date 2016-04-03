@@ -1,21 +1,42 @@
 import Ember from 'ember';
 
+const {
+  inject: { service }, A
+} = Ember;
+
 export default Ember.Component.extend( {
-  dragCoordinator: Ember.inject.service(),
+  
+  dragCoordinator: service(),
+
+  classNameBindings: [':c_sortable-objects', '_group', 'overrideClass'],
   attributeBindings: ['draggable'],
+
+  /* 
+    This overrideClass should be deprecated as classes dont need to be passed in via a property
+    Functionality and styling should be seperated and theres a bit of an overlap here
+    Adding it back for backwards compatibility
+  */
+  overrideClass: null,
+
+  sortingScope: 'drag-objects',
+  
   draggable: 'true',
-  tagName: 'div',
-  overrideClass: 'sortable-objects',
-  classNameBindings: ['overrideClass'],
+
   enableSort: true,
-  sortableObjectList: Ember.A(),
+  sortableObjectList: A(),
 
   didInsertElement() {
-    this.set('dragCoordinator.sortComponentController', this);
+    if (this.get('enableSort')) {
+      this.get('dragCoordinator').pushSortComponent(this);
+    }
   },
+
   willDestroyElement() {
-    this.set('dragCoordinator.sortComponentController', null);
+    if (this.get('enableSort')) {
+      this.get('dragCoordinator').removeSortComponent(this);
+    }
   },
+
   dragStart: function(event) {
     if (!this.get('enableSort')) {
       event.preventDefault();
@@ -26,10 +47,12 @@ export default Ember.Component.extend( {
      return false;
    }
   },
+
   dragOver: function() {
     //needed so drop event will fire
     return false;
   },
+  
   drop: function() {
     if (this.get('enableSort')) {
       this.sendAction('sortEndAction');

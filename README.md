@@ -170,18 +170,18 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true}}
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true sortingScope="sortingGroup"}}
   {{#each sortableObjectList as |item|}}
-    {{#draggable-object content=item isSortable=true}}
+    {{#draggable-object content=item isSortable=true sortingScope="sortingGroup"}}
       {{item.name}}
     {{/draggable-object}}
   {{/each}}
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
 
-**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
+**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
 ### TODO
 
@@ -191,17 +191,18 @@ Theses additions to sort are still incoming:
 2. Transforms for visual indicator of changing order
 3. Ability to drag between sortable containers
 4. Sorting of horizontal containers (currently only vertical sorting works)
+5. Mobile support - integration with a gesture library like hammerjs perhaps
 
 If anyone has any feedback/ideas on sorting, please open an issue.
 
 ## Component Class Overrides
 
-For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an overrideClass property to the component.
+Previsouly classes could be passed in via the `overrideClass` property, but to simplify things classes can now be passed in as usual. 
 
 An Example:
 
 ```handlebars
-{{#draggable-object-target overrideClass='my-new-class-name'}}
+{{#draggable-object-target class='my-style-class (concat (if myCondition 'conditionalClass'))' classNameBindings=myProperty}}
  
 {{/draggable-object-target}}
 ```

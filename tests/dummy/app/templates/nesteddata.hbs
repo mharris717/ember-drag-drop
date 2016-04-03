@@ -1,0 +1,79 @@
+<h3>A sorting example between multiple and nested lists</h3>
+<p>Drag to sort the list of books or book pages</p>
+
+
+<div class="grid">
+  <div class="block">
+    <h4>Demo:</h4>
+
+    {{#sortable-objects
+      sortableObjectList=books
+      sortEndAction='sortEndAction'
+      class='books'
+      sortingScope='book'
+    }}
+
+      {{#each books as |book|}}
+        {{#draggable-object
+          content=book
+          class='book draggable-object'
+          sortingScope='book'
+          isSortable=true
+        }}
+          <h3>{{book.title}}</h3>
+          <ul>
+            {{#sortable-objects
+              sortableObjectList=book.pages
+              sortEndAction='sortEndAction'
+              class='pages'
+              sortingScope='page'
+            }}
+              {{#each book.pages as |page|}}
+                {{#draggable-object
+                  content=page
+                  class='page draggable-object'
+                  sortingScope='page'
+                  isSortable=true
+                }}
+                  <h5>{{page.title}}</h5>
+                {{/draggable-object}}
+              {{/each}}
+            {{/sortable-objects}}
+
+          </ul>
+
+        {{/draggable-object}}
+      {{/each}}
+    {{/sortable-objects}}
+
+  </div>
+  <div class="block center">
+    <h4>Order overview:</h4>
+    <h5>Order of books:</h5>
+    <ul>
+      {{#each books as |book|}}
+        <li><b>id:</b> {{book.id}}, <b>title:</b> {{book.title}}</li>
+      {{/each}}
+    </ul>
+
+    {{#each books as |book|}}
+      <h5>Order of '{{book.title}}' pages:</h5>
+      <ul>
+        {{#each book.pages as |page|}}
+          <li><b>id:</b> {{page.id}}, <b>title:</b> {{page.title}}</li>
+        {{/each}}
+      </ul>
+    {{/each}}
+  </div>
+
+  <div class="block auto">
+    <h4>Resources:</h4>
+    <h5>Template:</h5>
+    <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/nesteddata.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/nesteddata.hbs</a>
+    <h5>Controller:</h5>
+    <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/nesteddata.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/nesteddata.js</a>
+  </div>
+</div>
+
+
+

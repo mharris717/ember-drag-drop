@@ -1,26 +1,38 @@
-<h3>Drag and Drop With a handle</h3>
+<h3>Drag and Drop with a handle</h3>
 
-{{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' overrideClass='dropTarget'}}
-  {{#if dragFinishText}}
-    {{dragFinishText}}
-  {{else}}
-    Drag here to complete Action
-  {{/if}}
-{{/draggable-object-target}}
+<div class="grid">
+  <div class="block">
+    <h4>Demo:</h4>
 
-{{#draggable-object content=myObject dragStartAction='dragStart' dragEndAction='dragEnd' overrideClass='dragObject' dragHandle='.js-dragHandle'}}
+    {{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget'}}
+      {{#if dragFinishText}}
+        {{dragFinishText}}
+      {{else}}
+        Drag here to complete Action
+      {{/if}}
+    {{/draggable-object-target}}
 
-  {{#if dragStartedText}}
-    {{dragStartedText}}
-  {{else if dragEndedText}}
-    {{dragEndedText}}
-  {{else}}
-    Only the handle starts drag
-  {{/if}}
-  <a class="js-dragHandle dragHandle"></a>
-{{/draggable-object}}
-<br><br>
-<div class="u-fullBlock">
-  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/handle.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/handle.hbs</a>
-  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/handle.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/handle.js</a>
+    {{#draggable-object content=myObject dragStartAction='dragStart' dragEndAction='dragEnd' dragHandle='.js-dragHandle'}}
+      {{#if dragStartedText}}
+        {{dragStartedText}}
+      {{else if dragEndedText}}
+        {{dragEndedText}}
+      {{else}}
+        Only the handle starts drag
+      {{/if}}
+      <a class="js-dragHandle drag-handle"></a>
+    {{/draggable-object}}
+
+  </div>
+
+  <div class="block auto">
+    <h4>Resources:</h4>
+    <h5>Template:</h5>
+    <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/handle.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/handle.hbs</a>
+    <h5>Controller:</h5>
+    <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/handle.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/handle.js</a>
+  </div>
 </div>
+
+
+

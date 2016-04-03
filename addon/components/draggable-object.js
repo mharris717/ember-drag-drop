@@ -1,26 +1,35 @@
 import Ember from 'ember';
 
+const {
+  inject: { service }, computed, computed: { alias }, set
+} = Ember;
+
 export default Ember.Component.extend({
-  dragCoordinator: Ember.inject.service(),
-  tagName: "div",
-  overrideClass: 'draggable-object',
-  classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
+
+  dragCoordinator: service(),
+
+  classNameBindings: [':c_draggable-object', 'isDraggingObject', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
+
+  /* 
+    This overrideClass should be deprecated as classes dont need to be passed in via a property
+    Functionality and styling should be seperated and theres a bit of an overlap here
+    Adding it back for backwards compatibility
+  */
+  overrideClass: null,
+
+  sortingScope: 'drag-objects',
+
   isDraggable: true,
   dragReady: true,
   isSortable: false,
-  title: Ember.computed.alias('content.title'),
 
-  draggable: Ember.computed('isDraggable', function() {
-    var isDraggable = this.get('isDraggable');
+  title: alias('content.title'),
 
-    if (isDraggable) {
-      return true;
-    }
-    else {
-      return null;
-    }
+  draggable: computed('isDraggable', function() {
+    return this.get('isDraggable')? true : null;
   }),
+
   didInsertElement: function() {
     let self = this;
     //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
@@ -37,6 +46,7 @@ export default Ember.Component.extend({
       }
     }
   },
+
   willDestroyElement: function(){
     if (this.$(this.get('dragHandle'))) {
       this.$(this.get('dragHandle')).off();
@@ -61,7 +71,7 @@ export default Ember.Component.extend({
     dataTransfer.setData('Text', id);
 
     if (obj) {
-      Ember.set(obj, 'isDraggingObject', true);
+      set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
     this.get('dragCoordinator').dragStarted(obj, event, this);
@@ -79,7 +89,7 @@ export default Ember.Component.extend({
     var obj = this.get('content');
 
     if (obj) {
-      Ember.set(obj, 'isDraggingObject', false);
+      set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
     this.get('dragCoordinator').dragEnded(event);
@@ -95,6 +105,7 @@ export default Ember.Component.extend({
    }
     return false;
   },
+
   drop: function(event) {
     //Firefox is navigating to a url on drop, this prevents that from happening
     event.preventDefault();

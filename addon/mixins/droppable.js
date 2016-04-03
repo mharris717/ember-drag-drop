@@ -7,11 +7,13 @@ import Ember from 'ember';
  */
 
 var Droppable = Ember.Mixin.create({
-  _currentDrag: null,
+  
   classNameBindings: [
     'accepts-drag',
     'self-drop'
   ],
+
+  _currentDrag: null,
 
   /**
    * Read-only className property that is set to true when the component is

@@ -1,0 +1,23 @@
+.nav{
+  margin: 10px 0 40px;
+  li{
+    a {
+      padding: 10px 5px;
+      text-decoration: none;
+      background: lighten($core-colour, 8%);
+      color: darken($core-colour, 20%);
+      text-transform: uppercase;
+      font-size: 0.8em;
+      font-weight: bold;
+      display: block;
+      border-bottom: 1px solid $core-colour;
+      &:hover{
+        background: lighten($core-colour, 4%);
+      }
+      &.active{
+        border: 1px solid $core-colour;
+        background: lighten($core-colour, 3%);
+      }
+    }
+  }
+}
