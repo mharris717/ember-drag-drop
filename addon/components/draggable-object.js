@@ -21,13 +21,18 @@ export default Ember.Component.extend({
       return null;
     }
   }),
+  init: function() {
+    if (this.get('dragHandle')) {
+      this.set('dragReady', false);
+    }
+    this._super.apply(this, arguments);
+  },
   didInsertElement: function() {
     let self = this;
     //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
     if (this.get('dragHandle')) {
       //only start when drag handle is activated
       if (this.$(this.get('dragHandle'))) {
-        this.set('dragReady', false);
         this.$(this.get('dragHandle')).on('mouseover', function(){
           self.set('dragReady', true);
         });
