@@ -10,9 +10,8 @@ export default Ember.Component.extend( {
   enableSort: true,
   sortableObjectList: Ember.A(),
 
-  dragStart: function(event) {
+  dragStart: function() {
     if (!this.get('enableSort')) {
-      event.preventDefault();
       return;
     }
    if (!this.get('dragCoordinator.currentDragObject')) {
