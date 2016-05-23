@@ -59,21 +59,22 @@ export default Ember.Component.extend({
     var obj = this.get('content');
     var id = null;
     if (this.get('coordinator')) {
-       id = this.get('coordinator').setObject(obj, { source: this });
+      id = this.get('coordinator').setObject(obj, { source: this });
     }
-
 
     dataTransfer.setData('Text', id);
 
-    if (obj) {
-      Ember.set(obj, 'isDraggingObject', true);
-    }
-    this.set('isDraggingObject', true);
-    this.get('dragCoordinator').dragStarted(obj, event, this);
-    this.sendAction('dragStartAction', obj);
-    if (this.get('isSortable')) {
-      this.sendAction('draggingSortItem', obj);
-    }
+    Ember.run.later(this, function () {
+      if (obj) {
+        Ember.set(obj, 'isDraggingObject', true);
+      }
+      this.set('isDraggingObject', true);
+      this.get('dragCoordinator').dragStarted(obj, event, this);
+      this.sendAction('dragStartAction', obj);
+      if (this.get('isSortable')) {
+        this.sendAction('draggingSortItem', obj);
+      }
+    }, 1);
   },
 
   dragEnd: function(event) {
