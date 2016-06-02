@@ -70,7 +70,7 @@ export default Ember.Component.extend({
     }
     this.set('isDraggingObject', true);
     this.get('dragCoordinator').dragStarted(obj, event, this);
-    this.sendAction('dragStartAction', obj);
+    this.sendAction('dragStartAction', obj, event);
     if (this.get('isSortable')) {
       this.sendAction('draggingSortItem', obj);
     }
