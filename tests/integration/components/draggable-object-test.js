@@ -80,7 +80,7 @@ test('Draggable Object is only draggable from handle', function(assert) {
 
   //does not drag from main component
   Ember.run(function() {
-    triggerEvent($component, 'dragstart', event);
+    triggerEvent($component, '', 'dragstart', event);
   });
   assert.equal($component.hasClass('is-dragging-object'), false);
   //end drag
