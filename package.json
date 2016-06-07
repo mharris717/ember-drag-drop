@@ -48,9 +48,6 @@
   "keywords": [
     "ember-addon"
   ],
-  "dependencies": {
-    "ember-cli-babel": "^5.1.6"
-  },
   "ember-addon": {
     "configPath": "tests/dummy/config",
     "demoURL": "http://mharris717.github.io/ember-drag-drop/"
