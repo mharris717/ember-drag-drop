@@ -1,6 +1,7 @@
 ---
 language: node_js
-node_js: "0.12"
+node_js:
+  - "0.12"
 
 sudo: false
 
@@ -8,27 +9,27 @@ cache:
   directories:
     - node_modules
 
+env:
+  - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-1.13
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-canary
+
 before_install:
+  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
   - "npm config set spin false"
   - "npm install -g npm@^2"
-  - "mkdir travis-phantomjs"
-  - "wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -O $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2"
-  - "tar -xvf $PWD/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2 -C $PWD/travis-phantomjs"
-  - "export PATH=$PWD/travis-phantomjs:$PATH"
 
 install:
-  - npm install ember-cli@$EMBER_CLI_VERSION
   - npm install -g bower
   - npm install
   - bower install
 
 script:
-  - npm test
-
-env:
-  - EMBER_CLI_VERSION=latest
-  - EMBER_CLI_VERSION=1.13.1
-  - EMBER_CLI_VERSION=1.13.0
-  - EMBER_CLI_VERSION=0.2.7
-  - EMBER_CLI_VERSION=0.2.6
-  - STANDIN_VAR=nothing
+  - ember try $EMBER_TRY_SCENARIO test
