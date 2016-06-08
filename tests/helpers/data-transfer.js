@@ -15,6 +15,12 @@ c.reopenClass({
     var transfer = this.create({payload: payload});
     var res = {dataTransfer: transfer};
     res.originalEvent = res;
+    res.originalEvent.preventDefault = function() {
+      console.log('prevent default');
+    };
+    res.originalEvent.stopPropagation = function() {
+      console.log('stop propagation');
+    };
     return res;
   },
 
