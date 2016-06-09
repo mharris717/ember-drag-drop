@@ -21,7 +21,7 @@ When using this addon, you get to work with objects in your domain layer, just l
 ## Installation
 
 ```
-npm install ember-drag-drop --save-dev
+ember install ember-drag-drop
 ```
 
 ## Thanks
