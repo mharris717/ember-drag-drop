@@ -1,3 +1,1 @@
-import DraggableObject from 'ember-drag-drop/components/draggable-object';
-
-export default DraggableObject;
+export { default } from 'ember-drag-drop/components/draggable-object';
