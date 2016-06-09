@@ -22,16 +22,16 @@ export default Ember.Component.extend(Droppable, {
     //Firefox is navigating to a url on drop sometimes, this prevents that from happening
     event.preventDefault();
   },
-  handleDragOver: function() {
+  handleDragOver: function(event) {
     if (!this.get('isOver')) {
       //only send once per hover event
       this.set('isOver', true);
-      this.sendAction('dragOverAction');
+      this.sendAction('dragOverAction', event);
     }
   },
-  handleDragOut: function() {
+  handleDragOut: function(event) {
     this.set('isOver', false);
-    this.sendAction('dragOutAction');
+    this.sendAction('dragOutAction', event);
   },
 
   click(e) {

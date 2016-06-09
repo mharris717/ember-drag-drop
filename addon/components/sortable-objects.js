@@ -25,9 +25,9 @@ export default Ember.Component.extend( {
     //needed so drop event will fire
     return false;
   },
-  drop: function() {
+  drop: function(event) {
     if (this.get('enableSort')) {
-      this.sendAction('sortEndAction');
+      this.sendAction('sortEndAction', event);
     }
     this.set('dragCoordinator.sortComponentController', null);
   }
