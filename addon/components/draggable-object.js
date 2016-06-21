@@ -72,7 +72,7 @@ export default Ember.Component.extend({
     this.get('dragCoordinator').dragStarted(obj, event, this);
     this.sendAction('dragStartAction', obj, event);
     if (this.get('isSortable')) {
-      this.sendAction('draggingSortItem', obj);
+      this.sendAction('draggingSortItem', obj, event);
     }
   },
 
@@ -88,7 +88,7 @@ export default Ember.Component.extend({
     }
     this.set('isDraggingObject', false);
     this.get('dragCoordinator').dragEnded(event);
-    this.sendAction('dragEndAction', obj);
+    this.sendAction('dragEndAction', obj, event);
     if (this.get('dragHandle')) {
       this.set('dragReady', false);
     }
