@@ -26,6 +26,10 @@ html, body {
   font-size: 125%;
 }
 
+.author {
+  font-size: 70%;
+}
+
 .rated-cards {
   float: left;
   margin: 15px;
