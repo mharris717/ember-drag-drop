@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   isDraggable: true,
   dragReady: true,
   isSortable: false,
+  sortingScope: 'drag-objects',
   title: Ember.computed.alias('content.title'),
 
   draggable: Ember.computed('isDraggable', function() {
@@ -21,12 +22,14 @@ export default Ember.Component.extend({
       return null;
     }
   }),
+
   init: function() {
     if (this.get('dragHandle')) {
       this.set('dragReady', false);
     }
     this._super.apply(this, arguments);
   },
+
   didInsertElement: function() {
     let self = this;
     //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
@@ -42,6 +45,7 @@ export default Ember.Component.extend({
       }
     }
   },
+
   willDestroyElement: function(){
     if (this.$(this.get('dragHandle'))) {
       this.$(this.get('dragHandle')).off();
@@ -100,6 +104,7 @@ export default Ember.Component.extend({
    }
     return false;
   },
+  
   drop: function(event) {
     //Firefox is navigating to a url on drop, this prevents that from happening
     event.preventDefault();
