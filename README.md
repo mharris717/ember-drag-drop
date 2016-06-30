@@ -26,7 +26,7 @@ ember install ember-drag-drop
 
 ## Thanks
 
-Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from which I shamelessly stole as promised. 
+Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from which I shamelessly stole as promised.
 
 <!--- START GENERATED DOCS -->
 
@@ -115,7 +115,7 @@ The two things to provide to the component are:
 The action is called with two arguments:
 
 * The dragged object.
-* An options hash. Currently the only key is `target`, which is the draggable-object-target component. 
+* An options hash. Currently the only key is `target`, which is the draggable-object-target component.
 
 ```handlebars
 ... your regular template code
@@ -170,18 +170,18 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true}}
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true sortingScope="sortingGroup"}}
   {{#each sortableObjectList as |item|}}
-    {{#draggable-object content=item isSortable=true}}
+    {{#draggable-object content=item isSortable=true sortingScope="sortingGroup"}}
       {{item.name}}
     {{/draggable-object}}
   {{/each}}
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
 
-**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
+**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
 ### TODO
 
@@ -189,7 +189,7 @@ Theses additions to sort are still incoming:
 
 1. ~~Tests for sortable-objects~~
 2. Transforms for visual indicator of changing order
-3. Ability to drag between sortable containers
+3. ~~Ability to drag between sortable containers~~
 4. Sorting of horizontal containers (currently only vertical sorting works)
 
 If anyone has any feedback/ideas on sorting, please open an issue.
@@ -202,7 +202,7 @@ An Example:
 
 ```handlebars
 {{#draggable-object-target overrideClass='my-new-class-name'}}
- 
+
 {{/draggable-object-target}}
 ```
 
@@ -264,4 +264,3 @@ app/templates/posts.hbs
   Needs Revision
 {{/draggable-object-target}}
 ```
-

@@ -66,9 +66,9 @@ test('sortable object renders draggable objects', function(assert) {
 
   });
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer'}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
-        {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
+        {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='sortable-objects'}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}
@@ -219,4 +219,3 @@ test('sorting does not happen if off', function(assert) {
   });
 });
 //need to test ember data objects
-
