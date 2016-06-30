@@ -2,8 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend( {
   dragCoordinator: Ember.inject.service(),
-  attributeBindings: ['draggable'],
-  draggable: 'true',
   tagName: 'div',
   overrideClass: 'sortable-objects',
   classNameBindings: ['overrideClass'],
