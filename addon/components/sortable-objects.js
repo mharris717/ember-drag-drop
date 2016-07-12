@@ -8,6 +8,7 @@ export default Ember.Component.extend( {
   overrideClass: 'sortable-objects',
   classNameBindings: ['overrideClass'],
   enableSort: true,
+  useSwap: true,
   sortableObjectList: Ember.A(),
 
   dragStart: function() {

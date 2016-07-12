@@ -11,6 +11,7 @@ export default Ember.Service.extend({
 
   arrayList: Ember.computed.alias('sortComponentController.sortableObjectList'),
   enableSort: Ember.computed.alias('sortComponentController.enableSort'),
+  useSwap: Ember.computed.alias('sortComponentController.useSwap'),
 
   dragStarted: function(object, event, emberObject) {
     if (!this.get('enableSort') && this.get('sortComponentController')) {
@@ -52,7 +53,7 @@ export default Ember.Service.extend({
       if (event.target !== this.get('currentDragEvent').target) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
           if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
-            this.swapElements(emberObject);
+            this.reorderElements(emberObject);
             this.set('currentOffsetItem', emberObject);
           }
         }
@@ -74,9 +75,29 @@ export default Ember.Service.extend({
     });
     this.set('sortComponentController.sortableObjectList', newArray);
   },
-  swapElements: function(overElement) {
+  shiftElementPositions: function(a, b) {
+    var newList = this.get('arrayList').toArray();
+    var newArray = Ember.A();
+    var aPos = newList.indexOf(a);
+    var bPos = newList.indexOf(b);
+
+    newList.splice(aPos, 1);
+    newList.splice(bPos, 0, a);
+
+    newList.forEach(function(item){
+      newArray.push(item);
+    });
+
+    this.set('sortComponentController.sortableObjectList', newArray);
+  },
+  reorderElements: function(overElement) {
     var draggingItem = this.get('currentDragItem');
-    this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
+
+    if (this.get('useSwap')) {
+      this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
+    } else {
+      this.shiftElementPositions(draggingItem.get('content'), overElement.get('content'));
+    }
     this.get('sortComponentController').rerender();
   },
   relativeClientPosition: function (el, event) {
