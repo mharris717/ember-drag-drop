@@ -11,6 +11,7 @@ Router.map(function() {
   this.route("sort");
   this.route("sortdata");
   this.route("handle");
+  this.route("horizontal");
 });
 
 export default Router;

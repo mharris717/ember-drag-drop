@@ -85,7 +85,7 @@ html, body {
   color: white;
 }
 .sortObject {
-  margin: 1em 0;
+  margin: 1em;
   width: 300px;
   height: 100px;
   background-color: blueviolet;
@@ -102,7 +102,7 @@ html, body {
 .u-marginLeft {
   margin-left: 10%;
 }
-.u-halfBlock {
+.u-fullBlock {
   display: inline-block;
   width: 100%;
 }
