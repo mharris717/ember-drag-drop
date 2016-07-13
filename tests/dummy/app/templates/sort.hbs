@@ -3,9 +3,9 @@
 <div class="u-halfBlock u-pullLeft">
   <p>Drag any box to another position and drop to re-sort the list</p>
   <div class="u-pullLeft">
-  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction'}}
+  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' sortingScope='a'}}
     {{#each sortableObjectList as |item|}}
-      {{#draggable-object content=item  overrideClass='sortObject' isSortable=true}}
+      {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
         {{item.title}}
       {{/draggable-object}}
     {{/each}}
@@ -24,9 +24,9 @@
 
   <p>You can have more than one sort block on the page now</p>
   <div class="u-pullLeft">
-    {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction='sortEndAction2'}}
+    {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction='sortEndAction2' sortingScope='a'}}
       {{#each sortableObjectList2 as |item|}}
-        {{#draggable-object content=item  overrideClass='sortObject' isSortable=true}}
+        {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}
@@ -48,8 +48,3 @@
   Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sort.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sort.hbs</a>
   <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sort.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sort.js</a>
 </div>
-
-
-
-
-
