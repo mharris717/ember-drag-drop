@@ -179,8 +179,10 @@ An Example:
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)\s\s
-useSwap defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](http://mharris717.github.io/ember-drag-drop/horizontal)\s\s
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false.  You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+
+useSwap defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](http://mharris717.github.io/ember-drag-drop/horizontal)
+
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item.**
 
 ### TODO
