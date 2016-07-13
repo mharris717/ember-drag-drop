@@ -27,7 +27,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
   if (environment === 'production') {
-    ENV.baseURL = 'ember-drag-drop'
+    ENV.locationType = 'hash';
+    ENV.baseURL = '/ember-drag-drop/';
   }
 
   if (environment === 'test') {
