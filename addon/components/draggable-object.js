@@ -94,6 +94,10 @@ export default Ember.Component.extend({
     }
   },
 
+  drag: function(event) {
+    this.sendAction('dragMoveAction', event);
+  },
+
   dragOver: function(event) {
    if (this.get('isSortable')) {
      this.get('dragCoordinator').draggingOver(event, this);
