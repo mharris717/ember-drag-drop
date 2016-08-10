@@ -3,7 +3,7 @@
 <div class="u-halfBlock u-pullLeft">
   <p>Drag any box to another position and drop to re-sort the list</p>
   <div class="u-pullLeft">
-  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' sortingScope='a'}}
+  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' sortingScope='a' }}
     {{#each sortableObjectList as |item|}}
       {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
         {{item.title}}
@@ -26,7 +26,7 @@
   <div class="u-pullLeft">
     {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction='sortEndAction2' sortingScope='a'}}
       {{#each sortableObjectList2 as |item|}}
-        {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
+        {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='a'}}
           {{item.title}}
         {{/draggable-object}}
       {{/each}}

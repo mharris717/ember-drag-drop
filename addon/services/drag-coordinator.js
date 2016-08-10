@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
+  sortComponentController: null,
   currentDragObject: null,
   currentDragEvent: null,
   currentDragItem: null,
@@ -26,7 +27,7 @@ export default Ember.Service.extend({
   },
 
   dragStarted(object, event, emberObject) {
-    if (!this.get('enableSort')) {
+    if (!this.get('enableSort') && this.get('sortComponentController')) {
       //disable drag if sorting is disabled this is not used for regular
       event.preventDefault();
       return;
@@ -72,8 +73,8 @@ export default Ember.Service.extend({
       if (event.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
           if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
-            this.reorderElements(emberObject);
-            //this.moveElements(emberObject);
+
+            this.moveElements(emberObject);
             this.set('currentOffsetItem', emberObject);
           }
         }
@@ -83,18 +84,7 @@ export default Ember.Service.extend({
       }
     }
   },
-  swapObjectPositions: function(a, b) {
-    var newList = this.get('arrayList').toArray();
-    var newArray = Ember.A();
-    var aPos = newList.indexOf(a);
-    var bPos = newList.indexOf(b);
-    newList[aPos] = b;
-    newList[bPos] = a;
-    newList.forEach(function(item){
-      newArray.push(item);
-    });
-    this.set('sortComponentController.sortableObjectList', newArray);
-  },
+
   moveObjectPositions(a, b, sortComponents) {
     const aSortable = sortComponents.find((component) => {
       return component.get('sortableObjectList').find((sortable) => {
@@ -109,19 +99,41 @@ export default Ember.Service.extend({
     const swap = aSortable === bSortable;
 
     if (swap) {
-      // Swap if items are in the same sortable-objects component
-      const newList = aSortable.get('sortableObjectList').toArray();
-      const newArray = Ember.A();
-      const aPos = newList.indexOf(a);
-      const bPos = newList.indexOf(b);
 
-      newList[aPos] = b;
-      newList[bPos] = a;
+      if (this.get('useSwap')) {
+        //use swap algorithm
+        // Swap if items are in the same sortable-objects component
+        const newList = aSortable.get('sortableObjectList').toArray();
+        const newArray = Ember.A();
+        const aPos = newList.indexOf(a);
+        const bPos = newList.indexOf(b);
 
-      newList.forEach(function(item) {
-        newArray.push(item);
-      });
-      aSortable.set('sortableObjectList', newArray);
+        newList[aPos] = b;
+        newList[bPos] = a;
+
+        newList.forEach(function(item) {
+          newArray.push(item);
+        });
+        aSortable.set('sortableObjectList', newArray);
+
+      } else {
+        //use shift algorithm
+        const newList = aSortable.get('sortableObjectList').toArray();
+        var newArray = Ember.A();
+        var aPos = newList.indexOf(a);
+        var bPos = newList.indexOf(b);
+
+        newList.splice(aPos, 1);
+        newList.splice(bPos, 0, a);
+
+        newList.forEach(function(item){
+          newArray.push(item);
+        });
+
+        aSortable.set('sortableObjectList', newArray);
+      }
+
+
     } else {
       // Move if items are in different sortable-objects component
       const aList = aSortable.get('sortableObjectList');
@@ -132,30 +144,6 @@ export default Ember.Service.extend({
       bList.insertAt(bList.indexOf(b), a);
     }
   },
-  shiftElementPositions: function(a, b) {
-    var newList = this.get('arrayList').toArray();
-    var newArray = Ember.A();
-    var aPos = newList.indexOf(a);
-    var bPos = newList.indexOf(b);
-
-    newList.splice(aPos, 1);
-    newList.splice(bPos, 0, a);
-
-    newList.forEach(function(item){
-      newArray.push(item);
-    });
-
-    this.set('sortComponentController.sortableObjectList', newArray);
-  },
-  reorderElements: function(overElement) {
-    var draggingItem = this.get('currentDragItem');
-
-    if (this.get('useSwap')) {
-      this.swapObjectPositions(draggingItem.get('content'), overElement.get('content'));
-    } else {
-      this.shiftElementPositions(draggingItem.get('content'), overElement.get('content'));
-    }
-    this.get('sortComponentController').rerender();
 
   moveElements(overElement) {
     const isEnabled = Object.keys(this.get('sortComponents')).length;
