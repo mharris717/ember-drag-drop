@@ -37,13 +37,16 @@ test('draggable object renders', function(assert) {
 });
 
 test('Draggable Object is draggable', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   //let myObject = {'id':0, data: 'Test Data'};
   let event = MockDataTransfer.makeMockEvent();
 
+  this.on('dragMoveAction', function(event) {
+    assert.ok(event);
+  });
   this.render(hbs`
-    {{#draggable-object content=myObject class='draggable-object'}}
+    {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action "dragMoveAction")}}
       Hi
       <a class="js-dragHandle dragHandle"></a>
     {{/draggable-object}}
@@ -56,6 +59,10 @@ test('Draggable Object is draggable', function(assert) {
   });
 
   assert.equal($component.hasClass('is-dragging-object'), true);
+
+  Ember.run(function() {
+    triggerEvent($component, 'drag', event);
+  });
 
   Ember.run(function() {
     triggerEvent($component, 'dragend', event);
