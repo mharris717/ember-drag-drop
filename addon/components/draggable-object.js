@@ -9,6 +9,7 @@ export default Ember.Component.extend({
   isDraggable: true,
   dragReady: true,
   isSortable: false,
+  sortingScope: 'drag-objects',
   title: Ember.computed.alias('content.title'),
 
   draggable: Ember.computed('isDraggable', function() {
@@ -21,13 +22,15 @@ export default Ember.Component.extend({
       return null;
     }
   }),
-  init: function() {
+
+  init() {
     if (this.get('dragHandle')) {
       this.set('dragReady', false);
     }
-    this._super.apply(this, arguments);
+    this._super(...arguments);
   },
-  didInsertElement: function() {
+
+  didInsertElement() {
     let self = this;
     //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
     if (this.get('dragHandle')) {
@@ -42,13 +45,14 @@ export default Ember.Component.extend({
       }
     }
   },
-  willDestroyElement: function(){
+
+  willDestroyElement(){
     if (this.$(this.get('dragHandle'))) {
       this.$(this.get('dragHandle')).off();
     }
   },
 
-  dragStart: function(event) {
+  dragStart(event) {
     if (!this.get('isDraggable') || !this.get('dragReady')) {
       event.preventDefault();
       return;
@@ -76,7 +80,7 @@ export default Ember.Component.extend({
     }
   },
 
-  dragEnd: function(event) {
+  dragEnd(event) {
     if (!this.get('isDraggingObject')) {
       return;
     }
@@ -98,19 +102,20 @@ export default Ember.Component.extend({
     this.sendAction('dragMoveAction', event);
   },
 
-  dragOver: function(event) {
+  dragOver(event) {
    if (this.get('isSortable')) {
      this.get('dragCoordinator').draggingOver(event, this);
    }
     return false;
   },
-  drop: function(event) {
+
+  drop(event) {
     //Firefox is navigating to a url on drop, this prevents that from happening
     event.preventDefault();
   },
 
   actions: {
-    selectForDrag: function() {
+    selectForDrag() {
       var obj = this.get('content');
       var hashId = this.get('coordinator').setObject(obj, { source: this });
       this.set('coordinator.clickedId', hashId);
