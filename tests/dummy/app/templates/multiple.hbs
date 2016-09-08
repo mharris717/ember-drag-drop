@@ -1,0 +1,50 @@
+<h3>Multiple containers example</h3>
+
+<div class="u-halfBlock u-pullLeft">
+  <p>Drag any item from this block to the block on the right</p>
+  <p>You can control which blocks can be interacted with by setting the sortingScope </p>
+  <div class="u-pullLeft">
+  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' sortingScope='a' }}
+    {{#each sortableObjectList as |item|}}
+      {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
+        {{item.title}}
+      {{/draggable-object}}
+    {{/each}}
+  {{/sortable-objects}}
+  </div>
+  <div class="u-pullLeft u-marginLeft">
+    <h3>Order of objects is:</h3>
+    <ul>
+      {{#each sortableObjectList as |item|}}
+        <li>id:{{item.id}}, title:{{item.title}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  </div>
+<div class="u-halfBlock">
+  <p>You can have more than one sort block on the page now</p>
+  <div class="u-pullLeft">
+    {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction='sortEndAction2' sortingScope='a'}}
+      {{#each sortableObjectList2 as |item|}}
+        {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='a'}}
+          {{item.title}}
+        {{/draggable-object}}
+      {{/each}}
+    {{/sortable-objects}}
+  </div>
+  <div class="u-pullLeft u-marginLeft">
+    <h3>Order of objects is:</h3>
+    <ul>
+      {{#each sortableObjectList2 as |item|}}
+        <li>id:{{item.id}}, title:{{item.title}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+
+<br><br>
+<div class="u-fullBlock">
+  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/multiple.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sort.hbs</a>
+  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/multiple.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sort.js</a>
+</div>
