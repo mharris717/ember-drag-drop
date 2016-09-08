@@ -69,7 +69,7 @@ export default Ember.Component.extend({
 
     dataTransfer.setData('Text', id);
 
-    if (obj) {
+    if (obj && typeof obj === 'object') {
       Ember.set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
@@ -87,7 +87,7 @@ export default Ember.Component.extend({
 
     var obj = this.get('content');
 
-    if (obj) {
+    if (obj && typeof obj === 'object') {
       Ember.set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
