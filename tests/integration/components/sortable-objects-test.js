@@ -47,7 +47,7 @@ test('sortable object renders', function(assert) {
      {{/draggable-object}}
     {{/sortable-objects}}
   `);
-  assert.equal(this.$('.draggable-object').size(), 2);
+  assert.equal(this.$('.draggable-object').length, 2);
 });
 
 test('sortable object renders draggable objects', function(assert) {
@@ -75,7 +75,7 @@ test('sortable object renders draggable objects', function(assert) {
     {{/sortable-objects}}
   `);
 
-  assert.equal(this.$('.sortObject').size(), 4);
+  assert.equal(this.$('.sortObject').length, 4);
 
   let $component = this.$('.sortObject');
   let $container = this.$('.sortContainer');
@@ -159,7 +159,7 @@ test('sortable object renders draggable objects using shift algorithm', function
     {{/sortable-objects}}
   `);
 
-  assert.equal(this.$('.sortObject').size(), 4);
+  assert.equal(this.$('.sortObject').length, 4);
 
   let $component = this.$('.sortObject');
   let $container = this.$('.sortContainer');
@@ -230,7 +230,7 @@ test('sorting does not happen if off', function(assert) {
     {{/sortable-objects}}
   `);
 
-  assert.equal(this.$('.sortObject').size(), 4);
+  assert.equal(this.$('.sortObject').length, 4);
 
   let $component = this.$('.sortObject');
   let $container = this.$('.sortContainer');
