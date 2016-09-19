@@ -183,6 +183,8 @@ On drop of an item in the list, the sortableObjectList is re-ordered and the sor
 
 useSwap defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](http://mharris717.github.io/ember-drag-drop/horizontal)
 
+The sortingScope is optional and only needed if you have multiple lists on the screen that you want to share dragging between. [See Demo](http://mharris717.github.io/ember-drag-drop/multiple)
+
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
 ### TODO
