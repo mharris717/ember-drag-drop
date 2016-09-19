@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Object.extend({
   content: {},
   contentLength: 0,
+  length: Ember.computed.alias('contentLength'),
 
   add: function(obj) {
     var id = this.generateId();
@@ -34,5 +35,5 @@ export default Ember.Object.extend({
     return Ember.A(res);
   },
 
-  lengthBinding: "contentLength"
+
 });
