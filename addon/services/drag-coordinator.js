@@ -27,22 +27,13 @@ export default Ember.Service.extend({
   },
 
   dragStarted(object, event, emberObject) {
-    if (!this.get('enableSort') && this.get('sortComponentController')) {
-      //disable drag if sorting is disabled this is not used for regular
-      event.preventDefault();
-      return;
-    }
-    Ember.run.later(function() {
-      Ember.$(event.target).css('opacity', '0.5');
-    });
     this.set('currentDragObject', object);
     this.set('currentDragEvent', event);
     this.set('currentDragItem', emberObject);
     event.dataTransfer.effectAllowed = 'move';
   },
 
-  dragEnded(event) {
-    Ember.$(event.target).css('opacity', '1');
+  dragEnded() {
     this.set('currentDragObject', null);
     this.set('currentDragEvent', null);
     this.set('currentDragItem', null);
