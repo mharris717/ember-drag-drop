@@ -10,7 +10,8 @@ export default Ember.Component.extend( {
   sortingScope: 'drag-objects',
   sortableObjectList: Ember.A(),
 
-  didInsertElement() {
+  init() {
+    this._super(...arguments);
     if (this.get('enableSort')) {
       this.get('dragCoordinator').pushSortComponent(this);
     }

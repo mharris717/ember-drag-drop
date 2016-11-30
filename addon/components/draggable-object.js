@@ -31,19 +31,21 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    let self = this;
-    //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
-    if (this.get('dragHandle')) {
-      //only start when drag handle is activated
-      if (this.$(this.get('dragHandle'))) {
-        this.$(this.get('dragHandle')).on('mouseover', function(){
-          self.set('dragReady', true);
-        });
-        this.$(this.get('dragHandle')).on('mouseout', function(){
-          self.set('dragReady', false);
-        });
+    Ember.run.scheduleOnce('afterRender', ()=> {
+      let self = this;
+      //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
+      if (this.get('dragHandle')) {
+        //only start when drag handle is activated
+        if (this.$(this.get('dragHandle'))) {
+          this.$(this.get('dragHandle')).on('mouseover', function(){
+            self.set('dragReady', true);
+          });
+          this.$(this.get('dragHandle')).on('mouseout', function(){
+            self.set('dragReady', false);
+          });
+        }
       }
-    }
+    });
   },
 
   willDestroyElement(){
