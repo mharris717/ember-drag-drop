@@ -6,15 +6,15 @@ export default Ember.Component.extend(Droppable, {
   overrideClass: 'draggable-object-target',
   isOver: false,
 
-  handlePayload: function(payload) {
+  handlePayload: function(payload, event) {
     var obj = this.get('coordinator').getObject(payload,{target: this});
-    this.sendAction('action',obj,{target: this});
+    this.sendAction('action',obj,{target: this, event: event});
   },
 
   handleDrop: function(event) {
     var dataTransfer = event.dataTransfer;
     var payload = dataTransfer.getData("Text");
-    this.handlePayload(payload);
+    this.handlePayload(payload, event);
   },
 
   acceptDrop: function(event) {
