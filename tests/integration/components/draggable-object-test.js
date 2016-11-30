@@ -98,7 +98,10 @@ test('Draggable Object is only draggable from handle', function(assert) {
     triggerEvent($component, 'dragend', event);
   });
 
-  assert.equal($component.hasClass('is-dragging-object'), false);
+  andThen(() => {
+    assert.equal($component.hasClass('is-dragging-object'), false);
+  });
+
 
   let $handle = this.$('.js-dragHandle');
   //make sure parent element does not have draggable attribute until handle is clicked
