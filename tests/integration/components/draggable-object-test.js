@@ -68,7 +68,10 @@ test('Draggable Object is draggable', function(assert) {
     triggerEvent($component, 'dragend', event);
   });
 
-  assert.equal($component.hasClass('is-dragging-object'), false);
+  andThen(() => {
+    assert.equal($component.hasClass('is-dragging-object'), false);
+  });
+
 });
 
 test('Draggable Object is only draggable from handle', function(assert) {
@@ -105,14 +108,19 @@ test('Draggable Object is only draggable from handle', function(assert) {
     triggerEvent($handle, 'mouseover');
   });
 
-  assert.equal($component.attr('draggable'), "true");
+  andThen(() => {
+    assert.equal($component.attr('draggable'), "true");
+  });
+
 
   //Drag should start now that the handle is down
   Ember.run(function() {
     triggerEvent($component, 'dragstart', event);
   });
 
-  assert.equal($component.hasClass('is-dragging-object'), true);
+  andThen(() => {
+    assert.equal($component.hasClass('is-dragging-object'), true);
+  });
 
   //Drag has ended draggable attribute should be removed
   Ember.run(function() {

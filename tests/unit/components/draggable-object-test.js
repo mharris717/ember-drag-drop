@@ -1,4 +1,3 @@
-/*global equal*/
 import Ember from 'ember';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
@@ -11,7 +10,7 @@ moduleForComponent("draggable-object","DraggableObjectComponent", {
   unit: true
 });
 
-test("dragStart", function() {
+test("dragStart", function(assert) {
   var thing = Thing.create({id: 1});
   var coordinator = Coordinator.create();
 
@@ -27,11 +26,11 @@ test("dragStart", function() {
   var hashId = Ember.A(keys).get("lastObject");
 
   var data = event.dataTransfer.get('data');
-  equal(data.dataType,"Text");
-  equal(data.payload,hashId);
+  assert.equal(data.dataType,"Text");
+  assert.equal(data.payload,hashId);
 });
 
-test("notified of drop", function() {
+test("notified of drop", function(assert) {
   var thing = Thing.create({id: 1});
   var coordinator = Coordinator.create();
 
@@ -50,10 +49,10 @@ test("notified of drop", function() {
   });
 
   coordinator.getObject(hashId);
-  equal(content.length,1);
+  assert.equal(content.length,1);
 });
 
-test("drop callbacks", function() {
+test("drop callbacks", function(assert) {
   var thing = Thing.create({id: 1});
   var coordinator = Coordinator.create();
 
@@ -70,8 +69,8 @@ test("drop callbacks", function() {
 
   coordinator.getObject(hashId);
 
-  equal(callbackArgs.length,1);
-  equal(callbackArgs[0].obj.get('id'),1);
+  assert.equal(callbackArgs.length,1);
+  assert.equal(callbackArgs[0].obj.get('id'),1);
 });
 
 // test("sim drag", function() {
