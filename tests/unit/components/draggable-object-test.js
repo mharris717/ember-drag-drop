@@ -74,6 +74,43 @@ test("drop callbacks", function() {
   equal(callbackArgs[0].obj.get('id'),1);
 });
 
+test("dragStartHook", function(assert) {
+  assert.expect(1);
+  var thing = Thing.create({id: 1});
+  var coordinator = Coordinator.create();
+
+  var s = this.subject({coordinator: coordinator});
+  s.set("content",thing);
+
+  s.dragStartHook = function() {
+    assert.ok(true);
+  };
+
+  var event = MockDataTransfer.makeMockEvent();
+  Ember.run(function() {
+    s.dragStart(event);
+  });
+});
+
+test("dragEndHook", function(assert) {
+  assert.expect(1);
+  var thing = Thing.create({id: 1});
+  var coordinator = Coordinator.create();
+
+  var s = this.subject({coordinator: coordinator});
+  s.set("content",thing);
+  s.set("isDraggingObject", true);
+
+  s.dragEndHook = function() {
+    assert.ok(true);
+  };
+
+  var event = MockDataTransfer.makeMockEvent();
+  Ember.run(function() {
+    s.dragEnd(event);
+  });
+});
+
 // test("sim drag", function() {
 //   var thing = Thing.create({id: 1});
 //   var coordinator = Coordinator.create();

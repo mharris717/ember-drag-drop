@@ -122,3 +122,31 @@ test('Draggable Object is only draggable from handle', function(assert) {
   assert.equal($component.attr('draggable'), "false");
 
 });
+
+test('Draggable hooks are overridable', function(assert) {
+  assert.expect(2);
+
+  let event = MockDataTransfer.makeMockEvent();
+
+  this.on('dragStartAction', function(event) {
+    assert.ok(event);
+  });
+
+  this.on('dragEndAction', function(event) {
+    assert.ok(event);
+  });
+
+  this.render(hbs`
+    {{#draggable-object class='draggable-object' dragStartHook=(action 'dragStartAction') dragEndHook=(action 'dragEndAction')}}
+    {{/draggable-object}}
+  `);
+  let $component = this.$('.draggable-object');
+
+  Ember.run(function() {
+    triggerEvent($component, 'dragstart', event);
+  });
+
+  Ember.run(function() {
+    triggerEvent($component, 'dragend', event);
+  });
+});
