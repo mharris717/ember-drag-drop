@@ -83,6 +83,17 @@ If you wish to have a drag handle in your component to be the trigger for a drag
 {{/draggable-object}}
 ```
 
+There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set. 
+If you want to override that and apply your own stylings you can use the 'dragStartHook' and/or the 'dragEndHook'
+The jquery event is passed as the only parameter.
+
+```handlebars
+{{#draggable-object content=this dragStartHook=(action 'dragStartAction') dragEndHook=(action 'dragEndAction')}}
+  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
+{{/draggable-object}}
+```
+
+
 ```javascript
 // represents the controller backing the above template
 
