@@ -27,6 +27,7 @@ export default Ember.Component.extend( {
     if (!this.get('enableSort')) {
       return false;
     }
+    this.set('dragCoordinator.sortComponentController', this);
   },
 
   dragOver: function() {
