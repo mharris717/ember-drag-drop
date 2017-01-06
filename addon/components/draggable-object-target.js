@@ -41,6 +41,20 @@ export default Ember.Component.extend(Droppable, {
     }
   },
 
+  mouseDown(e) {
+    let mouseDown = this.get('onMouseDown');
+    if (mouseDown) {
+      mouseDown(e.originalEvent);
+    }
+  },
+
+  mouseEnter(e) {
+    let mouseEnter = this.get('onMouseEnter');
+    if (mouseEnter) {
+      mouseEnter(e.originalEvent);
+    }
+  },
+
   actions: {
     acceptForDrop: function() {
       var hashId = this.get('coordinator.clickedId');
