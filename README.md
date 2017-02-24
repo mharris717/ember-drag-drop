@@ -187,6 +187,31 @@ The sortingScope is optional and only needed if you have multiple lists on the s
 
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
+## Test Helpers
+
+When writing tests, there is a `drag` helper you can use to help facilitate dragging and dropping. You import it like this:
+
+```javascript
+import { drag } from '../../../helpers/ember-drag-drop';
+```
+
+You can pass the CSS selector for the `draggable-object-target` and pass a `beforeDrop` callback.
+
+An Example:
+
+```javascript
+drag('.draggable-object.drag-handle', {
+  drop: '.draggable-object-target:eq(1)',
+  beforeDrop() {
+    // a chance to inspect state before dropping
+  }
+});
+```
+
+In this example, we're dragging the draggable-object element with CSS selector `.draggable-object.drag-handle` and dropping
+on a draggable-object-target with the CSS selector `draggable-object-target:eq(1)`. Then there's also a chance to
+make assertions in the `beforeDrop` callback.
+
 ### TODO
 
 Theses additions to sort are still incoming:

@@ -6,7 +6,7 @@ import MockDataTransfer from '../../tests/helpers/data-transfer';
 function drop($dragHandle, dropCssPath, dragEvent) {
   let $dropTarget = $(dropCssPath);
 
-  if (dropTargets.length === 0) {
+  if ($dropTarget.length === 0) {
     throw(`There are no drop targets by the given selector: '${dropCssPath}'`);
   }
 
@@ -19,33 +19,31 @@ function drop($dragHandle, dropCssPath, dragEvent) {
   });
 
   Ember.run(() => {
-    triggerEvent($module, 'dragend', MockDataTransfer.makeMockEvent());
+    triggerEvent($dragHandle, 'dragend', MockDataTransfer.makeMockEvent());
   });
 }
 
-export default function() {
-  Test.registerAsyncHelper('drag', function(app, cssPath, options={}) {
-    let dragEvent = MockDataTransfer.makeMockEvent();
-    let $dragHandle = $(cssPath);
+export function drag(cssPath, options={}) {
+  let dragEvent = MockDataTransfer.makeMockEvent();
+  let $dragHandle = $(cssPath);
 
-    Ember.run(() => {
-      triggerEvent($dragHandle, 'mouseover');
-    });
+  Ember.run(() => {
+    triggerEvent($dragHandle, 'mouseover');
+  });
 
-    Ember.run(() => {
-      triggerEvent($dragHandle, 'dragstart', dragEvent);
-    });
+  Ember.run(() => {
+    triggerEvent($dragHandle, 'dragstart', dragEvent);
+  });
 
-    andThen(function() {
-      if (options.beforeDrop) {
-        options.beforeDrop.call();
-      }
-    });
+  andThen(function() {
+    if (options.beforeDrop) {
+      options.beforeDrop.call();
+    }
+  });
 
-    andThen(function() {
-      if (options.drop) {
-        drop($dragHandle, options.drop, dragEvent);
-      }
-    });
+  andThen(function() {
+    if (options.drop) {
+      drop($dragHandle, options.drop, dragEvent);
+    }
   });
 }
