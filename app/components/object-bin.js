@@ -1,3 +1,1 @@
-import ObjectBin from 'ember-drag-drop/components/object-bin';
-
-export default ObjectBin;
+export { default } from 'ember-drag-drop/components/object-bin';
