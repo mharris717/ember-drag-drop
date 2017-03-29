@@ -50,7 +50,7 @@ test('drag helper drags to a draggable object target and calls the action upon d
 
 test('drag helper allows a callback to be called before dropping', function(assert) {
   assert.expect(3);
-
+  const $ = this.$;
   let coordinator = Coordinator.create();
 
   coordinator.on('objectMoved', function(ops) {

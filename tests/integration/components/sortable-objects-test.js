@@ -59,10 +59,10 @@ test('sortable object renders draggable objects', function(assert) {
   this.on('sortEndAction', function() {
     const pojoObj = self.get('pojoData');
     //make sure object is in the right order
-    assert.equal(pojoObj[0].id, 2);
-    assert.equal(pojoObj[1].id, 1);
-    assert.equal(pojoObj[2].id, 3);
-    assert.equal(pojoObj[3].id, 4);
+    assert.equal(pojoObj[0].id, 2, 'Pojo item one is correct');
+    assert.equal(pojoObj[1].id, 1, 'Pojo item two is correct');
+    assert.equal(pojoObj[2].id, 3, 'Pojo item three is correct');
+    assert.equal(pojoObj[3].id, 4, 'Pojo item four is correct');
 
   });
   this.render(hbs`
@@ -143,10 +143,10 @@ test('sortable object renders draggable objects using shift algorithm', function
   this.on('sortEndAction', function() {
     const pojoObj = self.get('pojoData');
     //make sure object is in the right order
-    assert.equal(pojoObj[0].id, 2);
-    assert.equal(pojoObj[1].id, 3);
-    assert.equal(pojoObj[2].id, 1);
-    assert.equal(pojoObj[3].id, 4);
+    assert.equal(pojoObj[0].id, 2, 'Pojo item one is correct');
+    assert.equal(pojoObj[1].id, 3, 'Pojo item two is correct');
+    assert.equal(pojoObj[2].id, 1, 'Pojo item three is correct');
+    assert.equal(pojoObj[3].id, 4, 'Pojo item four is correct');
 
   });
   this.render(hbs`

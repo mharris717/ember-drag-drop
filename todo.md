@@ -1,4 +1,4 @@
 1. Get X axis working for detecting if drag object is active
-2. Test Ember 2.9 and fix it on glimmer2
-3. Restore beta testing to travis
-4. Make issue for future plans for the re-write of the library
+2. Make issue for future plans for the re-write of the library
+3. Get sort container to accept drop when nothing is in it.
+4. Add docs for the onMouse events from PR 80

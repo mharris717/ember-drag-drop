@@ -1,5 +1,6 @@
 /* global equal*/
 import Ember from 'ember';
+const $ = this.$;
 
 var f = function() {
   Ember.Test.registerAsyncHelper('hasActivePage', function(app, num, context) {
