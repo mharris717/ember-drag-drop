@@ -38,7 +38,7 @@ Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from
 
 * [Draggable Object](#draggable-object)
 * [Draggable Object Target](#draggable-object-target)
-* [Sortable Objects](#sorting-of-objects-beta)
+* [Sortable Objects](#sorting-of-objects)
 
 #### Examples
 
