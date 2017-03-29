@@ -102,16 +102,16 @@ test('sortable object renders draggable objects', function(assert) {
   Ember.run(function() {
     let event = MockDataTransfer.makeMockEvent();
     event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 501;
+    event.originalEvent.clientY = 510;
     triggerEvent($component.get(1), 'dragover', event);
   });
   andThen(function() {
     //Drag over shows swapped items correctly
     let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
+    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'before drop');
+    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1', 'before drop');
+    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3', 'before drop');
+    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4', 'before drop');
   });
   Ember.run(function() {
     triggerEvent($component, 'dragend', event);
@@ -126,10 +126,10 @@ test('sortable object renders draggable objects', function(assert) {
   andThen(function() {
     //Items are still visually in the correct order after drag end
     let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
+    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'after drop');
+    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1', 'after drop');
+    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3', 'after drop');
+    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4', 'after drop');
   });
 
 });
@@ -186,7 +186,7 @@ test('sortable object renders draggable objects using shift algorithm', function
   });
   andThen(function() {
     let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
+    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'before drop');
     assert.equal(self.$($components.get(1)).text().trim(), 'Number 3');
     assert.equal(self.$($components.get(2)).text().trim(), 'Number 1');
     assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
@@ -199,7 +199,7 @@ test('sortable object renders draggable objects using shift algorithm', function
   andThen(function() {
     //Items are still visually in the correct order after drag end
     let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2');
+    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'after drop');
     assert.equal(self.$($components.get(1)).text().trim(), 'Number 3');
     assert.equal(self.$($components.get(2)).text().trim(), 'Number 1');
     assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
