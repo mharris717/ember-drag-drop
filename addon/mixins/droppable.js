@@ -110,6 +110,7 @@ var Droppable = Ember.Mixin.create({
     this._resetDroppability();
     // TODO: might not need this? I can't remember why its here
     event.stopPropagation();
+    event.preventDefault();
     return false;
   },
 
