@@ -83,7 +83,7 @@ If you wish to have a drag handle in your component to be the trigger for a drag
 {{/draggable-object}}
 ```
 
-There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set. 
+There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set.
 If you want to override that and apply your own stylings you can use the 'dragStartHook' and/or the 'dragEndHook'
 The jquery event is passed as the only parameter.
 
@@ -173,9 +173,9 @@ You can check out an example of this is action [here](http://mharris717.github.i
 
 We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `{{#draggable-object}}` components you can get an array of sorted elements returned.
 
-**Important Note on Ember Versions:  
-If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting  
-If you use Ember version 1.12.1 and below you must use 0.2.3 if you use sorting  
+**Important Note on Ember Versions:
+If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting
+If you use Ember version 1.12.1 and below you must use 0.2.3 if you use sorting
 This only applies if you use the sort capabilities, regular dragging is not version specific.
 
 An Example:
@@ -203,7 +203,7 @@ The sortingScope is optional and only needed if you have multiple lists on the s
 When writing tests, there is a `drag` helper you can use to help facilitate dragging and dropping. You import it like this:
 
 ```javascript
-import { drag } from '../../../helpers/ember-drag-drop';
+import { drag } from 'your-app/tests/helpers/ember-drag-drop';
 ```
 
 You can pass the CSS selector for the `draggable-object-target` and pass a `beforeDrop` callback.
