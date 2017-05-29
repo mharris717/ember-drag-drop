@@ -30,6 +30,11 @@ export default Ember.Component.extend( {
     this.set('dragCoordinator.sortComponentController', this);
   },
 
+  dragEnter: function() {
+    //needed so drop event will fire
+    return false;
+  },
+
   dragOver: function() {
     //needed so drop event will fire
     return false;
