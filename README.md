@@ -45,7 +45,9 @@ Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from
 * [Live simple demos](http://mharris717.github.io/ember-drag-drop/)
 * [Classify Posts](#classify-posts)
 
+## Mobile and touch events
 
+As of version 0.4.4 you can install the [ember-drag-drop-polyfill](https://github.com/aboveproperty/ember-drag-drop-polyfill) to enable drag and drop actions on mobile devices.  It is my intention to make mobile a first class citizen in this addon, but hopefully this can fill the gaps for now.
 
 
 
