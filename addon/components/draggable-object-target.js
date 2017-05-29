@@ -14,6 +14,7 @@ export default Ember.Component.extend(Droppable, {
   handleDrop: function(event) {
     var dataTransfer = event.dataTransfer;
     var payload = dataTransfer.getData("Text");
+    if (payload === "") { return; }
     this.handlePayload(payload, event);
   },
 
