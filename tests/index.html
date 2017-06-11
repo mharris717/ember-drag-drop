@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
     <link rel="stylesheet" href="{{rootURL}}assets/dummy.css">
     <link rel="stylesheet" href="{{rootURL}}assets/test-support.css">
+    <style>
+      html { position: relative; overflow: auto; }
+      #ember-testing-container { position: fixed !important; bottom: 0px; right: 0px }
+    </style>
 
     {{content-for "head-footer"}}
     {{content-for "test-head-footer"}}

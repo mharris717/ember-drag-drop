@@ -5,6 +5,7 @@ module.exports = {
     sourceType: 'module'
   },
   extends: 'eslint:recommended',
+  parser: 'babel-eslint',
   env: {
     browser: true
   },
