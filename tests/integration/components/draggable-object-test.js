@@ -3,19 +3,11 @@ import {moduleForComponent, test} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import MockEvent from '../../helpers/mock-event';
 import {triggerEvent} from 'ember-native-dom-helpers';
-//import startApp from '../../helpers/start-app';
+
 const { $ } = Ember;
-//let App;
 
 moduleForComponent('draggable-object', 'Integration | Component | draggable object', {
   integration: true,
-  //  setup: function() {
-  //    App = startApp();
-  //  },
-  //  teardown: function() {
-  //    Ember.run(App, 'destroy');
-  //  }
-
 });
 
 test('draggable object renders', function(assert) {
@@ -42,9 +34,7 @@ test('Draggable Object is draggable', async function(assert) {
 
   let event = new MockEvent();
 
-  this.on('dragMoveAction', function(event) {
-    assert.ok(event);
-  });
+  this.on('dragMoveAction', (event) => assert.ok(event));
 
   this.render(hbs`
     {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action "dragMoveAction")}}
@@ -79,7 +69,6 @@ test('Draggable Object is only draggable from handle', async function(assert) {
     {{/draggable-object}}
   `);
 
-
   let componentSelector = '.draggable-object';
 
   //does not drag from main component
@@ -91,14 +80,12 @@ test('Draggable Object is only draggable from handle', async function(assert) {
 
   assert.equal($(componentSelector).hasClass('is-dragging-object'), false);
 
-
   //make sure parent element does not have draggable attribute until handle is clicked
   assert.equal($(componentSelector).attr('draggable'), "false");
 
   await triggerEvent('.js-dragHandle', 'mouseover');
 
   assert.equal($(componentSelector).attr('draggable'), "true");
-
 
   //Drag should start now that the handle is down
   await triggerEvent(componentSelector, 'dragstart', event);
@@ -107,6 +94,7 @@ test('Draggable Object is only draggable from handle', async function(assert) {
 
   //Drag has ended draggable attribute should be removed
   await triggerEvent(componentSelector, 'dragend', event);
+
   assert.equal($(componentSelector).attr('draggable'), "false");
 
 });
@@ -116,13 +104,9 @@ test('Draggable hooks are overridable', async function(assert) {
 
   let event = new MockEvent();
 
-  this.on('dragStartAction', function(event) {
-    assert.ok(event);
-  });
+  this.on('dragStartAction', (event) => assert.ok(event));
 
-  this.on('dragEndAction', function(event) {
-    assert.ok(event);
-  });
+  this.on('dragEndAction', (event) => assert.ok(event));
 
   this.render(hbs`
     {{#draggable-object class='draggable-object' dragStartHook=(action 'dragStartAction') dragEndHook=(action 'dragEndAction')}}
@@ -133,7 +117,5 @@ test('Draggable hooks are overridable', async function(assert) {
 
   await triggerEvent(componentSelector, 'dragstart', event);
 
-
   await triggerEvent(componentSelector, 'dragend', event);
-
 });

@@ -2,7 +2,6 @@ import Ember from 'ember';
 import {moduleForComponent, test} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Coordinator from '../../../models/coordinator';
-//import { drag } from '../../helpers/ember-drag-drop';
 import {drag} from '../../helpers/drag-drop';
 
 const { $ } = Ember;
