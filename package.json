@@ -16,7 +16,7 @@
     "url": "https://github.com/mharris717/ember-drag-drop"
   },
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 6"
   },
   "author": "",
   "license": "MIT",
