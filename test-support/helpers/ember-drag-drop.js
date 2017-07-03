@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import $ from 'jquery';
-import Test from 'ember-test';
 import MockDataTransfer from '../../tests/helpers/data-transfer';
 
 function drop($dragHandle, dropCssPath, dragEvent) {

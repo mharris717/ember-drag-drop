@@ -1,26 +1,36 @@
 import Ember from 'ember';
-import { moduleForComponent, test } from 'ember-qunit';
+import {moduleForComponent, test} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import MockDataTransfer from '../../helpers/data-transfer';
-import startApp from '../../helpers/start-app';
+import {drag} from '../../helpers/drag-drop';
 
-let App;
+const { w } = Ember.String;
+const { $ } = Ember;
+
 let pojoData = Ember.A(
-  [{id: 1, title:'Number 1'},
-    {id: 2, title:'Number 2'},
-    {id: 3, title:'Number 3'},
-    {id: 4, title:'Number 4'}]
+  [
+    { id: 1, title: 'Number 1' },
+    { id: 2, title: 'Number 2' },
+    { id: 3, title: 'Number 3' },
+    { id: 4, title: 'Number 4' }
+  ]
 );
 
 moduleForComponent('sortable-objects', 'Integration | Component | sortable objects', {
-  integration: true,
-  setup: function() {
-    App = startApp();
-  },
-  teardown: function() {
-    Ember.run(App, 'destroy');
-  }
+  integration: true
 });
+
+let visibleNumbers = function(selector = '.sortObject') {
+  return $(selector).text().match(/\d/g);
+};
+
+let appearsDragging = function(assert, selector, yes = true) {
+  let opacity      = yes ? 0.5 : 1,
+      condition    = yes ? '' : 'not',
+      startMessage = `when item is ${condition} dragging`,
+      element      = $(selector);
+  assert.equal(element.hasClass('is-dragging-object'), yes, `${startMessage} has class 'is-dragging-object' => ${yes}`);
+  assert.equal(element.css('opacity'), opacity, `${startMessage} opacity => ${opacity}`);
+};
 
 test('sortable object renders', function(assert) {
   assert.expect(3);
@@ -50,21 +60,17 @@ test('sortable object renders', function(assert) {
   assert.equal(this.$('.draggable-object').length, 2);
 });
 
-test('sortable object renders draggable objects', function(assert) {
-  const self = this;
-  let event = MockDataTransfer.makeMockEvent();
-  assert.expect(17);
+test('sortable object renders draggable objects', async function(assert) {
+  assert.expect(8);
 
   this.set('pojoData', pojoData);
-  this.on('sortEndAction', function() {
-    const pojoObj = self.get('pojoData');
-    //make sure object is in the right order
-    assert.equal(pojoObj[0].id, 2, 'Pojo item one is correct');
-    assert.equal(pojoObj[1].id, 1, 'Pojo item two is correct');
-    assert.equal(pojoObj[2].id, 3, 'Pojo item three is correct');
-    assert.equal(pojoObj[3].id, 4, 'Pojo item four is correct');
 
+  this.on('sortEndAction', () => {
+    const pojoObj = this.get('pojoData');
+    //make sure object items are in the right order
+    assert.deepEqual(pojoObj.mapBy('id'), [2, 1, 3, 4], 'after sorting Pojo item list changed')
   });
+
   this.render(hbs`
     {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
@@ -75,80 +81,42 @@ test('sortable object renders draggable objects', function(assert) {
     {{/sortable-objects}}
   `);
 
-  assert.equal(this.$('.sortObject').length, 4);
+  assert.equal(this.$('.sortObject').length, 4, 'shows 4 sortable elements');
 
-  let $component = this.$('.sortObject');
-  let $container = this.$('.sortContainer');
+  let startDragSelector = '.sortObject:nth-child(1)',
+      dragOverSelector  = '.sortObject:nth-child(2)';
 
-  //Starts drag as usual
-  //set fake positions
-  event.originalEvent.clientX = 1;
-  event.originalEvent.clientY = 1;
-  Ember.run(function() {
-    triggerEvent($component, 'dragstart', event);
-  });
-  andThen(function() {
-    assert.equal($component.hasClass('is-dragging-object'), true);
-    //item is faded while dragging
-    assert.equal($component.css('opacity'), '0.5');
-  });
-
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 500;
-    triggerEvent($component.get(1), 'dragover', event);
-  });
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 510;
-    triggerEvent($component.get(1), 'dragover', event);
-  });
-  andThen(function() {
-    //Drag over shows swapped items correctly
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'before drop');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1', 'before drop');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3', 'before drop');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4', 'before drop');
-  });
-  Ember.run(function() {
-    triggerEvent($component, 'dragend', event);
-    triggerEvent($container, 'dragend', event);
-    triggerEvent($container, 'drop', event);
-  });
-  andThen(function() {
-    //Visual drag items are reset
-    assert.equal($component.hasClass('is-dragging-object'), false);
-    assert.equal($component.css('opacity'), '1');
-  });
-  andThen(function() {
-    //Items are still visually in the correct order after drag end
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'after drop');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 1', 'after drop');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3', 'after drop');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4', 'after drop');
+  await drag(startDragSelector, {
+    drop: dragOverSelector,
+    dragOverMoves: [
+      [{ clientX: 1, clientY: 500 }],
+      [{ clientX: 1, clientY: 600 }]
+    ],
+    afterDrag() {
+      appearsDragging(assert, startDragSelector, true);
+    },
+    beforeDrop() {
+      assert.deepEqual(visibleNumbers(), w('2 1 3 4'), 'After dragging over and before drop items are already shown in correct order');
+    }
   });
 
+  appearsDragging(assert, startDragSelector, false);
+
+  assert.deepEqual(visibleNumbers(), w('2 1 3 4'), 'Items are still visually in the correct order after drag end');
 });
 
-test('sortable object renders draggable objects using shift algorithm', function(assert) {
-  const self = this;
-  let event = MockDataTransfer.makeMockEvent();
-  assert.expect(13);
+test('sortable object renders draggable objects using shift algorithm', async function(assert) {
+
+  assert.expect(4);
 
   this.set('pojoData', pojoData);
-  this.on('sortEndAction', function() {
-    const pojoObj = self.get('pojoData');
-    //make sure object is in the right order
-    assert.equal(pojoObj[0].id, 2, 'Pojo item one is correct');
-    assert.equal(pojoObj[1].id, 3, 'Pojo item two is correct');
-    assert.equal(pojoObj[2].id, 1, 'Pojo item three is correct');
-    assert.equal(pojoObj[3].id, 4, 'Pojo item four is correct');
 
+  this.on('sortEndAction', () => {
+    const pojoObj = this.get('pojoData');
+    //make sure object items are in the right order
+    assert.deepEqual(pojoObj.mapBy('id'), [2, 3, 1, 4], 'after sorting Pojo item list changed')
   });
+
   this.render(hbs`
     {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' useSwap=false}}
       {{#each pojoData as |item|}}
@@ -161,56 +129,27 @@ test('sortable object renders draggable objects using shift algorithm', function
 
   assert.equal(this.$('.sortObject').length, 4);
 
-  let $component = this.$('.sortObject');
-  let $container = this.$('.sortContainer');
+  let startDragSelector = '.sortObject:nth-child(1)',
+      dragOver2Selector = '.sortObject:nth-child(2)',
+      dragOver3Selector = '.sortObject:nth-child(3)';
 
-  //Starts drag as usual
-  //set fake positions
-  event.originalEvent.clientX = 1;
-  event.originalEvent.clientY = 750;
-  Ember.run(function() {
-    triggerEvent($component, 'dragstart', event);
+  await drag(startDragSelector, {
+    drop: dragOver3Selector,
+    dragOverMoves: [
+      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
+      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+    ],
+    beforeDrop() {
+      assert.deepEqual(visibleNumbers(), w('2 3 1 4'), 'After dragging over and before drop items are already shown in correct order');
+    }
   });
 
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 500;
-    triggerEvent($component.get(1), 'dragover', event);
-  });
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 750;
-    triggerEvent($component.get(2), 'dragover', event);
-  });
-  andThen(function() {
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'before drop');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
-  });
-  Ember.run(function() {
-    triggerEvent($component, 'dragend', event);
-    triggerEvent($container, 'dragend', event);
-    triggerEvent($container, 'drop', event);
-  });
-  andThen(function() {
-    //Items are still visually in the correct order after drag end
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 2', 'after drop');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
-  });
+  assert.deepEqual(visibleNumbers(), w('2 3 1 4'), 'items are still shifted after drop');
 });
 
 
-test('sorting does not happen if off', function(assert) {
-  const self = this;
-  let event = MockDataTransfer.makeMockEvent();
-  assert.expect(14);
+test('sorting does not happen if off', async function(assert) {
+  assert.expect(8);
 
   this.set('pojoData', pojoData);
 
@@ -232,62 +171,29 @@ test('sorting does not happen if off', function(assert) {
 
   assert.equal(this.$('.sortObject').length, 4);
 
-  let $component = this.$('.sortObject');
-  let $container = this.$('.sortContainer');
+  let startDragSelector = '.sortObject:nth-child(1)',
+      dragOver2Selector = '.sortObject:nth-child(2)';
 
-  //Starts drag as usual
-  //set fake positions
-  event.originalEvent.clientX = 1;
-  event.originalEvent.clientY = 1;
-  Ember.run(function() {
-    triggerEvent($component, 'dragstart', event);
-  });
-  andThen(function() {
-    assert.equal($component.hasClass('is-dragging-object'), true);
-    //item is faded while dragging
-    assert.equal($component.css('opacity'), '0.5');
+  await drag(startDragSelector, {
+    drop: dragOver2Selector,
+    dragOverMoves: [
+      [{ clientX: 1, clientY: 500 }],
+      [{ clientX: 1, clientY: 501 }]
+    ],
+    afterDrag() {
+      appearsDragging(assert, startDragSelector, true);
+    },
+    beforeDrop() {
+      assert.deepEqual(visibleNumbers(), w('1 2 3 4'), 'Drag over does not affect order');
+    }
   });
 
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 500;
-    triggerEvent($component.get(1), 'dragover', event);
-  });
-  Ember.run(function() {
-    let event = MockDataTransfer.makeMockEvent();
-    event.originalEvent.clientX = 1;
-    event.originalEvent.clientY = 501;
-    triggerEvent($component.get(1), 'dragover', event);
-  });
-  andThen(function() {
-    //Drag over does not affect order
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 2');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
-  });
-  Ember.run(function() {
-    triggerEvent($component, 'dragend', event);
-    triggerEvent($container, 'dragend', event);
-    triggerEvent($container, 'drop', event);
-  });
-  andThen(function() {
-    //Visual drag items are reset
-    assert.equal($component.hasClass('is-dragging-object'), false);
-    assert.equal($component.css('opacity'), '1');
-  });
-  andThen(function() {
-    //Items are still visually in the correct order after drag end
-    let $components = self.$('.sortObject');
-    assert.equal(self.$($components.get(0)).text().trim(), 'Number 1');
-    assert.equal(self.$($components.get(1)).text().trim(), 'Number 2');
-    assert.equal(self.$($components.get(2)).text().trim(), 'Number 3');
-    assert.equal(self.$($components.get(3)).text().trim(), 'Number 4');
-  });
-  andThen(function() {
-    assert.equal(sortEndActionCalled, false);
-  });
+  //Visual drag items are reset
+  appearsDragging(assert, startDragSelector, false);
+
+  //Items are still visually in the start order after drag end
+  assert.deepEqual(visibleNumbers(), w('1 2 3 4'), 'Items did not change order after drop');
+
+  assert.equal(sortEndActionCalled, false);
 });
 //need to test ember data objects

@@ -1,41 +1,33 @@
 import Ember from 'ember';
-import { moduleForComponent, test } from 'ember-qunit';
+import {moduleForComponent, test} from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import startApp from '../../helpers/start-app';
 import Coordinator from '../../../models/coordinator';
-import { drag } from '../../helpers/ember-drag-drop';
+import {drag} from '../../helpers/drag-drop';
 
-let App;
+const { $ } = Ember;
 
 moduleForComponent('ember-drag-drop', 'Integration | Helpers', {
   integration: true,
-  setup: function() {
-    App = startApp();
-  },
-  teardown: function() {
-    Ember.run(App, 'destroy');
-  }
-
 });
 
-const collection = ['hip hop', 'jazz', 'funk'];
+const collection = ['hiphop', 'jazz', 'funk'];
 const template = hbs`
   {{#each collection as |genre index|}}
-    {{#draggable-object coordinator=coordinator content=genre}}
+    {{#draggable-object classNames=genre coordinator=coordinator content=genre}}
       <div class="item">{{genre}}</div>
     {{/draggable-object}}
 
-    {{draggable-object-target class='drop-target' action=dropAction destination=index coordinator=coordinator}}
+    {{draggable-object-target classNames=genre class='drop-target' action=dropAction destination=index coordinator=coordinator}}
   {{/each}}
 `;
 
-test('drag helper drags to a draggable object target and calls the action upon drop', function(assert) {
+test('drag helper drags to a draggable object target and calls the action upon drop', async function(assert) {
   assert.expect(2);
 
   let coordinator = Coordinator.create();
 
   coordinator.on('objectMoved', function(ops) {
-    assert.equal(ops.obj, 'hip hop');
+    assert.equal(ops.obj, 'hiphop');
     assert.equal(ops.target.destination, 1);
   });
 
@@ -43,14 +35,12 @@ test('drag helper drags to a draggable object target and calls the action upon d
   this.set('coordinator', coordinator);
   this.render(template);
 
-  drag('.draggable-object:contains("hip hop")', {
-    drop: '.drop-target:eq(1)'
-  });
+  await drag('.draggable-object.hiphop', { drop: '.drop-target.jazz' });
 });
 
-test('drag helper allows a callback to be called before dropping', function(assert) {
+test('drag helper allows a callback to be called before dropping', async function(assert) {
   assert.expect(3);
-  const $ = this.$;
+
   let coordinator = Coordinator.create();
 
   coordinator.on('objectMoved', function(ops) {
@@ -62,10 +52,11 @@ test('drag helper allows a callback to be called before dropping', function(asse
   this.set('coordinator', coordinator);
   this.render(template);
 
-  drag('.draggable-object:contains("jazz")', {
-    drop: '.drop-target:eq(2)',
-    beforeDrop: function() {
-      assert.ok($('.is-dragging-object.draggable-object:contains("jazz")'));
+  await drag('.draggable-object.jazz', {
+    drop: '.drop-target.funk',
+    beforeDrop() {
+      assert.ok($('.is-dragging-object.draggable-object:contains("jazz")'))
     }
   });
+
 });
