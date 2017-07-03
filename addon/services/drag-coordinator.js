@@ -95,33 +95,24 @@ export default Ember.Service.extend({
         //use swap algorithm
         // Swap if items are in the same sortable-objects component
         const newList = aSortable.get('sortableObjectList').toArray();
-        const newArray = Ember.A();
         const aPos = newList.indexOf(a);
         const bPos = newList.indexOf(b);
 
         newList[aPos] = b;
         newList[bPos] = a;
 
-        newList.forEach(function(item) {
-          newArray.push(item);
-        });
-        aSortable.set('sortableObjectList', newArray);
+        aSortable.set('sortableObjectList', newList);
 
       } else {
         //use shift algorithm
         const newList = aSortable.get('sortableObjectList').toArray();
-        var newArray = Ember.A();
         var aPos = newList.indexOf(a);
         var bPos = newList.indexOf(b);
 
         newList.splice(aPos, 1);
         newList.splice(bPos, 0, a);
 
-        newList.forEach(function(item){
-          newArray.push(item);
-        });
-
-        aSortable.set('sortableObjectList', newArray);
+        aSortable.set('sortableObjectList', newList);
       }
 
 
