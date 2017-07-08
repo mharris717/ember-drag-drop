@@ -292,7 +292,7 @@ For a fuller example check out this integration [test](https://github.com/mharri
 
 **Note #2** 
   You don't have to use the new async/await helper. 
-  You can simple keep using the older drag  helper ( which makes your tests far slower because you have to start the application for each test. )
+  You can simply keep using the older drag  helper ( which makes your tests far slower because you have to start the application for each test. )
   This older helper only has one option ( beforeDrop )
     
   ```javascript
