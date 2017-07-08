@@ -211,9 +211,10 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
  - Has one argument 
    - the drag start selector 
    - Example: ```.draggable-object.drag-handle```
- - takes options:
+ - And many options:
    - **dragStartOptions**
-     - used to set a cursor position for the drag start event 
+     - options for the drag-start event
+     - can be used to set a cursor position for the drag start event 
      - Example:  ```{ pageX: 0, pageY: 0 }``` 
    - **dragOverMoves**
      - array of moves used to simulate dragging over. 
@@ -221,40 +222,38 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
        and will use the 'drop' selector ( from drop options ) as default
      - Example:   
  ``` 
-          [
-           [{ clientX: 1, clientY: 500 }, '.drag-move-div'],  
-           [{ clientX: 1, clientY: 600 }, '.drag-move-div']
-         ]
- ```
-     or 
- ``` 
-         [
-          [{ clientX: 1, clientY: 500 }], // moves drop selector  
-          [{ clientX: 1, clientY: 600 }] // moves drop selector
-        ] 
+                   [
+                     [{ clientX: 1, clientY: 500 }, '.drag-move-div'],  
+                     [{ clientX: 1, clientY: 600 }, '.drag-move-div']
+                   ]
+               or     
+                   [
+                    [{ clientX: 1, clientY: 500 }], // moves drop selector  
+                    [{ clientX: 1, clientY: 600 }] // moves drop selector
+                   ] 
  ```
   - **dropEndOptions**
-     - used to set a cursor position for the drag end event like 
-     - Example:  ```{ pageX: 0, pageY: 0 }```
+    - options for the drag-end event
+    - can be used to set a cursor position for the drag end event  
+    - Example:  ```{ pageX: 0, pageY: 0 }```
   - **afterDrag**
      - a function to call after dragging actions are complete
      - gives you a chance to inspect state after dragging
      - Example:
-     ```
+ ```
        afterDrag() {
          // check on state of things  
-       }
-      ```
-
+       }   
+  ```
   - **beforeDrop** 
     - a function to call before drop action is called
     - gives you a chance to inspect state before dropping
     - Example:
-     ```
+ ```
        beforeDrop() {
          // check on state of things 
        }
-      ```
+ ```
    - **drop**
      - selector for the element to drop onto  
      - Example: ```.drop-target-div```
