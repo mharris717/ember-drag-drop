@@ -221,7 +221,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
      - it's an array of [position, selector] arrays where the selector is optional
        and will use the 'drop' selector ( from drop options ) as default
      - Example:   
- ``` 
+ ```js 
                    [
                      [{ clientX: 1, clientY: 500 }, '.drag-move-div'],  
                      [{ clientX: 1, clientY: 600 }, '.drag-move-div']
@@ -240,7 +240,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
      - a function to call after dragging actions are complete
      - gives you a chance to inspect state after dragging
      - Example:
- ```
+ ```js
        afterDrag() {
          // check on state of things  
        }   
@@ -249,7 +249,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
     - a function to call before drop action is called
     - gives you a chance to inspect state before dropping
     - Example:
- ```
+ ```js
        beforeDrop() {
          // check on state of things 
        }
@@ -260,7 +260,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
      
 - You import it like this:
 
-```javascript
+```js
 // new async helper
 import { drag } from 'your-app/tests/helpers/drag-drop';
 ```
@@ -269,7 +269,7 @@ You can pass the CSS selector for the `draggable-object-target` and pass a `befo
 
 Async test Example:
              
-```javascript
+```js
 test('drag stuff', async function(assert) {
   // setup component
   await drag('.draggable-object.drag-handle', {
