@@ -5,6 +5,10 @@ node_js:
 
 sudo: false
 
+addons:
+  firefox: latest-esr
+  chrome: stable
+
 cache:
   directories:
     - node_modules
