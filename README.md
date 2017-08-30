@@ -273,7 +273,7 @@ Async test Example:
 test('drag stuff', async function(assert) {
   // setup component
   await drag('.draggable-object.drag-handle', {
-      drop: '.draggable-object-target:eq(1)'
+      drop: '.draggable-container .draggable-object-target:nth-child(1)'
   });
   
   assert.equal("things happened", true);
