@@ -196,4 +196,37 @@ test('sorting does not happen if off', async function(assert) {
 
   assert.equal(sortEndActionCalled, false);
 });
+
+test('sort in place', async function(assert) {
+  const mutableData = Ember.A(pojoData.slice());
+  this.set('pojoData', mutableData);
+
+  this.render(hbs`
+    {{#sortable-objects sortableObjectList=pojoData class='sortContainer' useSwap=false inPlace=true}}
+      {{#each pojoData as |item|}}
+        {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
+          {{item.title}}
+        {{/draggable-object}}
+      {{/each}}
+    {{/sortable-objects}}
+  `);
+
+  assert.equal(this.$('.sortObject').length, 4);
+
+  let startDragSelector = '.sortObject:nth-child(1)',
+    dragOver2Selector = '.sortObject:nth-child(2)',
+    dragOver3Selector = '.sortObject:nth-child(3)';
+
+  await drag(startDragSelector, {
+    drop: dragOver3Selector,
+    dragOverMoves: [
+      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
+      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+    ]
+  });
+
+  assert.equal(mutableData, this.get('pojoData'), 'array reference should not change');
+  assert.deepEqual(mutableData.mapBy('id'), [2, 3, 1, 4], 'original array should be mutated');
+});
+
 //need to test ember data objects
