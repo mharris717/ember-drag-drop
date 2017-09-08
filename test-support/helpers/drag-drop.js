@@ -9,8 +9,8 @@ async function dragOver(dropSelector, moves) {
   });
 }
 
-async function drop(dragHandle, dragEvent, options) {
-  let { drop: dropSelector, location, dragOverMoves } = options;
+async function drop(dragSelector, dragEvent, options) {
+  let { drop: dropSelector, dropEndOptions, dragOverMoves } = options;
 
   let dropElement = await find(dropSelector);
   if (!dropElement) {
@@ -26,21 +26,21 @@ async function drop(dragHandle, dragEvent, options) {
   let event = new MockEvent().useDataTransferData(dragEvent);
   await triggerEvent(dropSelector, 'drop', event);
 
-  return await triggerEvent(dragHandle, 'dragend', location);
+  return await triggerEvent(dragSelector, 'dragend', dropEndOptions);
 }
 
-export async function drag(cssPath, options = {}) {
-  let dragEvent = new MockEvent();
+export async function drag(dragSelector, options = {}) {
+  let dragEvent = new MockEvent(options.dragStartOptions);
 
-  await triggerEvent(cssPath, 'mouseover');
+  await triggerEvent(dragSelector, 'mouseover');
 
-  await triggerEvent(cssPath, 'dragstart', dragEvent);
+  await triggerEvent(dragSelector, 'dragstart', dragEvent);
 
   if (options.afterDrag) {
     await options.afterDrag.call();
   }
 
   if (options.drop) {
-    await drop(cssPath, dragEvent, options);
+    await drop(dragSelector, dragEvent, options);
   }
 }
