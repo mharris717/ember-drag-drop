@@ -3,7 +3,12 @@ language: node_js
 node_js:
   - "6"
 
+dist: trusty
 sudo: false
+
+addons:
+  firefox: latest-esr
+  chrome: stable
 
 cache:
   directories:
@@ -30,6 +35,9 @@ before_install:
   - bower --version
   - npm install -g bower phantomjs-prebuilt
   - phantomjs --version
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 3 # wait for xfvb to start up
 
 install:
   - npm install
