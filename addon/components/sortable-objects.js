@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend( {
   dragCoordinator: Ember.inject.service(),
-  tagName: 'div',
   overrideClass: 'sortable-objects',
   classNameBindings: ['overrideClass'],
   enableSort: true,
@@ -24,7 +23,7 @@ export default Ember.Component.extend( {
     }
   },
 
-  dragStart: function(event) {
+  dragStart(event) {
     event.stopPropagation();
     if (!this.get('enableSort')) {
       return false;
@@ -32,19 +31,19 @@ export default Ember.Component.extend( {
     this.set('dragCoordinator.sortComponentController', this);
   },
 
-  dragEnter: function(event) {
+  dragEnter(event) {
     //needed so drop event will fire
     event.stopPropagation();
     return false;
   },
 
-  dragOver: function(event) {
+  dragOver(event) {
     //needed so drop event will fire
     event.stopPropagation();
     return false;
   },
 
-  drop: function(event) {
+  drop(event) {
     event.stopPropagation();
     if (this.get('enableSort')) {
       this.sendAction('sortEndAction', event);

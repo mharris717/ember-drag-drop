@@ -6,31 +6,33 @@ export default Ember.Component.extend(Droppable, {
   overrideClass: 'draggable-object-target',
   isOver: false,
 
-  handlePayload: function(payload, event) {
-    var obj = this.get('coordinator').getObject(payload,{target: this});
+  handlePayload(payload, event) {
+    let obj = this.get('coordinator').getObject(payload,{target: this});
     this.sendAction('action',obj,{target: this, event: event});
   },
 
-  handleDrop: function(event) {
-    var dataTransfer = event.dataTransfer;
-    var payload = dataTransfer.getData("Text");
-    if (payload === "") { return; }
+  handleDrop(event) {
+    let dataTransfer = event.dataTransfer;
+    let payload = dataTransfer.getData("Text");
+    if (payload === '') { return; }
     this.handlePayload(payload, event);
   },
 
-  acceptDrop: function(event) {
+  acceptDrop(event) {
     this.handleDrop(event);
     //Firefox is navigating to a url on drop sometimes, this prevents that from happening
     event.preventDefault();
   },
-  handleDragOver: function(event) {
+
+  handleDragOver(event) {
     if (!this.get('isOver')) {
       //only send once per hover event
       this.set('isOver', true);
       this.sendAction('dragOverAction', event);
     }
   },
-  handleDragOut: function(event) {
+
+  handleDragOut(event) {
     this.set('isOver', false);
     this.sendAction('dragOutAction', event);
   },
@@ -57,8 +59,8 @@ export default Ember.Component.extend(Droppable, {
   },
 
   actions: {
-    acceptForDrop: function() {
-      var hashId = this.get('coordinator.clickedId');
+    acceptForDrop() {
+      let hashId = this.get('coordinator.clickedId');
       this.handlePayload(hashId);
     }
   }
