@@ -1,9 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Object.extend({
-  content: {},
   contentLength: 0,
   length: Ember.computed.alias('contentLength'),
+
+  init: function() {
+    this._super();
+    this.content = {};
+  },
 
   add: function(obj) {
     var id = this.generateId();
