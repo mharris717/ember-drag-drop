@@ -1,3 +1,4 @@
+/* global triggerEvent , andThen */
 import Ember from 'ember';
 import $ from 'jquery';
 import MockDataTransfer from '../../tests/helpers/data-transfer';
