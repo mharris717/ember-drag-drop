@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   dragCoordinator: Ember.inject.service(),
-  tagName: "div",
   overrideClass: 'draggable-object',
   classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
@@ -13,14 +12,9 @@ export default Ember.Component.extend({
   title: Ember.computed.alias('content.title'),
 
   draggable: Ember.computed('isDraggable', function() {
-    var isDraggable = this.get('isDraggable');
+    let isDraggable = this.get('isDraggable');
 
-    if (isDraggable) {
-      return true;
-    }
-    else {
-      return null;
-    }
+    return isDraggable || null;
   }),
 
   init() {
@@ -31,17 +25,17 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', ()=> {
-      let self = this;
+    Ember.run.scheduleOnce('afterRender', () => {
       //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
-      if (this.get('dragHandle')) {
+      let dragHandle = this.get('dragHandle');
+      if (dragHandle) {
         //only start when drag handle is activated
-        if (this.$(this.get('dragHandle'))) {
-          this.$(this.get('dragHandle')).on('mouseover', function(){
-            self.set('dragReady', true);
+        if (this.$(dragHandle)) {
+          this.$(dragHandle).on('mouseover', () => {
+            this.set('dragReady', true);
           });
-          this.$(this.get('dragHandle')).on('mouseout', function(){
-            self.set('dragReady', false);
+          this.$(dragHandle).on('mouseout', () => {
+            this.set('dragReady', false);
           });
         }
       }
@@ -49,8 +43,9 @@ export default Ember.Component.extend({
   },
 
   willDestroyElement(){
-    if (this.$(this.get('dragHandle'))) {
-      this.$(this.get('dragHandle')).off();
+    let dragHandle = this.get('dragHandle');
+    if (this.$(dragHandle)) {
+      this.$(dragHandle).off();
     }
   },
 
@@ -60,14 +55,14 @@ export default Ember.Component.extend({
       return;
     }
 
-    var dataTransfer = event.dataTransfer;
+    let dataTransfer = event.dataTransfer;
 
-    var obj = this.get('content');
-    var id = null;
-    if (this.get('coordinator')) {
-       id = this.get('coordinator').setObject(obj, { source: this });
+    let obj = this.get('content');
+    let id = null;
+    let coordinator = this.get('coordinator');
+    if (coordinator) {
+       id = coordinator.setObject(obj, { source: this });
     }
-
 
     dataTransfer.setData('Text', id);
 
@@ -80,7 +75,7 @@ export default Ember.Component.extend({
       event.preventDefault();
       return;
     } else {
-      Ember.run.later(()=> {
+      Ember.run.next(()=> {
         this.dragStartHook(event);
       });
       this.get('dragCoordinator').dragStarted(obj, event, this);
@@ -96,7 +91,7 @@ export default Ember.Component.extend({
       return;
     }
 
-    var obj = this.get('content');
+    let obj = this.get('content');
 
     if (obj && typeof obj === 'object') {
       Ember.set(obj, 'isDraggingObject', false);
@@ -110,7 +105,7 @@ export default Ember.Component.extend({
     }
   },
 
-  drag: function(event) {
+  drag(event) {
     this.sendAction('dragMoveAction', event);
   },
 
@@ -136,8 +131,8 @@ export default Ember.Component.extend({
 
   actions: {
     selectForDrag() {
-      var obj = this.get('content');
-      var hashId = this.get('coordinator').setObject(obj, { source: this });
+      let obj = this.get('content');
+      let hashId = this.get('coordinator').setObject(obj, { source: this });
       this.set('coordinator.clickedId', hashId);
     }
   }

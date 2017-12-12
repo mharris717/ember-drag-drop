@@ -41,7 +41,7 @@ var Droppable = Ember.Mixin.create({
    * Example:
    *
    * ```js
-   * validateDragEvent: function(event) {
+   * validateDragEvent(event) {
    *   return event.dataTransfer.types.contains('text/x-foo');
    * }
    * ```
@@ -50,7 +50,7 @@ var Droppable = Ember.Mixin.create({
    * @public
    */
 
-  validateDragEvent: function() {
+  validateDragEvent() {
     return true;
   },
 
@@ -79,7 +79,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  dragOver: function(event) {
+  dragOver(event) {
     if (this._droppableIsDraggable(event)) {
       this.set('self-drop', true);
     }
@@ -99,7 +99,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  dragEnter: function() {
+  dragEnter() {
     return false;
   },
 
@@ -108,7 +108,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  drop: function(event) {
+  drop(event) {
     // have to validate on drop because you may have nested sortables the
     // parent allows the drop but the child receives it, revalidating allows
     // the event to bubble up to the parent to handle it
@@ -129,7 +129,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  _allowDrop: function(event) {
+  _allowDrop(event) {
     this.handleDragOver(event);
     event.stopPropagation();
     event.preventDefault();
@@ -144,7 +144,7 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  _droppableIsDraggable: function(event) {
+  _droppableIsDraggable(event) {
     return Droppable._currentDrag && (
       Droppable._currentDrag === event.target ||
       Droppable._currentDrag.contains(event.target)
@@ -156,13 +156,13 @@ var Droppable = Ember.Mixin.create({
    * @private
    */
 
-  _resetDroppability: function(event) {
+  _resetDroppability(event) {
     this.handleDragOut(event);
     this.set('accepts-drag', false);
     this.set('self-drop', false);
   },
 
-  dragLeave: function() {
+  dragLeave() {
    this._resetDroppability();
   },
 
@@ -175,4 +175,3 @@ var Droppable = Ember.Mixin.create({
 });
 
 export default Droppable;
-

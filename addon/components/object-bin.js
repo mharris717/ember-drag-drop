@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-var removeOne = function(arr,obj) {
+function removeOne(arr,obj) {
   var l = arr.get('length');
   arr.removeObject(obj);
   var l2 = arr.get('length');
@@ -8,7 +8,7 @@ var removeOne = function(arr,obj) {
   if (l-1 !== l2) {
     throw "bad length " + l + " " + l2;
   }
-};
+}
 
 export default Ember.Component.extend( {
   model: Ember.A(),
@@ -16,11 +16,11 @@ export default Ember.Component.extend( {
 
   manageList: true,
 
-  objectMoved: function() {
+  objectMoved() {
   },
 
   actions: {
-    handleObjectDropped: function(obj) {
+    handleObjectDropped(obj) {
       if (this.get('manageList')) {
         this.get("model").pushObject(obj);
       }
@@ -29,13 +29,12 @@ export default Ember.Component.extend( {
       this.sendAction("objectDropped",{obj: obj, bin: this});
     },
 
-    handleObjectDragged: function(obj) {
+    handleObjectDragged(obj) {
       if (this.get('manageList')) {
         removeOne(this.get('model'),obj);
       }
       this.trigger("objectDraggedInternal",obj);
       this.sendAction("objectDragged");
-
     }
   }
 });
