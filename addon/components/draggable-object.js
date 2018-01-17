@@ -47,6 +47,9 @@ export default Ember.Component.extend({
     if (this.$(dragHandle)) {
       this.$(dragHandle).off();
     }
+    if (this.get('isDraggingObject')) {
+      this.get('dragCoordinator').dragEnded();
+    }
   },
 
   dragStart(event) {
