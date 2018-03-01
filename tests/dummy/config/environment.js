@@ -1,9 +1,9 @@
-/* jshint node: true */
+'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'dummy',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {
@@ -26,10 +26,6 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
-  if (environment === 'production') {
-    ENV.locationType = 'hash';
-    ENV.rootURL = '/ember-drag-drop/';
-  }
 
   if (environment === 'test') {
     // Testem prefers this...
@@ -40,10 +36,12 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
-
+    ENV.locationType = 'hash';
+    ENV.rootURL = '/ember-drag-drop/';
   }
 
   return ENV;
