@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
 
 /**
  * Wraps the native drop events to make your components droppable.
@@ -6,7 +6,7 @@ import Ember from 'ember';
  * @mixin Droppable
  */
 
-var Droppable = Ember.Mixin.create({
+var Droppable = Mixin.create({
   _currentDrag: null,
   classNameBindings: [
     'accepts-drag',

@@ -1,10 +1,9 @@
-import Ember from 'ember';
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import MockEvent from '../../helpers/mock-event';
-import {triggerEvent} from 'ember-native-dom-helpers';
+import { triggerEvent } from 'ember-native-dom-helpers';
 
-const { $ } = Ember;
+import $ from 'jquery';
 
 moduleForComponent('draggable-object', 'Integration | Component | draggable object', {
   integration: true,

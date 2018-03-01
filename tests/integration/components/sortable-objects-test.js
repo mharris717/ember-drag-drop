@@ -1,12 +1,11 @@
-import Ember from 'ember';
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import {drag} from '../../helpers/drag-drop';
+import { drag } from '../../helpers/drag-drop';
+import { A } from '@ember/array';
+import { w } from '@ember/string';
+import $ from 'jquery';
 
-const { w } = Ember.String;
-const { $ } = Ember;
-
-let pojoData = Ember.A(
+let pojoData = A(
   [
     { id: 1, title: 'Number 1' },
     { id: 2, title: 'Number 2' },
@@ -198,7 +197,7 @@ test('sorting does not happen if off', async function(assert) {
 });
 
 test('sort in place', async function(assert) {
-  const mutableData = Ember.A(pojoData.slice());
+  const mutableData = A(pojoData.slice());
   this.set('pojoData', mutableData);
 
   this.render(hbs`

@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { A } from '@ember/array';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   useSwap: true,
   sortFinishText: null,
-  sortableObjectList: Ember.A(
+  sortableObjectList: A(
     [{id: 1, title:'Number 1'},
       {id: 2, title:'Number 2'},
       {id: 3, title:'Number 3'},

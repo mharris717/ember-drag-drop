@@ -1,10 +1,8 @@
-import Ember from 'ember';
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import Coordinator from '../../../models/coordinator';
-import {drag} from '../../helpers/drag-drop';
-
-const { $ } = Ember;
+import { drag } from '../../helpers/drag-drop';
+import $ from 'jquery';
 
 moduleForComponent('ember-drag-drop', 'Integration | Helpers', {
   integration: true,

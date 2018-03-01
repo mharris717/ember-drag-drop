@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
 
-var c = Ember.Object.extend({
+var c = EmberObject.extend({
   getData: function() {
     return this.get('payload');
   },

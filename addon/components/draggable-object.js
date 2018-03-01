@@ -1,7 +1,13 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject as service} from '@ember/service';
+import { alias } from '@ember/object/computed';
+import { computed } from '@ember/object';
+import { scheduleOnce, next } from '@ember/runloop';
+import { set } from '@ember/object';
+import $ from 'jquery';
 
-export default Ember.Component.extend({
-  dragCoordinator: Ember.inject.service(),
+export default Component.extend({
+  dragCoordinator: service(),
   overrideClass: 'draggable-object',
   classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
@@ -9,9 +15,9 @@ export default Ember.Component.extend({
   dragReady: true,
   isSortable: false,
   sortingScope: 'drag-objects',
-  title: Ember.computed.alias('content.title'),
+  title: alias('content.title'),
 
-  draggable: Ember.computed('isDraggable', function() {
+  draggable: computed('isDraggable', function() {
     let isDraggable = this.get('isDraggable');
 
     return isDraggable || null;
@@ -25,7 +31,7 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    Ember.run.scheduleOnce('afterRender', () => {
+    scheduleOnce('afterRender', () => {
       //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
       let dragHandle = this.get('dragHandle');
       if (dragHandle) {
@@ -67,7 +73,7 @@ export default Ember.Component.extend({
     dataTransfer.setData('Text', id);
 
     if (obj && typeof obj === 'object') {
-      Ember.set(obj, 'isDraggingObject', true);
+      set(obj, 'isDraggingObject', true);
     }
     this.set('isDraggingObject', true);
     if (!this.get('dragCoordinator.enableSort') && this.get('dragCoordinator.sortComponentController')) {
@@ -75,7 +81,7 @@ export default Ember.Component.extend({
       event.preventDefault();
       return;
     } else {
-      Ember.run.next(()=> {
+      next(()=> {
         this.dragStartHook(event);
       });
       this.get('dragCoordinator').dragStarted(obj, event, this);
@@ -94,7 +100,7 @@ export default Ember.Component.extend({
     let obj = this.get('content');
 
     if (obj && typeof obj === 'object') {
-      Ember.set(obj, 'isDraggingObject', false);
+      set(obj, 'isDraggingObject', false);
     }
     this.set('isDraggingObject', false);
     this.dragEndHook(event);
@@ -117,11 +123,11 @@ export default Ember.Component.extend({
   },
 
   dragStartHook(event) {
-    Ember.$(event.target).css('opacity', '0.5');
+    $(event.target).css('opacity', '0.5');
   },
 
   dragEndHook(event) {
-    Ember.$(event.target).css('opacity', '1');
+    $(event.target).css('opacity', '1');
   },
 
   drop(event) {

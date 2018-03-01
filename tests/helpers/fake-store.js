@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { Promise } from 'rsvp';
 
 var isNumber = function(obj) {
   var a = obj-1;
@@ -6,10 +7,10 @@ var isNumber = function(obj) {
   return (b-a)===2;
 };
 
-var FakeStore = Ember.Object.extend({
+var FakeStore = EmberObject.extend({
   findSingle: function(name,id) {
     var me = this;
-    return new Ember.RSVP.Promise(function(success) {
+    return new Promise(function(success) {
       var all = me.get('all');
       var res  = null;
       all.forEach(function(obj) {
@@ -37,7 +38,7 @@ FakeStore.reopenClass({
   makeNumberStore: function(max) {
     var all = [];
     for (var i=1;i<=max;i++) {
-      all.push(Ember.Object.create({id: i}));
+      all.push(Object.create({id: i}));
     }
     return this.create({all: all});
   }
