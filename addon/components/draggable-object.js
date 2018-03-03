@@ -86,7 +86,11 @@ export default Component.extend({
       });
       this.get('dragCoordinator').dragStarted(obj, event, this);
     }
-    this.sendAction('dragStartAction', obj, event);
+
+    if( this.get('dragStartAction')) {
+      this.get('dragStartAction')(obj, event);
+    }
+    
     if (this.get('isSortable')) {
       this.sendAction('draggingSortItem', obj, event);
     }
