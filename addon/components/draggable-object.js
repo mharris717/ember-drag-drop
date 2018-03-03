@@ -90,9 +90,9 @@ export default Component.extend({
     if( this.get('dragStartAction')) {
       this.get('dragStartAction')(obj, event);
     }
-    
-    if (this.get('isSortable')) {
-      this.sendAction('draggingSortItem', obj, event);
+
+    if (this.get('isSortable') && this.get('draggingSortItem')) {
+      this.get('draggingSortItem')(obj, event);
     }
   },
 
