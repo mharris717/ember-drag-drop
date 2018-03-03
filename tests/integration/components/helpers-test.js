@@ -5,7 +5,7 @@ import { drag } from '../../helpers/drag-drop';
 import $ from 'jquery';
 
 moduleForComponent('ember-drag-drop', 'Integration | Helpers', {
-  integration: true,
+  integration: true
 });
 
 const collection = ['hiphop', 'jazz', 'funk'];
@@ -15,12 +15,12 @@ const template = hbs`
       <div class="item">{{genre}}</div>
     {{/draggable-object}}
 
-    {{draggable-object-target classNames=genre class='drop-target' action=dropAction destination=index coordinator=coordinator}}
+    {{draggable-object-target classNames=genre class='drop-target' action=(action dropAction) destination=index coordinator=coordinator}}
   {{/each}}
 `;
 
 test('drag helper drags to a draggable object target and calls the action upon drop', async function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   let coordinator = Coordinator.create();
 
@@ -31,6 +31,10 @@ test('drag helper drags to a draggable object target and calls the action upon d
 
   this.set('collection', collection);
   this.set('coordinator', coordinator);
+  this.set('dropAction', () => {
+    assert.ok(true, 'called drop action');
+  })
+
   this.render(template);
 
   await drag('.draggable-object.hiphop', { drop: '.drop-target.jazz' });
@@ -48,6 +52,7 @@ test('drag helper allows a callback to be called before dropping', async functio
 
   this.set('collection', collection);
   this.set('coordinator', coordinator);
+  this.set('dropAction', () => {});
   this.render(template);
 
   await drag('.draggable-object.jazz', {

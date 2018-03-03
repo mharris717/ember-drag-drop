@@ -1,4 +1,4 @@
-{{#draggable-object-target action="handleObjectDropped"}}
+{{#draggable-object-target action=(action 'handleObjectDropped') }}
   <div class="object-bin-title">{{name}}</div>
   <br>
   {{#each model as |obj|}}

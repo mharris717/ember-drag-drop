@@ -10,12 +10,12 @@ The two things to provide to the component are:
 The action is called with two arguments:
 
 * The dragged object.
-* An options hash. Currently the only key is `target`, which is the draggable-object-target component. 
+* An options hash. Currently the only key is `target`, which is the draggable-object-target component.
 
 ```handlebars
 ... your regular template code
 
-{{#draggable-object-target action="increaseRating" amount="5"}}
+{{#draggable-object-target action=(action 'increaseRating') amount="5"}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```

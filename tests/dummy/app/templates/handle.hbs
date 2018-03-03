@@ -1,6 +1,6 @@
 <h3>Drag and Drop With a handle</h3>
 
-{{#draggable-object-target action="dragResult" resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' overrideClass='dropTarget'}}
+{{#draggable-object-target action=(action 'dragResult') resultText='Drag is Complete' dragOverAction='draggingOverTarget' dragOutAction='leftDragTarget' overrideClass='dropTarget'}}
   {{#if dragFinishText}}
     {{dragFinishText}}
   {{else}}

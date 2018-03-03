@@ -8,7 +8,7 @@ export default Component.extend(Droppable, {
 
   handlePayload(payload, event) {
     let obj = this.get('coordinator').getObject(payload,{target: this});
-    this.sendAction('action',obj,{target: this, event: event});
+    this.get('action')(obj, { target: this, event: event });
   },
 
   handleDrop(event) {

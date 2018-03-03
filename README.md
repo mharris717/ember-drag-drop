@@ -133,7 +133,7 @@ The action is called with two arguments:
 ```handlebars
 ... your regular template code
 
-{{#draggable-object-target action="increaseRating" amount="5"}}
+{{#draggable-object-target action=(action 'increaseRating') amount="5"}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
@@ -141,7 +141,7 @@ The action is called with two arguments:
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-{{#draggable-object-target action="increaseRating" amount="5" dragOverAction='myOverAction' dragOutAction='myDragOutAction'}}
+{{#draggable-object-target action=(action 'increaseRating') amount="5" dragOverAction='myOverAction' dragOutAction='myDragOutAction'}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
@@ -209,21 +209,21 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
 #### drag helper
  - As of v0.4.5 you can use this helper in integration tests without booting up the entire application.
     - Is an async aware helper ( use await to wait for drop to finish )
- - Can be used to test sortable elements as well as plain draggable 
- - Has one argument 
-   - the drag start selector 
+ - Can be used to test sortable elements as well as plain draggable
+ - Has one argument
+   - the drag start selector
    - Example: ```.draggable-object.drag-handle```
  - And many options:
    - **dragStartOptions**
      - options for the drag-start event
-     - can be used to set a cursor position for the drag start event 
-     - Example:  ```{ pageX: 0, pageY: 0 }``` 
+     - can be used to set a cursor position for the drag start event
+     - Example:  ```{ pageX: 0, pageY: 0 }```
    - **dragOverMoves**
-     - array of moves used to simulate dragging over. 
+     - array of moves used to simulate dragging over.
      - it's an array of [position, selector] arrays where the selector is optional
        and will use the 'drop' selector ( from drop options ) as default
      - Example:   
-    ```js 
+    ```js
                    [
                      [{ clientX: 1, clientY: 500 }, '.drag-move-div'],  
                      [{ clientX: 1, clientY: 600 }, '.drag-move-div']
@@ -232,7 +232,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
                    [
                     [{ clientX: 1, clientY: 500 }], // moves drop selector  
                     [{ clientX: 1, clientY: 600 }] // moves drop selector
-                   ] 
+                   ]
     ```
     - **dropEndOptions**
       - options for the drag-end event
@@ -247,19 +247,19 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
          // check on state of things  
        }   
     ```
-    - **beforeDrop** 
+    - **beforeDrop**
       - a function to call before drop action is called
       - gives you a chance to inspect state before dropping
       - Example:
     ```js
        beforeDrop() {
-         // check on state of things 
+         // check on state of things
        }
     ```
    - **drop**
      - selector for the element to drop onto  
      - Example: ```.drop-target-div```
-     
+
 - You import it like this:
 
 ```js
@@ -270,21 +270,21 @@ import { drag } from 'your-app/tests/helpers/drag-drop';
 You can pass the CSS selector for the `draggable-object-target` and pass a `beforeDrop` callback.
 
 Async test Example:
-             
+
 ```js
 test('drag stuff', async function(assert) {
   // setup component
   await drag('.draggable-object.drag-handle', {
       drop: '.draggable-container .draggable-object-target:nth-child(1)'
   });
-  
+
   assert.equal("things happened", true);
 });
 ```
 
 In this example,
- - we're dragging the draggable-object element with CSS selector `.draggable-object.drag-handle` 
- - and dropping on a draggable-object-target with the CSS selector `draggable-object-target:eq(1)`. 
+ - we're dragging the draggable-object element with CSS selector `.draggable-object.drag-handle`
+ - and dropping on a draggable-object-target with the CSS selector `draggable-object-target:eq(1)`.
 
 For a fuller example check out this integration [test](https://github.com/mharris717/ember-drag-drop/blob/master/tests/integration/components/sortable-objects-test.js#L63)
 
@@ -292,16 +292,16 @@ For a fuller example check out this integration [test](https://github.com/mharri
   In order to use async / await style tests you need to tell ember-cli-babel to include a polyfill
   in [ember-cli-build.js](https://github.com/mharris717/ember-drag-drop/blob/master/ember-cli-build.js#L7)  
 
-**Note #2** 
-  You don't have to use the new async/await helper. 
+**Note #2**
+  You don't have to use the new async/await helper.
   You can simply keep using the older drag  helper ( which makes your tests far slower because you have to start the application for each test. )
   This older helper only has one option ( beforeDrop )
-    
+
   ```javascript
   // old drag helper
   import { drag } from 'your-app/tests/helpers/ember-drag-drop';
   ```
- 
+
 ### TODO
 
 Theses additions to sort are still incoming:
@@ -375,11 +375,11 @@ app/templates/posts.hbs
 {{/each}}
 
 <h3>Possible Statuses</h3>
-{{#draggable-object-target action="setStatus" status="Ready to Publish"}}
+{{#draggable-object-target action=(action 'setStatus') status="Ready to Publish"}}
   Ready to Publish
 {{/draggable-object-target}}
 
-{{#draggable-object-target action="setStatus" status="Needs Revision"}}
+{{#draggable-object-target action=(action 'setStatus') status="Needs Revision"}}
   Needs Revision
 {{/draggable-object-target}}
 ```

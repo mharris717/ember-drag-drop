@@ -36,7 +36,7 @@ test('Draggable Object is draggable', async function(assert) {
   this.on('dragMoveAction', (event) => assert.ok(event));
 
   this.render(hbs`
-    {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action "dragMoveAction")}}
+    {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action 'dragMoveAction')}}
       Hi
       <a class="js-dragHandle dragHandle"></a>
     {{/draggable-object}}
