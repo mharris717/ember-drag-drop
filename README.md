@@ -72,7 +72,7 @@ At the start of the drag a property of isDraggingObject will be set to true on t
 Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
 
 ```handlebars
-{{#draggable-object content=this dragStartAction=(action 'myStartAction') dragEndAction='myEndAction'}}
+{{#draggable-object content=this dragStartAction=(action 'myStartAction') dragEndAction=(action 'myEndAction')}}
   {{name}}
 {{/draggable-object}}
 ```

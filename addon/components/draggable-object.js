@@ -109,7 +109,9 @@ export default Component.extend({
     this.set('isDraggingObject', false);
     this.dragEndHook(event);
     this.get('dragCoordinator').dragEnded();
-    this.sendAction('dragEndAction', obj, event);
+    if(this.get('dragEndAction')) {
+      this.get('dragEndAction')(obj, event);
+    }
     if (this.get('dragHandle')) {
       this.set('dragReady', false);
     }

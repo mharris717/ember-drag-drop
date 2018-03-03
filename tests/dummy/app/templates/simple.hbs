@@ -8,7 +8,7 @@
   {{/if}}
 {{/draggable-object-target}}
 
-{{#draggable-object content=myObject  dragStartAction=(action 'dragStart') dragEndAction='dragEnd' overrideClass='dragObject'}}
+{{#draggable-object content=myObject  dragStartAction=(action 'dragStart') dragEndAction=(action 'dragEnd') overrideClass='dragObject'}}
 
   {{#if dragStartedText}}
     {{dragStartedText}}
