@@ -85,11 +85,13 @@ test('sortable object renders draggable objects', async function(assert) {
   let startDragSelector = '.sortObject:nth-child(1)',
       dragOverSelector  = '.sortObject:nth-child(2)';
 
+  const rect = this.$(dragOverSelector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOverSelector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }],
-      [{ clientX: 1, clientY: 600 }]
+      [{ clientX: 1, clientY: rect.top }],
+      [{ clientX: 1, clientY: rect.top + (rect.height / 2) }]
     ],
     afterDrag() {
       appearsDragging(assert, startDragSelector, true);
@@ -132,11 +134,14 @@ test('sortable object renders draggable objects using shift algorithm', async fu
       dragOver2Selector = '.sortObject:nth-child(2)',
       dragOver3Selector = '.sortObject:nth-child(3)';
 
+  const rect2 = this.$(dragOver2Selector)[0].getBoundingClientRect();
+  const rect3 = this.$(dragOver3Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver3Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
-      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+      [{ clientX: 1, clientY: rect2.top }, dragOver2Selector],
+      [{ clientX: 1, clientY: rect3.top + (rect3.height / 2) }, dragOver3Selector]
     ],
     beforeDrop() {
       assert.deepEqual(visibleNumbers(), w('2 3 1 4'), 'After dragging over and before drop items are already shown in correct order');
@@ -173,11 +178,13 @@ test('sorting does not happen if off', async function(assert) {
   let startDragSelector = '.sortObject:nth-child(1)',
       dragOver2Selector = '.sortObject:nth-child(2)';
 
+  const rect = this.$(dragOver2Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver2Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }],
-      [{ clientX: 1, clientY: 501 }]
+      [{ clientX: 1, clientY: rect.top }],
+      [{ clientX: 1, clientY: rect.top + (rect.height / 2) }]
     ],
     afterDrag() {
       appearsDragging(assert, startDragSelector, true);
@@ -216,11 +223,14 @@ test('sort in place', async function(assert) {
     dragOver2Selector = '.sortObject:nth-child(2)',
     dragOver3Selector = '.sortObject:nth-child(3)';
 
+  const rect2 = this.$(dragOver2Selector)[0].getBoundingClientRect();
+  const rect3 = this.$(dragOver3Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver3Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
-      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+      [{ clientX: 1, clientY: rect2.top }, dragOver2Selector],
+      [{ clientX: 1, clientY: rect3.top + (rect3.height / 2) }, dragOver3Selector]
     ]
   });
 
