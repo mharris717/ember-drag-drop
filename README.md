@@ -141,7 +141,7 @@ The action is called with two arguments:
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-{{#draggable-object-target action=(action 'increaseRating') amount="5" dragOverAction='myOverAction' dragOutAction='myDragOutAction'}}
+{{#draggable-object-target action=(action 'increaseRating') amount="5" dragOverAction=(action 'myOverAction') dragOutAction='myDragOutAction'}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```

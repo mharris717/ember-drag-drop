@@ -28,7 +28,9 @@ export default Component.extend(Droppable, {
     if (!this.get('isOver')) {
       //only send once per hover event
       this.set('isOver', true);
-      this.sendAction('dragOverAction', event);
+      if(this.get('dragOverAction')) {
+        this.get('dragOverAction')(event);
+      }
     }
   },
 
