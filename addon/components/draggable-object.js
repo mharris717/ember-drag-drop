@@ -118,7 +118,9 @@ export default Component.extend({
   },
 
   drag(event) {
-    this.sendAction('dragMoveAction', event);
+    if(this.get('dragMoveAction')) {
+      this.get('dragMoveAction')(event);
+    }
   },
 
   dragOver(event) {
