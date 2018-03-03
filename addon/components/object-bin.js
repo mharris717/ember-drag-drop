@@ -27,7 +27,7 @@ export default Component.extend( {
       }
 
       this.trigger("objectDroppedInternal",obj);
-      this.sendAction("objectDropped",{obj: obj, bin: this});
+      this.get('objectDropped')({obj: obj, bin: this});
     },
 
     handleObjectDragged(obj) {
@@ -35,7 +35,7 @@ export default Component.extend( {
         removeOne(this.get('model'),obj);
       }
       this.trigger("objectDraggedInternal",obj);
-      this.sendAction("objectDragged");
+      this.get('objectDragged')();
     }
   }
 });
