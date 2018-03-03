@@ -36,7 +36,9 @@ export default Component.extend(Droppable, {
 
   handleDragOut(event) {
     this.set('isOver', false);
-    this.sendAction('dragOutAction', event);
+    if(this.get('dragOutAction')) {
+      this.get('dragOutAction')(event);
+    }
   },
 
   click(e) {
