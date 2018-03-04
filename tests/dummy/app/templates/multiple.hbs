@@ -4,7 +4,7 @@
   <p>Drag any item from this block to the block on the right</p>
   <p>You can control which blocks can be interacted with by setting the sortingScope </p>
   <div class="u-pullLeft">
-  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' sortingScope='a' }}
+  {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction=(action 'sortEndAction') sortingScope='a' }}
     {{#each sortableObjectList as |item|}}
       {{#draggable-object content=item  overrideClass='sortObject' isSortable=true sortingScope='a'}}
         {{item.title}}

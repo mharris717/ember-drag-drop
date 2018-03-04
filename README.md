@@ -183,7 +183,7 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true useSwap=true inPlace=false sortingScope="sortingGroup"}}
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction=(action 'sortEndAction') enableSort=true useSwap=true inPlace=false sortingScope="sortingGroup"}}
   {{#each sortableObjectList as |item|}}
     {{#draggable-object content=item isSortable=true sortingScope="sortingGroup"}}
       {{item.name}}

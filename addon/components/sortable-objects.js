@@ -47,8 +47,8 @@ export default Component.extend( {
 
   drop(event) {
     event.stopPropagation();
-    if (this.get('enableSort')) {
-      this.sendAction('sortEndAction', event);
+    if (this.get('enableSort') && this.get('sortEndAction')) {
+      this.get('sortEndAction')(event);
     }
   }
 });

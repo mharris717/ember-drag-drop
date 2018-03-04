@@ -71,7 +71,7 @@ test('sortable object renders draggable objects', async function(assert) {
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='sortable-objects'}}
           {{item.title}}
@@ -119,7 +119,7 @@ test('sortable object renders draggable objects using shift algorithm', async fu
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' useSwap=false}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' useSwap=false}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
           {{item.title}}
@@ -164,7 +164,7 @@ test('sorting does not happen if off', async function(assert) {
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' enableSort=false}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' enableSort=false}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=false}}
           {{item.title}}

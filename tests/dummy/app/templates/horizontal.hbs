@@ -8,7 +8,7 @@ This demo demonstrates the different between the flag useSwap=true (default) and
   <p>{{input type="checkbox" checked=useSwap}} useSwap={{#if useSwap}}true{{else}} false{{/if}}</p>
   <p>Typically for a horizontal list, sending in useSwap=false is the right choice.  <br>By default (useSwap=true) the box being dragged will be swapped with the item it's over. <br>If useSwap=false the item will be swapped with the one it's over and the items in the list under it will be pushed down the line.</p>
   <div class="u-pullLeft">
-    {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' useSwap=useSwap}}
+    {{#sortable-objects sortableObjectList=sortableObjectList sortEndAction=(action 'sortEndAction') useSwap=useSwap}}
       {{#each sortableObjectList as |item|}}
         {{#draggable-object content=item  overrideClass='sortObject u-pullLeft' isSortable=true}}
           {{item.title}}
