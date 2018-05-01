@@ -12,10 +12,15 @@ module.exports = {
     "Chrome"
   ],
   'browser_args': {
-    'Chrome': [
-      '--disable-gpu',
-      '--headless',
-      '--remote-debugging-port=9222'
-    ]
+    'Chrome': {
+      mode: 'ci',
+      args: [
+        '--disable-gpu',
+        '--headless',
+        '--remote-debugging-port=9222',
+        // --no-sandbox is needed when running Chrome inside a container
+        process.env.TRAVIS ? '--no-sandbox' : null
+      ].filter(Boolean)
+    }
   }
 };
