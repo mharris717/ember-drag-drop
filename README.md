@@ -72,7 +72,7 @@ At the start of the drag a property of isDraggingObject will be set to true on t
 Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
 
 ```handlebars
-{{#draggable-object content=this dragStartAction='myStartAction' dragEndAction='myEndAction'}}
+{{#draggable-object content=this dragStartAction=(action 'myStartAction') dragEndAction=(action 'myEndAction')}}
   {{name}}
 {{/draggable-object}}
 ```
@@ -103,10 +103,10 @@ Ember.Controller.extend({
   // your regular controller code
 
   actions: {
-    myStartAction: function(content) {
+    myStartAction(content) {
      //Content is the same as the content parameter set above
     },
-    myEndAction: function(content) {
+    myEndAction(content) {
       //Content is the same as the content parameter set above
     },
   }
@@ -133,7 +133,7 @@ The action is called with two arguments:
 ```handlebars
 ... your regular template code
 
-{{#draggable-object-target action="increaseRating" amount="5"}}
+{{#draggable-object-target action=(action "increaseRating") amount="5"}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
@@ -141,7 +141,7 @@ The action is called with two arguments:
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-{{#draggable-object-target action="increaseRating" amount="5" dragOverAction='myOverAction' dragOutAction='myDragOutAction'}}
+{{#draggable-object-target amount="5" action=(action "increaseRating") dragOverAction=(action "myOverAction") dragOutAction=(action "myDragOutAction")}}
   Drag here to increase rating
 {{/draggable-object-target}}
 ```
@@ -154,15 +154,15 @@ Ember.Controller.extend({
   // your regular controller code
 
   actions: {
-    increaseRating: function(obj,ops) {
+    increaseRating(obj,ops) {
       var amount = parseInt(ops.target.amount);
       obj.incrementProperty("rating",amount);
       obj.save();
     },
-    myOverAction: function() {
+    myOverAction() {
       //will notify you when an object is being dragged over the drop target
     },
-    myDragOutAction: function() {
+    myDragOutAction() {
       //will notify you when an object has left the drop target area
     },
   }
@@ -183,7 +183,7 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction='sortEndAction' enableSort=true useSwap=true inPlace=false sortingScope="sortingGroup"}}
+{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction=(action "sortEndAction") enableSort=true useSwap=true inPlace=false sortingScope="sortingGroup"}}
   {{#each sortableObjectList as |item|}}
     {{#draggable-object content=item isSortable=true sortingScope="sortingGroup"}}
       {{item.name}}
@@ -375,11 +375,11 @@ app/templates/posts.hbs
 {{/each}}
 
 <h3>Possible Statuses</h3>
-{{#draggable-object-target action="setStatus" status="Ready to Publish"}}
+{{#draggable-object-target action=(action "setStatus") status="Ready to Publish"}}
   Ready to Publish
 {{/draggable-object-target}}
 
-{{#draggable-object-target action="setStatus" status="Needs Revision"}}
+{{#draggable-object-target action=(action "setStatus") status="Needs Revision"}}
   Needs Revision
 {{/draggable-object-target}}
 ```
