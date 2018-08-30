@@ -118,7 +118,7 @@ export default Service.extend({
 
       let list = aSortable.get('sortableObjectList');
       if (!this.get('inPlace')) {
-        list = Ember.A(list.toArray());
+        list = A(list.toArray());
       }
 
       if (this.get('useSwap')) {
