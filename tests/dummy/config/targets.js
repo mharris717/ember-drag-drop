@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const browsers = [
   'last 1 Chrome versions',
