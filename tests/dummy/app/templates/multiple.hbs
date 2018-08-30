@@ -24,7 +24,7 @@
 <div class="u-halfBlock">
   <p>You can have more than one sort block on the page now</p>
   <div class="u-pullLeft">
-    {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction='sortEndAction2' sortingScope='a'}}
+    {{#sortable-objects sortableObjectList=sortableObjectList2 sortEndAction=(action 'sortEndAction2') sortingScope='a'}}
       {{#each sortableObjectList2 as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='a'}}
           {{item.title}}
