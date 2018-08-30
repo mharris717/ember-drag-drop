@@ -1,6 +1,6 @@
 {
   "name": "ember-drag-drop",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Addon for Ember CLI to do drag and drop",
   "scripts": {
     "build": "ember build",
@@ -24,6 +24,7 @@
     "ember-data": "^3.0.2",
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
+    "ember-cli-github-pages": "0.2.0",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-native-dom-helpers": "^0.4.1",
