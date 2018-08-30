@@ -1,10 +1,11 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
+import { filterBy } from '@ember/object/computed';
 import log from '../helpers/log';
 
-export default Ember.ArrayController.extend({
-  draftPosts: Ember.computed.filterBy("model","rating","draft"),
-  readyPosts: Ember.computed.filterBy("model","rating","ready"),
-  unclassifiedPosts: Ember.computed.filterBy("model","rating","unclassified"),
+export default Controller.extend({
+  draftPosts: filterBy("model","rating","draft"),
+  readyPosts: filterBy("model","rating","ready"),
+  unclassifiedPosts: filterBy("model","rating","unclassified"),
 
   /*objectDropped: function() {
     log("posts controller objectDropped");

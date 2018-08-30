@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import { test, moduleForComponent} from 'ember-qunit';
+import { run } from '@ember/runloop';
+import { test, moduleForComponent } from 'ember-qunit';
 //import Coordinator from '../../../models/coordinator';
 //import FakeStore from '../../helpers/fake-store';
 //import MockDataTransfer from '../../helpers/data-transfer';
@@ -12,7 +12,7 @@ moduleForComponent("draggable-object-target", {
 test("smoke", function(assert) {
 
   var s = this.subject();
-  Ember.run(function() {
+  run(function() {
     s.set("thing",1);
   });
   assert.equal(s.get('thing'),1);

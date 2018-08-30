@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { A } from '@ember/array';
 
 function removeOne(arr,obj) {
   var l = arr.get('length');
@@ -10,8 +11,8 @@ function removeOne(arr,obj) {
   }
 }
 
-export default Ember.Component.extend( {
-  model: Ember.A(),
+export default Component.extend( {
+  model: A(),
   classNames: ['draggable-object-bin'],
 
   manageList: true,
@@ -26,7 +27,7 @@ export default Ember.Component.extend( {
       }
 
       this.trigger("objectDroppedInternal",obj);
-      this.sendAction("objectDropped",{obj: obj, bin: this});
+      this.get('objectDropped')({obj: obj, bin: this});
     },
 
     handleObjectDragged(obj) {
@@ -34,7 +35,7 @@ export default Ember.Component.extend( {
         removeOne(this.get('model'),obj);
       }
       this.trigger("objectDraggedInternal",obj);
-      this.sendAction("objectDragged");
+      this.get('objectDragged')();
     }
   }
 });

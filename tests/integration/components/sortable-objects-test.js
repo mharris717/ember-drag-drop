@@ -1,12 +1,11 @@
-import Ember from 'ember';
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import {drag} from '../../helpers/drag-drop';
+import { drag } from '../../helpers/drag-drop';
+import { A } from '@ember/array';
+import { w } from '@ember/string';
+import $ from 'jquery';
 
-const { w } = Ember.String;
-const { $ } = Ember;
-
-let pojoData = Ember.A(
+let pojoData = A(
   [
     { id: 1, title: 'Number 1' },
     { id: 2, title: 'Number 2' },
@@ -72,7 +71,7 @@ test('sortable object renders draggable objects', async function(assert) {
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' sortingScope='sortable-objects'}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' sortingScope='sortable-objects'}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='sortable-objects'}}
           {{item.title}}
@@ -86,11 +85,13 @@ test('sortable object renders draggable objects', async function(assert) {
   let startDragSelector = '.sortObject:nth-child(1)',
       dragOverSelector  = '.sortObject:nth-child(2)';
 
+  const rect = this.$(dragOverSelector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOverSelector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }],
-      [{ clientX: 1, clientY: 600 }]
+      [{ clientX: 1, clientY: rect.top }],
+      [{ clientX: 1, clientY: rect.top + (rect.height / 2) }]
     ],
     afterDrag() {
       appearsDragging(assert, startDragSelector, true);
@@ -118,7 +119,7 @@ test('sortable object renders draggable objects using shift algorithm', async fu
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' useSwap=false}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' useSwap=false}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
           {{item.title}}
@@ -133,11 +134,14 @@ test('sortable object renders draggable objects using shift algorithm', async fu
       dragOver2Selector = '.sortObject:nth-child(2)',
       dragOver3Selector = '.sortObject:nth-child(3)';
 
+  const rect2 = this.$(dragOver2Selector)[0].getBoundingClientRect();
+  const rect3 = this.$(dragOver3Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver3Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
-      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+      [{ clientX: 1, clientY: rect2.top }, dragOver2Selector],
+      [{ clientX: 1, clientY: rect3.top + (rect3.height / 2) }, dragOver3Selector]
     ],
     beforeDrop() {
       assert.deepEqual(visibleNumbers(), w('2 3 1 4'), 'After dragging over and before drop items are already shown in correct order');
@@ -160,7 +164,7 @@ test('sorting does not happen if off', async function(assert) {
   });
 
   this.render(hbs`
-    {{#sortable-objects sortableObjectList=pojoData sortEndAction='sortEndAction' class='sortContainer' enableSort=false}}
+    {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action 'sortEndAction') class='sortContainer' enableSort=false}}
       {{#each pojoData as |item|}}
         {{#draggable-object content=item overrideClass='sortObject' isSortable=false}}
           {{item.title}}
@@ -174,11 +178,13 @@ test('sorting does not happen if off', async function(assert) {
   let startDragSelector = '.sortObject:nth-child(1)',
       dragOver2Selector = '.sortObject:nth-child(2)';
 
+  const rect = this.$(dragOver2Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver2Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }],
-      [{ clientX: 1, clientY: 501 }]
+      [{ clientX: 1, clientY: rect.top }],
+      [{ clientX: 1, clientY: rect.top + (rect.height / 2) }]
     ],
     afterDrag() {
       appearsDragging(assert, startDragSelector, true);
@@ -198,7 +204,7 @@ test('sorting does not happen if off', async function(assert) {
 });
 
 test('sort in place', async function(assert) {
-  const mutableData = Ember.A(pojoData.slice());
+  const mutableData = A(pojoData.slice());
   this.set('pojoData', mutableData);
 
   this.render(hbs`
@@ -217,11 +223,14 @@ test('sort in place', async function(assert) {
     dragOver2Selector = '.sortObject:nth-child(2)',
     dragOver3Selector = '.sortObject:nth-child(3)';
 
+  const rect2 = this.$(dragOver2Selector)[0].getBoundingClientRect();
+  const rect3 = this.$(dragOver3Selector)[0].getBoundingClientRect();
+
   await drag(startDragSelector, {
     drop: dragOver3Selector,
     dragOverMoves: [
-      [{ clientX: 1, clientY: 500 }, dragOver2Selector],
-      [{ clientX: 1, clientY: 750 }, dragOver3Selector]
+      [{ clientX: 1, clientY: rect2.top }, dragOver2Selector],
+      [{ clientX: 1, clientY: rect3.top + (rect3.height / 2) }, dragOver3Selector]
     ]
   });
 

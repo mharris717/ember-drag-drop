@@ -1,14 +1,14 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import Droppable from 'ember-drag-drop/mixins/droppable';
 
-export default Ember.Component.extend(Droppable, {
+export default Component.extend(Droppable, {
   classNameBindings: ['overrideClass'],
   overrideClass: 'draggable-object-target',
   isOver: false,
 
   handlePayload(payload, event) {
     let obj = this.get('coordinator').getObject(payload,{target: this});
-    this.sendAction('action',obj,{target: this, event: event});
+    this.get('action')(obj, { target: this, event: event });
   },
 
   handleDrop(event) {
@@ -28,13 +28,17 @@ export default Ember.Component.extend(Droppable, {
     if (!this.get('isOver')) {
       //only send once per hover event
       this.set('isOver', true);
-      this.sendAction('dragOverAction', event);
+      if(this.get('dragOverAction')) {
+        this.get('dragOverAction')(event);
+      }
     }
   },
 
   handleDragOut(event) {
     this.set('isOver', false);
-    this.sendAction('dragOutAction', event);
+    if(this.get('dragOutAction')) {
+      this.get('dragOutAction')(event);
+    }
   },
 
   click(e) {

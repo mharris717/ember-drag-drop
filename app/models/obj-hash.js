@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { A } from '@ember/array';
 
-export default Ember.Object.extend({
+export default EmberObject.extend({
   contentLength: 0,
-  length: Ember.computed.alias('contentLength'),
+  length: alias('contentLength'),
 
   init: function() {
     this._super();
@@ -36,8 +38,6 @@ export default Ember.Object.extend({
     for (var key in this.get('content')) {
       res.push(key);
     }
-    return Ember.A(res);
+    return A(res);
   },
-
-
 });

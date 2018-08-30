@@ -1,9 +1,9 @@
-/* global equal*/
-import Ember from 'ember';
-const $ = this.$;
+/* global equal findWithAssert click */
+import { registerAsyncHelper } from '@ember/test';
+import $ from 'jquery';
 
 var f = function() {
-  Ember.Test.registerAsyncHelper('hasActivePage', function(app, num, context) {
+  registerAsyncHelper('hasActivePage', function(app, num, context) {
     var i = 0;
     findWithAssert(".pagination li.page-number", context).each(function() {
       var li = $(this);
@@ -12,8 +12,8 @@ var f = function() {
       i += 1;
     });
   });
-  
-  Ember.Test.registerAsyncHelper('hasButtons', function(app, ops) {
+
+  registerAsyncHelper('hasButtons', function(app, ops) {
     for (var name in ops) {
       var present = ops[name];
 
@@ -25,15 +25,15 @@ var f = function() {
     }
   });
 
-  Ember.Test.registerAsyncHelper('hasTodos', function(app, l) {
+  registerAsyncHelper('hasTodos', function(app, l) {
     equal(find("table tr.todo").length, l);
   });
 
-  Ember.Test.registerAsyncHelper('hasPages', function(app, l) {
+  registerAsyncHelper('hasPages', function(app, l) {
     equal(find(".pagination li.page-number").length, l);
   });
 
-  Ember.Test.registerAsyncHelper('clickPage', function(app, i) {
+  registerAsyncHelper('clickPage', function(app, i) {
     if (i === "prev" || i === "next") {
       click(".pagination ." + i + " a");
     } else {

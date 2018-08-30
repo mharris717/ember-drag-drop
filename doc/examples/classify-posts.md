@@ -45,11 +45,11 @@ app/templates/posts.hbs
 {{/each}}
 
 <h3>Possible Statuses</h3>
-{{#draggable-object-target action="setStatus" status="Ready to Publish"}}
+{{#draggable-object-target action=(action 'setStatus') status="Ready to Publish"}}
   Ready to Publish
 {{/draggable-object-target}}
 
-{{#draggable-object-target action="setStatus" status="Needs Revision"}}
+{{#draggable-object-target action=(action 'setStatus') status="Needs Revision"}}
   Needs Revision
 {{/draggable-object-target}}
 ```

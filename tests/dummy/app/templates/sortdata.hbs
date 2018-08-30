@@ -2,7 +2,7 @@
 <p>Drag any box to another position and drop to re-sort the list</p>
 
 <div class="u-pullLeft">
-  {{#sortable-objects sortableObjectList=model.pages sortEndAction='sortEndAction' enableSort=true}}
+  {{#sortable-objects sortableObjectList=model.pages sortEndAction=(action 'sortEndAction') enableSort=true}}
     {{#each model.pages as |item|}}
       {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
         {{item.title}}

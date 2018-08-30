@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import Post from '../models/post';
 import log from '../helpers/log';
 
-export default Ember.Route.extend({
+export default Route.extend({
   beforeModel: function() {
     var me = this;
     var p = this.store.find('post');

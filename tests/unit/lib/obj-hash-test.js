@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop'
 import {test, module} from 'ember-qunit';
 import ObjHash from '../../../models/obj-hash';
 
@@ -9,7 +9,7 @@ test("smoke", function(assert) {
       obj  = 8,
       id   = null;
 
-  Ember.run(() => id = hash.add(obj));
+  run(() => id = hash.add(obj));
 
   assert.equal(hash.get('length'), 1);
 

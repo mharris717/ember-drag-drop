@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import Evented from '@ember/object/evented';
+import { computed } from '@ember/object';
 import ObjHash from './obj-hash';
 
-export default Ember.Object.extend(Ember.Evented, {
-  objectMap: Ember.computed(function() {
+export default EmberObject.extend(Evented, {
+  objectMap: computed(function() {
     return ObjHash.create();
   }),
 

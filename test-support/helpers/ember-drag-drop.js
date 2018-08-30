@@ -1,5 +1,5 @@
 /* global triggerEvent , andThen */
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import $ from 'jquery';
 import MockDataTransfer from '../../tests/helpers/data-transfer';
 
@@ -10,15 +10,15 @@ function drop($dragHandle, dropCssPath, dragEvent) {
     throw(`There are no drop targets by the given selector: '${dropCssPath}'`);
   }
 
-  Ember.run(() => {
+  run(() => {
     triggerEvent($dropTarget, 'dragover', MockDataTransfer.makeMockEvent());
   });
 
-  Ember.run(() => {
+  run(() => {
     triggerEvent($dropTarget, 'drop', MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload')));
   });
 
-  Ember.run(() => {
+  run(() => {
     triggerEvent($dragHandle, 'dragend', MockDataTransfer.makeMockEvent());
   });
 }
@@ -27,11 +27,11 @@ export function drag(cssPath, options={}) {
   let dragEvent = MockDataTransfer.makeMockEvent();
   let $dragHandle = $(cssPath);
 
-  Ember.run(() => {
+  run(() => {
     triggerEvent($dragHandle, 'mouseover');
   });
 
-  Ember.run(() => {
+  run(() => {
     triggerEvent($dragHandle, 'dragstart', dragEvent);
   });
 

@@ -10,7 +10,7 @@
 
 <div id="bin">
   <div class="bin-1">
-    {{#rating-bin name="Drafts" rating="draft" objectDropped="objectDropped" model=draftPosts as |obj|}}
+    {{#rating-bin name="Drafts" rating="draft" objectDropped=(action 'objectDropped') model=draftPosts as |obj|}}
       {{partial "post"}}
     {{/rating-bin}}
   </div>

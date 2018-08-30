@@ -1,10 +1,14 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   dragFinishText: false,
   dragStartedText: false,
   dragEndedText: false,
-  myObject:{id:1, name:'objectName'},
+
+  init: function() {
+    this._super(...arguments);
+    this.set('myObject', {id: 1, name: 'objectName'})
+  },
 
   actions: {
     dragResult: function(obj,ops) {

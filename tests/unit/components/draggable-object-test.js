@@ -1,9 +1,11 @@
-import Ember from 'ember';
-import {test, moduleForComponent} from 'ember-qunit';
+import EmberObject from '@ember/object';
+import { run } from '@ember/runloop';
+import { A } from '@ember/array';
+import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
 import MockEvent from '../../helpers/mock-event';
 
-const Thing = Ember.Object.extend({});
+const Thing = EmberObject.extend({});
 
 moduleForComponent("draggable-object", "DraggableObjectComponent", {
   unit: true,
@@ -18,10 +20,10 @@ test("dragStart", function(assert) {
 
   component.set("content", thing);
 
-  Ember.run(() => component.dragStart(event));
+  run(() => component.dragStart(event));
 
   let keys   = coordinator.get("objectMap").keys(),
-      hashId = Ember.A(keys).get("lastObject"),
+      hashId = A(keys).get("lastObject"),
       data   = event.dataTransfer.data;
 
   assert.deepEqual(data, { "Text": hashId });
@@ -32,16 +34,16 @@ test("notified of drop", function(assert) {
       coordinator  = Coordinator.create(),
       props        = { coordinator, content: thing, action: "objectDropped" },
       component    = this.subject(props),
-      content      = Ember.A(),
+      content      = A(),
       targetObject = {
         objectDropped: function(obj) {
           content.push(obj);
         }
       };
 
-  component.set("targetObject", targetObject);
+  component.set("target", targetObject);
 
-  let hashId = Ember.run(function() {
+  let hashId = run(function() {
     return coordinator.setObject(thing, { source: component });
   });
 
@@ -58,7 +60,7 @@ test("drop callbacks", function(assert) {
 
   let component = this.subject({ coordinator });
 
-  let hashId = Ember.run(function() {
+  let hashId = run(function() {
     return coordinator.setObject(thing, { source: component });
   });
 
@@ -79,7 +81,7 @@ test("dragStartHook", function(assert) {
 
   component.dragStartHook = () => assert.ok(true);
 
-  Ember.run(() => component.dragStart(event));
+  run(() => component.dragStart(event));
 });
 
 test("dragEndHook", function(assert) {
@@ -94,7 +96,7 @@ test("dragEndHook", function(assert) {
 
   component.dragEndHook = () => assert.ok(true);
 
-  Ember.run(() => component.dragEnd(event));
+  run(() => component.dragEnd(event));
 });
 
 // test("sim drag", function() {

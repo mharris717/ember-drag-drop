@@ -1,14 +1,15 @@
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { A } from '@ember/array';
 
 moduleForComponent('object-bin', 'Integration | Component | object bin', {
   integration: true
 });
 
 test("component on fly 2", function(assert) {
-  let obj = Ember.Object.create({ title2: "Hello" }),
-      all = Ember.A();
+  let obj = EmberObject.create({ title2: "Hello" }),
+      all = A();
   all.addObject(obj);
 
   this.set('all', all);

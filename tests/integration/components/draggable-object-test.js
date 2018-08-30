@@ -1,10 +1,9 @@
-import Ember from 'ember';
-import {moduleForComponent, test} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import MockEvent from '../../helpers/mock-event';
-import {triggerEvent} from 'ember-native-dom-helpers';
+import { triggerEvent } from 'ember-native-dom-helpers';
 
-const { $ } = Ember;
+import $ from 'jquery';
 
 moduleForComponent('draggable-object', 'Integration | Component | draggable object', {
   integration: true,
@@ -37,7 +36,7 @@ test('Draggable Object is draggable', async function(assert) {
   this.on('dragMoveAction', (event) => assert.ok(event));
 
   this.render(hbs`
-    {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action "dragMoveAction")}}
+    {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action 'dragMoveAction')}}
       Hi
       <a class="js-dragHandle dragHandle"></a>
     {{/draggable-object}}
