@@ -16,7 +16,8 @@ test("dragStart", function(assert) {
   let thing       = Thing.create({ id: 1 }),
       coordinator = Coordinator.create(),
       component   = this.subject({ coordinator }),
-      event       = new MockEvent();
+      target      = document.createElement('div'),
+      event       = new MockEvent({target});
 
   component.set("content", thing);
 

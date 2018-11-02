@@ -4,7 +4,6 @@ import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { scheduleOnce, next } from '@ember/runloop';
 import { set } from '@ember/object';
-import $ from 'jquery';
 
 export default Component.extend({
   dragCoordinator: service(),
@@ -36,13 +35,9 @@ export default Component.extend({
       let dragHandle = this.get('dragHandle');
       if (dragHandle) {
         //only start when drag handle is activated
-        if (this.$(dragHandle)) {
-          this.$(dragHandle).on('mouseover', () => {
-            this.set('dragReady', true);
-          });
-          this.$(dragHandle).on('mouseout', () => {
-            this.set('dragReady', false);
-          });
+        if (this.element.querySelector(dragHandle)) {
+          this.element.querySelector(dragHandle).addEventListener('mouseover', this.onMouseover.bind(this));
+          this.element.querySelector(dragHandle).addEventListener('mouseout', this.onMouseout.bind(this));
         }
       }
     });
@@ -50,9 +45,18 @@ export default Component.extend({
 
   willDestroyElement(){
     let dragHandle = this.get('dragHandle');
-    if (this.$(dragHandle)) {
-      this.$(dragHandle).off();
+    if (this.element.querySelector(dragHandle)) {
+      this.element.querySelector(dragHandle).removeEventListener('mouseover', this.onMouseover.bind(this));
+      this.element.querySelector(dragHandle).removeEventListener('mouseout', this.onMouseout.bind(this));
     }
+  },
+
+  onMouseover() {
+    this.set('dragReady', true);
+  },
+
+  onMouseout() {
+    this.set('dragReady', false);
   },
 
   dragStart(event) {
@@ -131,11 +135,11 @@ export default Component.extend({
   },
 
   dragStartHook(event) {
-    $(event.target).css('opacity', '0.5');
+    event.target.style.opacity = '0.5';
   },
 
   dragEndHook(event) {
-    $(event.target).css('opacity', '1');
+    event.target.style.opacity = '1';
   },
 
   drop(event) {
