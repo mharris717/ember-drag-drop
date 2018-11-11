@@ -20,7 +20,6 @@ export default class MockEvent {
   constructor(options = {}) {
     this.dataTransfer = new DataTransfer();
     this.dataTransfer.setData('Text', options.dataTransferData);
-    this.originalEvent = this;
     this.setProperties(options)
   }
 

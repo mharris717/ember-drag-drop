@@ -75,11 +75,11 @@ export default Service.extend({
       this.set('lastEvent', event);
     }
 
-    if (event.originalEvent.clientY < this.get('lastEvent').originalEvent.clientY) {
+    if (event.clientY < this.get('lastEvent').clientY) {
       moveDirection = 'up';
     }
 
-    if (event.originalEvent.clientY > this.get('lastEvent').originalEvent.clientY) {
+    if (event.clientY > this.get('lastEvent').clientY) {
       moveDirection = 'down';
     }
 
@@ -160,8 +160,8 @@ export default Service.extend({
 
   relativeClientPosition(el, event) {
     const rect = el.getBoundingClientRect();
-    const x = event.originalEvent.clientX - rect.left;
-    const y = event.originalEvent.clientY - rect.top;
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
     return {
       x: x,
