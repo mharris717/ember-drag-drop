@@ -4,7 +4,6 @@ import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { scheduleOnce, next } from '@ember/runloop';
 import { set } from '@ember/object';
-import $ from 'jquery';
 
 export default Component.extend({
   dragCoordinator: service(),
@@ -28,6 +27,14 @@ export default Component.extend({
       this.set('dragReady', false);
     }
     this._super(...arguments);
+
+    this.mouseOverHandler = function() {
+      this.set('dragReady', true);
+    }.bind(this);
+
+    this.mouseOutHandler = function() {
+      this.set('dragReady', false);
+    }.bind(this);
   },
 
   didInsertElement() {
@@ -36,13 +43,10 @@ export default Component.extend({
       let dragHandle = this.get('dragHandle');
       if (dragHandle) {
         //only start when drag handle is activated
-        if (this.$(dragHandle)) {
-          this.$(dragHandle).on('mouseover', () => {
-            this.set('dragReady', true);
-          });
-          this.$(dragHandle).on('mouseout', () => {
-            this.set('dragReady', false);
-          });
+        let dragHandleElem = this.element.querySelector(dragHandle);
+        if (dragHandleElem) {
+          dragHandleElem.addEventListener('mouseover', this.mouseOverHandler);
+          dragHandleElem.addEventListener('mouseout', this.mouseOutHandler);
         }
       }
     });
@@ -50,8 +54,12 @@ export default Component.extend({
 
   willDestroyElement(){
     let dragHandle = this.get('dragHandle');
-    if (this.$(dragHandle)) {
-      this.$(dragHandle).off();
+    if (dragHandle) {
+      let dragHandleElem = this.element.querySelector(dragHandle);
+      if (dragHandleElem) {
+        dragHandleElem.removeEventListener('mouseover', this.mouseOverHandler);
+        dragHandleElem.removeEventListener('mouseout', this.mouseOutHandler);
+      }
     }
   },
 
@@ -131,11 +139,15 @@ export default Component.extend({
   },
 
   dragStartHook(event) {
-    $(event.target).css('opacity', '0.5');
+    if (event.target) {
+      event.target.style.opacity = '0.5' ;
+    }
   },
 
   dragEndHook(event) {
-    $(event.target).css('opacity', '1');
+    if (event.target) {
+      event.target.style.opacity = '1' ;
+    }
   },
 
   drop(event) {
