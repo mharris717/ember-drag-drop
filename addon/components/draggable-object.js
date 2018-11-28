@@ -23,10 +23,18 @@ export default Component.extend({
   }),
 
   init() {
+     this._super(...arguments);
     if (this.get('dragHandle')) {
       this.set('dragReady', false);
     }
-    this._super(...arguments);
+
+    this.mouseOverHandler = function() {
+      this.set('dragReady', true);
+    }.bind(this);
+    this.mouseOutHandler = function() {
+      this.set('dragReady', false);
+    }.bind(this);
+
   },
 
   didInsertElement() {
@@ -36,8 +44,8 @@ export default Component.extend({
       if (dragHandle) {
         //only start when drag handle is activated
         if (this.element.querySelector(dragHandle)) {
-          this.element.querySelector(dragHandle).addEventListener('mouseover', this.onMouseover.bind(this));
-          this.element.querySelector(dragHandle).addEventListener('mouseout', this.onMouseout.bind(this));
+          this.element.querySelector(dragHandle).addEventListener('mouseover', this.mouseOverHandler.bind(this));
+          this.element.querySelector(dragHandle).addEventListener('mouseout', this.mouseOutHandler.bind(this));
         }
       }
     });
@@ -46,18 +54,11 @@ export default Component.extend({
   willDestroyElement(){
     let dragHandle = this.get('dragHandle');
     if (this.element.querySelector(dragHandle)) {
-      this.element.querySelector(dragHandle).removeEventListener('mouseover', this.onMouseover.bind(this));
-      this.element.querySelector(dragHandle).removeEventListener('mouseout', this.onMouseout.bind(this));
+      this.element.querySelector(dragHandle).removeEventListener('mouseover', this.mouseOverHandler.bind(this));
+      this.element.querySelector(dragHandle).removeEventListener('mouseout', this.mouseOutHandler.bind(this));
     }
   },
 
-  onMouseover() {
-    this.set('dragReady', true);
-  },
-
-  onMouseout() {
-    this.set('dragReady', false);
-  },
 
   dragStart(event) {
     if (!this.get('isDraggable') || !this.get('dragReady')) {
