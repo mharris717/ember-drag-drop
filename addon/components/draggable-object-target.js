@@ -44,21 +44,21 @@ export default Component.extend(Droppable, {
   click(e) {
     let onClick = this.get('onClick');
     if (onClick) {
-      onClick(e.originalEvent);
+      onClick(e);
     }
   },
 
   mouseDown(e) {
     let mouseDown = this.get('onMouseDown');
     if (mouseDown) {
-      mouseDown(e.originalEvent);
+      mouseDown(e);
     }
   },
 
   mouseEnter(e) {
     let mouseEnter = this.get('onMouseEnter');
     if (mouseEnter) {
-      mouseEnter(e.originalEvent);
+      mouseEnter(e);
     }
   },
 

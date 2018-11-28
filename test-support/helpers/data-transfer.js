@@ -14,11 +14,10 @@ c.reopenClass({
   makeMockEvent: function(payload) {
     var transfer = this.create({payload: payload});
     var res = {dataTransfer: transfer};
-    res.originalEvent = res;
-    res.originalEvent.preventDefault = function() {
+    res.preventDefault = function() {
       console.log('prevent default');
     };
-    res.originalEvent.stopPropagation = function() {
+    res.stopPropagation = function() {
       console.log('stop propagation');
     };
     return res;
