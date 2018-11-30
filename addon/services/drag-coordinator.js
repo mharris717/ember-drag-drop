@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
+import { normalizeEvent } from 'ember-jquery-legacy';
 
 function swapInPlace(items, a, b) {
   const aPos = items.indexOf(a);
@@ -66,27 +67,28 @@ export default Service.extend({
   },
 
   draggingOver(event, emberObject) {
+    const normalizedEvent = normalizeEvent(event);
     const currentOffsetItem = this.get('currentOffsetItem');
-    const pos = this.relativeClientPosition(emberObject.element, event);
+    const pos = this.relativeClientPosition(emberObject.element, normalizedEvent);
     const hasSameSortingScope = this.get('currentDragItem.sortingScope') === emberObject.get('sortingScope');
     let moveDirection = false;
 
     if (!this.get('lastEvent')) {
-      this.set('lastEvent', event);
+      this.set('lastEvent', normalizedEvent);
     }
 
-    if (event.clientY < this.get('lastEvent').clientY) {
+    if (normalizedEvent.clientY < this.get('lastEvent').clientY) {
       moveDirection = 'up';
     }
 
-    if (event.clientY > this.get('lastEvent').clientY) {
+    if (normalizedEvent.clientY > this.get('lastEvent').clientY) {
       moveDirection = 'down';
     }
 
-    this.set('lastEvent', event);
+    this.set('lastEvent', normalizedEvent);
 
     if (!this.get('isMoving')) {
-      if (event.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
+      if (normalizedEvent.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
           if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
 
