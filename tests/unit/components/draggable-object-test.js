@@ -99,25 +99,3 @@ test("dragEndHook", function(assert) {
 
   run(() => component.dragEnd(event));
 });
-
-// test("sim drag", function() {
-//   var thing = Thing.create({id: 1});
-//   var coordinator = Coordinator.create();
-//   var s = this.subject({coordinator: coordinator, content: thing});
-
-//   this.append();
-
-//   equal(find(".draggable-object").length,1,"Expected .draggable-span count of 1");
-
-//   var draggable = find(".draggable-object")[0];
-
-//   var event = MockDataTransfer.createDomEvent("dragstart");
-//   draggable.dispatchEvent(event);
-
-//   equal(coordinator.get("objectMap.length"),1);
-// });
-
-// test("template smoke", function() {
-//   var s = this.subject();
-//   equal(this.$().find(".thing").length,1);
-// });
