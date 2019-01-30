@@ -1,14 +1,13 @@
 /* global equal findWithAssert click */
 import { registerAsyncHelper } from '@ember/test';
-import $ from 'jquery';
 
 var f = function() {
   registerAsyncHelper('hasActivePage', function(app, num, context) {
     var i = 0;
     findWithAssert(".pagination li.page-number", context).each(function() {
-      var li = $(this);
+      var li = this.element;
       var active = num - 1 === i;
-      equal(li.hasClass('active'), active, "Has active page");
+      equal(li.classList.contains('active'), active, "Has active page");
       i += 1;
     });
   });
