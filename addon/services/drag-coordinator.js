@@ -87,7 +87,7 @@ export default Service.extend({
 
     this.set('lastEvent', normalizedEvent);
 
-    if (!this.get('isMoving')) {
+    if (!this.get('isMoving') && this.get('currentDragEvent')) {
       if (normalizedEvent.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
           if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
