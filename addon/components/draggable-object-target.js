@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import Droppable from 'ember-drag-drop/mixins/droppable';
+import { normalizeEvent } from 'ember-jquery-legacy';
 
 export default Component.extend(Droppable, {
   classNameBindings: ['overrideClass'],
@@ -44,21 +45,21 @@ export default Component.extend(Droppable, {
   click(e) {
     let onClick = this.get('onClick');
     if (onClick) {
-      onClick(e);
+      onClick(normalizeEvent(e));
     }
   },
 
   mouseDown(e) {
     let mouseDown = this.get('onMouseDown');
     if (mouseDown) {
-      mouseDown(e);
+      mouseDown(normalizeEvent(e));
     }
   },
 
   mouseEnter(e) {
     let mouseEnter = this.get('onMouseEnter');
     if (mouseEnter) {
-      mouseEnter(e);
+      mouseEnter(normalizeEvent(e));
     }
   },
 

@@ -1,6 +1,7 @@
 # Ember Drag Drop
 
 [![Build Status](https://travis-ci.org/mharris717/ember-drag-drop.svg?branch=master)](https://travis-ci.org/mharris717/ember-drag-drop)
+[![Download Total](https://img.shields.io/npm/dt/ember-drag-drop.svg)](http://badge.fury.io/js/ember-drag-drop)
 
 Simple drag and drop addon for your Ember CLI app.
 
