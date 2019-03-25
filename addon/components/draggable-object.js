@@ -4,6 +4,7 @@ import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { scheduleOnce, next } from '@ember/runloop';
 import { set } from '@ember/object';
+import { proxyObject } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 export default Component.extend({
   dragCoordinator: service(),
@@ -21,6 +22,11 @@ export default Component.extend({
 
     return isDraggable || null;
   }),
+
+  proxyContent: computed('content', function() {
+    return proxyObject(this.get('content'));
+  }),
+  
 
   init() {
     this._super(...arguments);
@@ -68,7 +74,7 @@ export default Component.extend({
 
     let dataTransfer = event.dataTransfer;
 
-    let obj = this.get('content');
+    let obj = this.get('proxyContent');
     let id = null;
     let coordinator = this.get('coordinator');
     if (coordinator) {
@@ -106,7 +112,7 @@ export default Component.extend({
       return;
     }
 
-    let obj = this.get('content');
+    let obj = this.get('proxyContent');
 
     if (obj && typeof obj === 'object') {
       set(obj, 'isDraggingObject', false);
@@ -150,7 +156,7 @@ export default Component.extend({
 
   actions: {
     selectForDrag() {
-      let obj = this.get('content');
+      let obj = this.get('proxyContent');
       let hashId = this.get('coordinator').setObject(obj, { source: this });
       this.set('coordinator.clickedId', hashId);
     }
