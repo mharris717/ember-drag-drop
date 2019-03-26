@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import Evented from '@ember/object/evented';
 import { computed } from '@ember/object';
 import ObjHash from './obj-hash';
-import { unproxyObject } from 'ember-drag-drop/utils/proxy-unproxy-objects';
+import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 export default EmberObject.extend(Evented, {
   objectMap: computed(function() {
@@ -23,7 +23,7 @@ export default EmberObject.extend(Evented, {
 
     this.trigger("objectMoved", {obj: payload.obj, source: payload.ops.source, target: ops.target});
 
-    return unproxyObject(payload.obj);
+    return unwrapper(payload.obj);
   },
 
   setObject: function(obj,ops) {

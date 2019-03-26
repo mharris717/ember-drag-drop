@@ -3,7 +3,7 @@ import hbs from 'htmlbars-inline-precompile';
 import Coordinator from '../../../models/coordinator';
 import { drag } from '../../helpers/drag-drop';
 import $ from 'jquery';
-import { unproxyObject } from 'ember-drag-drop/utils/proxy-unproxy-objects';
+import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 moduleForComponent('ember-drag-drop', 'Integration | Helpers', {
   integration: true
@@ -26,7 +26,7 @@ test('drag helper drags to a draggable object target and calls the action upon d
   let coordinator = Coordinator.create();
 
   coordinator.on('objectMoved', function(ops) {
-    assert.equal(unproxyObject(ops.obj), 'hiphop');
+    assert.equal(unwrapper(ops.obj), 'hiphop');
     assert.equal(ops.target.destination, 1);
   });
 
@@ -47,7 +47,7 @@ test('drag helper allows a callback to be called before dropping', async functio
   let coordinator = Coordinator.create();
 
   coordinator.on('objectMoved', function(ops) {
-    assert.equal(unproxyObject(ops.obj), 'jazz');
+    assert.equal(unwrapper(ops.obj), 'jazz');
     assert.equal(ops.target.destination, 2);
   });
 

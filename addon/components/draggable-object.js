@@ -4,7 +4,7 @@ import { alias } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { scheduleOnce, next } from '@ember/runloop';
 import { set } from '@ember/object';
-import { proxyObject } from 'ember-drag-drop/utils/proxy-unproxy-objects';
+import { wrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 export default Component.extend({
   dragCoordinator: service(),
@@ -24,7 +24,7 @@ export default Component.extend({
   }),
 
   proxyContent: computed('content', function() {
-    return proxyObject(this.get('content'));
+    return wrapper(this.get('content'));
   }),
   
 

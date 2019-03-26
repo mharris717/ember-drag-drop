@@ -1,16 +1,18 @@
 import { isNone } from '@ember/utils';
 /**
- * This utility is ussed to create a wrapper object around the object passed to the proxy function.
+ * This utility is used to create a wrapper object around the object passed to the proxy function.
  * Currently on drag action, the `draggable-object` mutates the `content` object and appends a new
  * property `isDraggingObject` onto the parent object.
- * This behavior throws an exception with M3 models because it not a previously whitelisted property. The issue
- * is being tracked (ticket: TODO: Add Github issue ticket here).
- *
- * This utility is used to create a proxy object to wrap the original `content` M3 objet to 
- * avoud any exceptions from being thrown when dragging is initiated on the object.
  * 
- * Note: Added further implementation to `unproxyObject` that can be used to unproxy the previously
- * proxies object thereby returning the original M3 object.
+ * This unexpected mutation causes problems when the targeted content is not prepared to handle
+ * the additional property, and potentially leaks local state onto an object that likely holds state
+ * for the route or application more generally.
+ *
+ * This utility is used to create a proxy object to wrap the original `content` object to 
+ * avoid any exceptions from being thrown when dragging action is initiated on the draggable object.
+ * 
+ * Note: Added further implementation to `unwrapper` that can be used to unproxy the previously
+ * proxied object thereby returning the original `content` object.
  *
  */
 
@@ -21,7 +23,7 @@ import { isNone } from '@ember/utils';
  * @param objectToProxy Object to proxy.
  * @returns {Object} Proxy object.
  */
-export function proxyObject(objectToProxy) {
+export function wrapper(objectToProxy) {
   if (!isNone(objectToProxy)) {
     return {
       content: objectToProxy,
@@ -38,7 +40,7 @@ export function proxyObject(objectToProxy) {
  * @param objectToUnproxy Object to un-proxy.
  * @returns {Object} Content of the proxy object.
  */
-export function unproxyObject(objectToUnproxy) {
+export function unwrapper(objectToUnproxy) {
   if (!isNone(objectToUnproxy)) {
     return objectToUnproxy.content;
   }

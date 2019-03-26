@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import {
-  proxyObject,
-  unproxyObject,
+  wrapper,
+  unwrapper,
 } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 module(
@@ -17,27 +17,27 @@ module(
       };
     });
 
-    test('proxyObject returns a new object containing content and ID feilds', function testProxyObjAction(assert) {
+    test('wrapper returns a new object containing content and ID feilds', function testProxyObjAction(assert) {
       assert.expect(2);
       assert.equal(
-        proxyObject(this.testObject).content,
+        wrapper(this.testObject).content,
         this.testObject,
         'Object contains content field'
       );
 
       assert.equal(
-        proxyObject(this.testObject).id,
+        wrapper(this.testObject).id,
         this.testObject.id,
         'Object contains ID field'
       );
     });
 
-    test('unproxyObject returns back the original object', function testUnproxyObjAction(assert) {
+    test('unwrapper returns back the original object', function testUnproxyObjAction(assert) {
       assert.expect(1);
       assert.deepEqual(
-        unproxyObject(proxyObject(this.testObject)),
+        unwrapper(wrapper(this.testObject)),
         this.testObject,
-        'Object contains original object'
+        'Returned object contains original test object'
       );
     });
   }
