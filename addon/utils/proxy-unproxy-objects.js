@@ -1,4 +1,6 @@
 import { isNone } from '@ember/utils';
+import { guidFor } from '@ember/object/internals';
+
 /**
  * This utility is used to create a wrapper object around the object passed to the proxy function.
  * Currently on drag action, the `draggable-object` mutates the `content` object and appends a new
@@ -8,11 +10,11 @@ import { isNone } from '@ember/utils';
  * the additional property, and potentially leaks local state onto an object that likely holds state
  * for the route or application more generally.
  *
- * This utility is used to create a proxy object to wrap the original `content` object to 
- * avoid any exceptions from being thrown when dragging action is initiated on the draggable object.
+ * This utility is used to create a proxy object to wrap the original object to avoid any exceptions
+ * from being thrown when dragging action is initiated on the draggable object.
  * 
  * Note: Added further implementation to `unwrapper` that can be used to unproxy the previously
- * proxied object thereby returning the original `content` object.
+ * proxied object thereby returning the original object content.
  *
  */
 
@@ -25,9 +27,11 @@ import { isNone } from '@ember/utils';
  */
 export function wrapper(objectToProxy) {
   if (!isNone(objectToProxy)) {
+    const guidKey = guidFor(objectToProxy);
     return {
-      content: objectToProxy,
-      id: objectToProxy.id,
+      [guidKey]: objectToProxy,
+      unwrappingKey: guidKey,
+      id: objectToProxy.id
     };
   }
   return null;
@@ -42,7 +46,7 @@ export function wrapper(objectToProxy) {
  */
 export function unwrapper(objectToUnproxy) {
   if (!isNone(objectToUnproxy)) {
-    return objectToUnproxy.content;
+    return objectToUnproxy[objectToUnproxy.unwrappingKey];
   }
   return null;
 }
