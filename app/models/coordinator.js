@@ -21,7 +21,7 @@ export default EmberObject.extend(Evented, {
       payload.ops.target.sendAction('action',payload.obj);
     }
 
-    this.trigger("objectMoved", {obj: payload.obj, source: payload.ops.source, target: ops.target});
+    this.trigger("objectMoved", {obj: unwrapper(payload.obj), source: payload.ops.source, target: ops.target});
 
     return unwrapper(payload.obj);
   },
