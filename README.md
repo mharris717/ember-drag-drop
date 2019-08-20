@@ -1,6 +1,7 @@
 # Ember Drag Drop
 
 [![Build Status](https://travis-ci.org/mharris717/ember-drag-drop.svg?branch=master)](https://travis-ci.org/mharris717/ember-drag-drop)
+[![Download Total](https://img.shields.io/npm/dt/ember-drag-drop.svg)](http://badge.fury.io/js/ember-drag-drop)
 
 Simple drag and drop addon for your Ember CLI app.
 
@@ -169,7 +170,7 @@ Ember.Controller.extend({
 }
 });
 ```
-You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
 
 ## Sorting of objects
 
@@ -192,13 +193,13 @@ An Example:
 {{/sortable-objects}}
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](http://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
 
-`useSwap` defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](http://mharris717.github.io/ember-drag-drop/horizontal)
+`useSwap` defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](https://mharris717.github.io/ember-drag-drop/#/horizontal)
 
 `inPlace` defaults to false and is optional. If you set it to true, then the original list will be mutated instead of making a copy.
 
-`sortingScope` is optional and only needed if you have multiple lists on the screen that you want to share dragging between. [See Demo](http://mharris717.github.io/ember-drag-drop/multiple)
+`sortingScope` is optional and only needed if you have multiple lists on the screen that you want to share dragging between. [See Demo](https://mharris717.github.io/ember-drag-drop/#/multiple)
 
 **Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
