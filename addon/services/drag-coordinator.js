@@ -1,18 +1,26 @@
 import Service from '@ember/service';
 import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
+import { isEqual } from '@ember/utils';
+
+
+function indexOf(items, a) {
+  return items.findIndex(function (element) {
+    return isEqual(element, a);
+  });
+}
 
 function swapInPlace(items, a, b) {
-  const aPos = items.indexOf(a);
-  const bPos = items.indexOf(b);
+  const aPos = indexOf(items, a);
+  const bPos = indexOf(items, b);
 
   items.replace(aPos, 1, [ b ]);
   items.replace(bPos, 1, [ a ]);
 }
 
 function shiftInPlace(items, a, b) {
-  const aPos = items.indexOf(a);
-  const bPos = items.indexOf(b);
+  const aPos = indexOf(items, a);
+  const bPos = indexOf(items, b);
 
   items.removeAt(aPos);
   items.insertAt(bPos, a);
@@ -104,12 +112,12 @@ export default Service.extend({
   moveObjectPositions(a, b, sortComponents) {
     const aSortable = sortComponents.find((component) => {
       return component.get('sortableObjectList').find((sortable) => {
-        return sortable === a;
+        return isEqual(sortable, a);
       });
     });
     const bSortable = sortComponents.find((component) => {
       return component.get('sortableObjectList').find((sortable) => {
-        return sortable === b;
+        return isEqual(sortable, b);
       });
     });
     const swap = aSortable === bSortable;
@@ -138,7 +146,7 @@ export default Service.extend({
 
       // Remove from aList and insert into bList
       aList.removeObject(a);
-      bList.insertAt(bList.indexOf(b), a);
+      bList.insertAt(indexOf(bList, b), a);
     }
   },
 
