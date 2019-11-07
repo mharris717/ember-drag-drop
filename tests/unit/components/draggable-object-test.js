@@ -4,6 +4,7 @@ import { A } from '@ember/array';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
 import MockEvent from '../../helpers/mock-event';
+import { wrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 const Thing = EmberObject.extend({});
 
@@ -62,7 +63,7 @@ test("drop callbacks", function(assert) {
   let component = this.subject({ coordinator });
 
   let hashId = run(function() {
-    return coordinator.setObject(thing, { source: component });
+    return coordinator.setObject(wrapper(thing), { source: component });
   });
 
   coordinator.getObject(hashId);
