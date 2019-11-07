@@ -1,12 +1,15 @@
-import {find, triggerEvent} from 'ember-native-dom-helpers';
+import {find, triggerEvent} from '@ember/test-helpers';
 import MockEvent from './mock-event';
 
 async function dragOver(dropSelector, moves) {
   moves = moves || [[{ clientX: 1, clientY: 1 }, dropSelector]];
-  return moves.forEach(async ([position, selector]) => {
-    let event = new MockEvent(position);
+  
+  for (const move of moves) {
+    const position = move[0] || false;
+    const selector = move[1] || false;
+    const event = new MockEvent(position);
     await triggerEvent(selector || dropSelector, 'dragover', event);
-  });
+  }
 }
 
 async function drop(dragSelector, dragEvent, options) {

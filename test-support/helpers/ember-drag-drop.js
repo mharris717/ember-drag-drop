@@ -1,21 +1,20 @@
 /* global triggerEvent , andThen */
 import { run } from '@ember/runloop';
-import $ from 'jquery';
 import MockDataTransfer from '../../tests/helpers/data-transfer';
 
 function drop($dragHandle, dropCssPath, dragEvent) {
-  let $dropTarget = $(dropCssPath);
+  let dropTarget = document.querySelector(dropCssPath);
 
-  if ($dropTarget.length === 0) {
+  if (dropTarget.length === 0) {
     throw(`There are no drop targets by the given selector: '${dropCssPath}'`);
   }
 
   run(() => {
-    triggerEvent($dropTarget, 'dragover', MockDataTransfer.makeMockEvent());
+    triggerEvent(dropTarget, 'dragover', MockDataTransfer.makeMockEvent());
   });
 
   run(() => {
-    triggerEvent($dropTarget, 'drop', MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload')));
+    triggerEvent(dropTarget, 'drop', MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload')));
   });
 
   run(() => {
@@ -25,14 +24,14 @@ function drop($dragHandle, dropCssPath, dragEvent) {
 
 export function drag(cssPath, options={}) {
   let dragEvent = MockDataTransfer.makeMockEvent();
-  let $dragHandle = $(cssPath);
+  let dragHandle = document.querySelector(cssPath);
 
   run(() => {
-    triggerEvent($dragHandle, 'mouseover');
+    triggerEvent(dragHandle, 'mouseover');
   });
 
   run(() => {
-    triggerEvent($dragHandle, 'dragstart', dragEvent);
+    triggerEvent(dragHandle, 'dragstart', dragEvent);
   });
 
   andThen(function() {
@@ -43,7 +42,7 @@ export function drag(cssPath, options={}) {
 
   andThen(function() {
     if (options.drop) {
-      drop($dragHandle, options.drop, dragEvent);
+      drop(dragHandle, options.drop, dragEvent);
     }
   });
 }
