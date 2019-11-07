@@ -16,8 +16,7 @@ When using this addon, you get to work with objects in your domain layer, just l
 
 ## Requirements
 
-- ember-cli 0.2.7 or higher (may work with lower version, but this is what is tested)
-- If you use the sorting object, you will need Ember 1.13.2 or higher.
+- Supports Ember 2.18 and up (may work with lower version, but this is what is tested)
 
 ## Installation
 
