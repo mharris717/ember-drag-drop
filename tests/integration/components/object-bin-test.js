@@ -12,11 +12,11 @@ module('Integration | Component | object bin', function(hooks) {
     let obj = EmberObject.create({ title2: "Hello" }),
         all = A();
     all.addObject(obj);
-  
+
     this.set('all', all);
-  
+
     await render(hbs`{{#object-bin title2='notit' model=all as |obj|}}<span class='title2'>{{obj.title2}}</span>{{/object-bin}}`);
-  
+
     assert.equal(findAll('.title2').length, 1);
     assert.equal(find('.title2').textContent.trim(), "Hello");
   });

@@ -3,7 +3,7 @@ import { run } from '@ember/runloop';
 import { A } from '@ember/array';
 import { test, moduleForComponent } from 'ember-qunit';
 import Coordinator from '../../../models/coordinator';
-import MockEvent from '../../helpers/mock-event';
+import MockEvent from 'ember-drag-drop/test-support/helpers/mock-event';
 import { wrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 const Thing = EmberObject.extend({});
