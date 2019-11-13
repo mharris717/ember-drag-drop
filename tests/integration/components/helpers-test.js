@@ -65,3 +65,4 @@ module('Integration | Helpers', function(hooks) {
   });
 
 });
+
