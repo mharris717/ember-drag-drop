@@ -83,19 +83,19 @@ export default Service.extend({
       this.set('lastEvent', event);
     }
 
-    if (event.clientY < this.get('lastEvent').originalEvent.clientY) {
+    if (event.clientY < this.get('lastEvent').clientY) {
       moveDirections.push('up');
     }
 
-    if (event.clientY > this.get('lastEvent').originalEvent.clientY) {
+    if (event.clientY > this.get('lastEvent').clientY) {
       moveDirections.push('down');
     }
 
-    if (event.clientX < this.get('lastEvent').originalEvent.clientX) {
+    if (event.clientX < this.get('lastEvent').clientX) {
       moveDirections.push('left');
     }
 
-    if (event.clientX > this.get('lastEvent').originalEvent.clientX) {
+    if (event.clientX > this.get('lastEvent').clientX) {
       moveDirections.push('right');
     }
 
