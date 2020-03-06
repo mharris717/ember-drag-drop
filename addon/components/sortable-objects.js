@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 
 export default Component.extend( {
-  dragCoordinator: service(),
+  dragCoordinator: service('drag-coordinator'),
   overrideClass: 'sortable-objects',
   classNameBindings: ['overrideClass'],
   enableSort: true,

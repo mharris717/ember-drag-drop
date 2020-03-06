@@ -7,7 +7,7 @@ import { set } from '@ember/object';
 import { wrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 export default Component.extend({
-  dragCoordinator: service(),
+  dragCoordinator: service('drag-coordinator'),
   overrideClass: 'draggable-object',
   classNameBindings: [':js-draggableObject','isDraggingObject:is-dragging-object:', 'overrideClass'],
   attributeBindings: ['dragReady:draggable'],
@@ -26,7 +26,7 @@ export default Component.extend({
   proxyContent: computed('content', function() {
     return wrapper(this.get('content'));
   }),
-  
+
 
   init() {
     this._super(...arguments);
