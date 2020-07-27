@@ -18,6 +18,7 @@ env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
+
   matrix:
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
