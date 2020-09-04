@@ -77,18 +77,26 @@ export default Service.extend({
     const currentOffsetItem = this.get('currentOffsetItem');
     const pos = this.relativeClientPosition(emberObject.element, event);
     const hasSameSortingScope = this.get('currentDragItem.sortingScope') === emberObject.get('sortingScope');
-    let moveDirection = false;
+    let moveDirections = [];
 
     if (!this.get('lastEvent')) {
       this.set('lastEvent', event);
     }
 
     if (event.clientY < this.get('lastEvent').clientY) {
-      moveDirection = 'up';
+      moveDirections.push('up');
     }
 
     if (event.clientY > this.get('lastEvent').clientY) {
-      moveDirection = 'down';
+      moveDirections.push('down');
+    }
+
+    if (event.clientX < this.get('lastEvent').clientX) {
+      moveDirections.push('left');
+    }
+
+    if (event.clientX > this.get('lastEvent').clientX) {
+      moveDirections.push('right');
     }
 
     this.set('lastEvent', event);
@@ -96,7 +104,10 @@ export default Service.extend({
     if (!this.get('isMoving') && this.get('currentDragEvent')) {
       if (event.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
-          if (pos.py > 0.33 && moveDirection === 'up' || pos.py > 0.33 && moveDirection === 'down') {
+          if (pos.py < 0.67 && moveDirections.indexOf('up') >= 0 ||
+              pos.py > 0.33 && moveDirections.indexOf('down') >= 0 ||
+              pos.px < 0.67 && moveDirections.indexOf('left') >= 0 ||
+              pos.px > 0.33 && moveDirections.indexOf('right') >= 0) {
 
             this.moveElements(emberObject);
             this.set('currentOffsetItem', emberObject);
