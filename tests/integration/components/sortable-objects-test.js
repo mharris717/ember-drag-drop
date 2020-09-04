@@ -2,7 +2,7 @@ import { findAll, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { drag } from '../../helpers/drag-drop';
+import { drag } from 'ember-drag-drop/test-support/helpers/drag-drop';
 import { A } from '@ember/array';
 import { w } from '@ember/string';
 

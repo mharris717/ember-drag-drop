@@ -2,7 +2,7 @@ import { triggerEvent, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import MockEvent from '../../helpers/mock-event';
+import MockEvent from 'ember-drag-drop/test-support/helpers/mock-event';
 
 module('Integration | Component | draggable object', function(hooks){
   setupRenderingTest(hooks);
