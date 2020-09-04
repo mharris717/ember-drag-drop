@@ -360,7 +360,6 @@ export default Ember.ArrayController.extend({
       post.save();
     }
   }
-}
 });
 ```
 
