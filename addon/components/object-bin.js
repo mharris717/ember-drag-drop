@@ -7,7 +7,7 @@ function removeOne(arr,obj) {
   var l2 = arr.get('length');
 
   if (l-1 !== l2) {
-    throw "bad length " + l + " " + l2;
+    throw new Error("bad length " + l + " " + l2);
   }
 }
 

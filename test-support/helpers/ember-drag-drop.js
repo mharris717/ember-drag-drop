@@ -6,7 +6,7 @@ function drop($dragHandle, dropCssPath, dragEvent) {
   let dropTarget = document.querySelector(dropCssPath);
 
   if (dropTarget.length === 0) {
-    throw(`There are no drop targets by the given selector: '${dropCssPath}'`);
+    throw new Error(`There are no drop targets by the given selector: '${dropCssPath}'`);
   }
 
   run(() => {
