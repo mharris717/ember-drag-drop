@@ -21,7 +21,7 @@ export default EmberObject.extend({
   getObj: function(key) {
     var res = this.get('content')[key];
     if (!res) {
-      throw "no obj for key "+key;
+      throw new Error("no obj for key "+key);
     }
     return res;
   },
