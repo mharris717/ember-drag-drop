@@ -12,7 +12,7 @@ async function dragOver(dropSelector, moves) {
   }
 }
 
-async function drop(dragSelector, dragEvent, options) {
+async function drop(dragElement, dragEvent, options) {
   let { drop: dropSelector, dropEndOptions, dragOverMoves } = options;
 
   let dropElement = await find(dropSelector);
@@ -29,11 +29,12 @@ async function drop(dragSelector, dragEvent, options) {
   let event = new MockEvent().useDataTransferData(dragEvent);
   await triggerEvent(dropSelector, 'drop', event);
 
-  return await triggerEvent(dragSelector, 'dragend', dropEndOptions);
+  return await triggerEvent(dragElement, 'dragend', dropEndOptions);
 }
 
 export async function drag(dragSelector, options = {}) {
   let dragEvent = new MockEvent(options.dragStartOptions);
+  const dragElement = document.querySelector(dragSelector);
 
   await triggerEvent(dragSelector, 'mouseover');
 
@@ -44,6 +45,6 @@ export async function drag(dragSelector, options = {}) {
   }
 
   if (options.drop) {
-    await drop(dragSelector, dragEvent, options);
+    await drop(dragElement, dragEvent, options);
   }
 }
