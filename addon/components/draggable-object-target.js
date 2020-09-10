@@ -64,12 +64,12 @@ export default Component.extend(Droppable, {
 
   didInsertElement() {
       this._super(...arguments);
-      this.element.addEventListener('mouseenter', this.handleMouseEnter);
+      this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
   },
 
   willDestroyElement() {
       this._super(...arguments);
-      this.element.removeEventListener('mouseenter', this.handleMouseEnter);
+      this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
   },
 
   actions: {
