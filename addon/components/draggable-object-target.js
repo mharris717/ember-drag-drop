@@ -64,12 +64,12 @@ export default Component.extend(Droppable, {
 
   didInsertElement() {
       this._super(...arguments);
-      this.element.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+      this.element.addEventListener('mouseenter', this.boundHandleMouseEnter);
   },
 
   willDestroyElement() {
       this._super(...arguments);
-      this.element.removeEventListener('mouseenter', this.handleMouseEnter.bind(this));
+      this.element.removeEventListener('mouseenter', this.boundHandleMouseEnter);
   },
 
   actions: {
@@ -77,5 +77,11 @@ export default Component.extend(Droppable, {
       let hashId = this.get('coordinator.clickedId');
       this.handlePayload(hashId);
     }
+  },
+
+  init() {
+    this._super(...arguments);
+
+    this.set('boundHandleMouseEnter', this.handleMouseEnter.bind(this));
   }
 });
