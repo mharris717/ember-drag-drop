@@ -13,11 +13,11 @@ export default EmberObject.extend(Evented, {
     ops = ops || {};
     var payload = this.get('objectMap').getObj(id);
 
-    if (payload.ops.source) {
+    if (payload.ops.source && !payload.ops.source.isDestroying && !payload.ops.source.isDestroyed) {
       payload.ops.source.sendAction('action',payload.obj);
     }
 
-    if (payload.ops.target) {
+    if (payload.ops.target && !payload.ops.target.isDestroying && !payload.ops.target.isDestroyed) {
       payload.ops.target.sendAction('action',payload.obj);
     }
 
