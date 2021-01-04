@@ -14,11 +14,15 @@ export default EmberObject.extend(Evented, {
     var payload = this.get('objectMap').getObj(id);
 
     if (payload.ops.source && !payload.ops.source.isDestroying && !payload.ops.source.isDestroyed) {
-      payload.ops.source.send('action', payload.obj);
+      if (typeof payload.ops.source['action'] === 'function') {
+        payload.ops.source['action'](payload.obj)
+      }
     }
 
     if (payload.ops.target && !payload.ops.target.isDestroying && !payload.ops.target.isDestroyed) {
-      payload.ops.target.send('action', payload.obj);
+      if (typeof payload.ops.target['action'] === 'function') {
+        payload.ops.target['action'](payload.obj)
+      }
     }
 
     this.trigger("objectMoved", {obj: unwrapper(payload.obj), source: payload.ops.source, target: ops.target});
