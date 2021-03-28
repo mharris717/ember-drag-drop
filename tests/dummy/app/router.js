@@ -16,4 +16,3 @@ Router.map(function() {
   this.route("multiple");
 });
 
-export default Router;
