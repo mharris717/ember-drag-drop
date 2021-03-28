@@ -1,4 +1,5 @@
-{{#if enableClicking}}
+{{! this should be `@enableClicking` but this is not a valid path on Ember 2.16 }}
+{{#if this.enableClicking}}
   <a href="#" {{action "selectForDrag"}}>
     {{yield}}
   </a>
