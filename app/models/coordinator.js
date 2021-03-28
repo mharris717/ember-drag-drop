@@ -14,11 +14,29 @@ export default EmberObject.extend(Evented, {
     var payload = this.get('objectMap').getObj(id);
 
     if (payload.ops.source && !payload.ops.source.isDestroying && !payload.ops.source.isDestroyed) {
-      payload.ops.source.sendAction('action',payload.obj);
+      const action = payload.ops.source['action'];
+      // Support when action is a function
+      if (typeof action === 'function') {
+        action(payload.obj)
+      }
+
+      // Support when action is a string
+      if (typeof action === 'string' && typeof payload.ops.source.target[action] === 'function') {
+        payload.ops.source.target[action](payload.obj);
+      }
     }
 
     if (payload.ops.target && !payload.ops.target.isDestroying && !payload.ops.target.isDestroyed) {
-      payload.ops.target.sendAction('action',payload.obj);
+      const action = payload.ops.target['action'];
+      // Support when action is a function
+      if (typeof action === 'function') {
+        action(payload.obj)
+      }
+
+      // Support when action is a string
+      if (typeof action === 'string' && typeof payload.ops.target.source[action] === 'function') {
+        payload.ops.target.source[action](payload.obj);
+      }
     }
 
     this.trigger("objectMoved", {obj: unwrapper(payload.obj), source: payload.ops.source, target: ops.target});
