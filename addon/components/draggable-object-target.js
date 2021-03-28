@@ -1,3 +1,4 @@
+import { getOwner } from '@ember/application';
 import Component from '@ember/component';
 import Droppable from 'ember-drag-drop/mixins/droppable';
 
@@ -5,6 +6,18 @@ export default Component.extend(Droppable, {
   classNameBindings: ['overrideClass'],
   overrideClass: 'draggable-object-target',
   isOver: false,
+
+  // idea taken from https://github.com/emberjs/rfcs/blob/master/text/0680-implicit-injection-deprecation.md#stage-1
+  get coordinator() {
+    if (this._coordinator === undefined) {
+      this._coordinator = getOwner(this).lookup('drag:coordinator');
+    }
+
+    return this._coordinator;
+  },
+  set coordinator(value) {
+    this._coordinator = value;
+  },
 
   handlePayload(payload, event) {
     let obj = this.get('coordinator').getObject(payload,{target: this});
