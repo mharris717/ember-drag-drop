@@ -1,3 +1,3 @@
-import DS from 'ember-data';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
-export default DS.FixtureAdapter.extend({});
+export default class ApplicationAdapter extends JSONAPIAdapter {}

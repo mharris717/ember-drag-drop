@@ -1,35 +1,37 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
+export default class SimpleExample extends Controller {
+  @tracked dragFinishText = false;
+  @tracked dragStartedText = false;
+  @tracked dragEndedText = false;
+  @tracked myObject = {id: 1, name: 'objectName'};
+  
+  @action
+  dragResult(obj,ops) {
+    this.dragFinishText = ops.target.resultText;
+    console.log('Content of draggable-object :',obj);
+  }
 
-  dragFinishText: false,
-  dragStartedText: false,
-  dragEndedText: false,
-
-  init: function() {
-    this._super(...arguments);
-    this.set('myObject', {id: 1, name: 'objectName'})
-  },
-
-  actions: {
-    dragResult: function(obj,ops) {
-      this.set('dragFinishText', ops.target.resultText);
-      console.log('Content of draggable-object :',obj);
-    },
-    dragStart: function() {
-      this.set('dragEndedText', false);
-      this.set('dragStartedText','Drag Has Started');
-    },
-    dragEnd: function() {
-      this.set('dragStartedText', false);
-      this.set('dragEndedText','Drag Has Ended');
-    },
-    draggingOverTarget: function() {
-      console.log('Over target');
-    },
-    leftDragTarget: function() {
-      console.log('Off target');
+  @action
+  dragStart(){
+      this.dragEndedText = false;
+      this.dragStartedText = 'Drag Has Started';
+    }
+  @action
+    dragEnd() {
+      this.dragStartedText = false;
+      this.dragEndedText = 'Drag Has Ended';
     }
 
+  @action
+  draggingOverTarget() {
+    console.log('Over target');
   }
-});
+
+  @action
+  leftDragTarget() {
+    console.log('Off target');
+  }
+};

@@ -1,15 +1,17 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 
-export default Controller.extend({
+export default class SortExample extends Controller {
 
-  sortFinishText: null,
+  sortFinishText = null;
 
-  actions: {
-    dragStart: function(object) {
-      console.log('Drag Start', object);
-    },
-    sortEndAction: function() {
-      console.log('Sort Ended', this.get('model.pages'));
-    }
+  @action
+  dragStart(object) {
+    console.log('Drag Start', object);
   }
-});
+  @action
+  sortEndAction() {
+    console.log('Sort Ended', this.get('model.pages'));
+  }
+}
+

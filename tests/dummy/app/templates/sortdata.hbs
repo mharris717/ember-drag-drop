@@ -2,27 +2,31 @@
 <p>Drag any box to another position and drop to re-sort the list</p>
 
 <div class="u-pullLeft">
-  {{#sortable-objects sortableObjectList=model.pages sortEndAction=(action 'sortEndAction') enableSort=true}}
-    {{#each model.pages as |item|}}
-      {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
+  <SortableObjects 
+    @sortableObjectList={{this.model.pages}} 
+    @sortEndAction={{fn this.sortEndAction}} 
+    @enableSort={{true}}
+  >
+    {{#each this.model.pages as |item|}}
+      <DraggableObject @content={{item}} @overrideClass="sortObject" @isSortable={{true}}>
         {{item.title}}
-      {{/draggable-object}}
+      </DraggableObject>
     {{/each}}
-  {{/sortable-objects}}
+  </SortableObjects>
 </div>
 <div class="u-pullLeft u-marginLeft">
   <h3>Order of objects is:</h3>
   <ul>
-    {{#each model.pages as |item|}}
+    {{#each this.model.pages as |item|}}
       <li>id:{{item.id}}, title:{{item.title}}</li>
     {{/each}}
   </ul>
 </div>
 <br><br>
 <div class="u-fullBlock">
-  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sortdata.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sortdata.hbs</a>
-  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js</a>
-  <br>Route is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js</a>
+  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sortdata.hbs" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/sortdata.hbs</a>
+  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js</a>
+  <br>Route is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js</a>
 </div>
 
 

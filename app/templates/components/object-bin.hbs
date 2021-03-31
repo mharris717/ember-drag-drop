@@ -1,10 +1,10 @@
-{{#draggable-object-target action=(action 'handleObjectDropped') }}
+<DraggableObjectTarget @action={{action "handleObjectDropped"}}>
   {{! this should be `@name` but this is not a valid path on Ember 2.16 }}
   <div class="object-bin-title">{{this.name}}</div>
   <br>
   {{#each this.model as |obj|}}
-    {{#draggable-object action="handleObjectDragged" content=obj}}
+    <DraggableObject @action="handleObjectDragged" @content={{obj}}>
       {{yield obj}}
-    {{/draggable-object}}
+    </DraggableObject>
   {{/each}}
-{{/draggable-object-target}}
+</DraggableObjectTarget>
