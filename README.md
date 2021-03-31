@@ -15,8 +15,8 @@ To use this addon, you don't need to:
 When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember. The only two things you need to use are (as you might expect) [Draggable Object](#draggable-object) and [Draggable Object Target](#draggable-object-target)
 
 ## Requirements
-
-- Supports Ember 2.18 and up (may work with lower version, but this is what is tested)
+- As of version 0.9 and up it works with Ember 3.12 and higher.
+- Use 0.8.2 if you need to support a Ember 2.X or version less than Ember 3.12
 
 ## Installation
 
@@ -63,26 +63,26 @@ The two things to provide to the component are:
 * The template code to render for the draggable object
 
 ```handlebars
-{{#draggable-object content=this}}
+<DraggableObject @content={{this}}>
   {{name}}
-{{/draggable-object}}
+</DraggableObject>
 ```
 At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
 
 Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
 
 ```handlebars
-{{#draggable-object content=this dragStartAction=(action 'myStartAction') dragEndAction=(action 'myEndAction')}}
+<DraggableObject @content={{this}} @dragStartHook={{fn this.myStartAction}} @dragEndHook={{fn this.myEndAction}}>
   {{name}}
-{{/draggable-object}}
+</DraggableObject>
 ```
 
 If you wish to have a drag handle in your component to be the trigger for a drag start action, instead of the whole wrapped template you can specify the jquery selector in the component.
 
 ```handlebars
-{{#draggable-object content=this dragHandle='.js-dragHandle'}}
+<DraggableObject @content={{this}} @dragHandle='.js-dragHandle'>
   <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-{{/draggable-object}}
+</DraggableObject>
 ```
 
 There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set.
@@ -90,9 +90,9 @@ If you want to override that and apply your own stylings you can use the 'dragSt
 The jquery event is passed as the only parameter.
 
 ```handlebars
-{{#draggable-object content=this dragStartHook=(action 'dragStartAction') dragEndHook=(action 'dragEndAction')}}
+<DraggableObject @content={{this}} @dragStartHook=(action 'dragStartAction') @dragEndHook=(action 'dragEndAction')}}
   <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-{{/draggable-object}}
+</DraggableObject>
 ```
 
 
@@ -133,17 +133,17 @@ The action is called with two arguments:
 ```handlebars
 ... your regular template code
 
-{{#draggable-object-target action=(action 'increaseRating') amount="5"}}
+<DraggableObjectTarget @action={{fn this.increaseRating}} amount={{"5"}}>
   Drag here to increase rating
-{{/draggable-object-target}}
+</DraggableObjectTarget>
 ```
 
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-{{#draggable-object-target action=(action 'increaseRating') amount="5" dragOverAction=(action 'myOverAction') dragOutAction=(action 'myDragOutAction')}}
+<DraggableObjectTarget @action={{fn this.increaseRating}} @amount={{"5"}} @dragOverAction={{fn this.myOverAction}} dragOutAction={{fn this.myDragOutAction}}> 
   Drag here to increase rating
-{{/draggable-object-target}}
+</DraggableObjectTarget>
 ```
 
 
@@ -173,7 +173,7 @@ You can check out an example of this is action [here](https://mharris717.github.
 
 ## Sorting of objects
 
-We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `{{#draggable-object}}` components you can get an array of sorted elements returned.
+We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `<DraggableObject}}` components you can get an array of sorted elements returned.
 
 **Important Note on Ember Versions:
 If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting
@@ -183,13 +183,13 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-{{#sortable-objects sortableObjectList=sortableObjectList sortEndAction=(action 'sortEndAction') enableSort=true useSwap=true inPlace=false sortingScope="sortingGroup"}}
+<SortableObjects @sortableObjectList={{this.sortableObjectList}} @sortEndAction={{fn this.sortEndAction}} @enableSort={{true}} @useSwap={{true}} @inPlace={{false}} @sortingScope={{"sortingGroup"}}>
   {{#each sortableObjectList as |item|}}
-    {{#draggable-object content=item isSortable=true sortingScope="sortingGroup"}}
+    <DraggableObject content=item isSortable=true sortingScope="sortingGroup">
       {{item.name}}
-    {{/draggable-object}}
+    </DraggableObject>
   {{/each}}
-{{/sortable-objects}}
+</SortableObjects>
 ```
 
 On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
@@ -302,16 +302,6 @@ For a fuller example check out this integration [test](https://github.com/mharri
   import { drag } from 'your-app/tests/helpers/ember-drag-drop';
   ```
 
-### TODO
-
-Theses additions to sort are still incoming:
-
-1. ~~Tests for sortable-objects~~
-2. Transforms for visual indicator of changing order
-3. ~~Ability to drag between sortable containers~~
-4. ~~Sorting of horizontal containers (currently only vertical sorting works)~~
-
-If anyone has any feedback/ideas on sorting, please open an issue.
 
 ## Component Class Overrides
 
@@ -320,65 +310,7 @@ For both `draggable-object` and `draggable-object-target` you can override the d
 An Example:
 
 ```handlebars
-{{#draggable-object-target overrideClass='my-new-class-name'}}
+<DraggableObject-target @overrideClass='my-new-class-name'>
 
-{{/draggable-object-target}}
-```
-
-
-# Examples
-
-## Classify Posts
-
-In this example, we have a bunch of unclassified posts that we want to mark either Ready to Publish or Needs Revision.
-
-When you drag a post onto one of the Possible Statuses, it will be:
-
-* Assigned that rating.
-* Removed from the Unclassified Posts list, by virtue of now having a status.
-
-app/models/post.js
-
-```javascript
-export default DS.Model.extend({
-  title: DS.attr('string'),
-  body: DS.attr('string'),
-  status: DS.attr('string')
-});
-```
-
-app/controllers/posts.js
-
-```javascript
-export default Ember.ArrayController.extend({
-  unclassifiedPosts: Ember.computed.filterBy('content', 'status', undefined),
-
-  actions: {
-    setStatus: function(post,ops) {
-      var status = ops.target.status;
-      post.set("status",status);
-      post.save();
-    }
-  }
-});
-```
-
-app/templates/posts.hbs
-
-```handlebars
-<h3>Unclassified Posts</h3>
-{{#each unclassifiedPosts as |post|}}
-  {{#draggable-object content=post}}
-    {{post.title}}
-  {{/draggable-object}}
-{{/each}}
-
-<h3>Possible Statuses</h3>
-{{#draggable-object-target action=(action 'setStatus') status="Ready to Publish"}}
-  Ready to Publish
-{{/draggable-object-target}}
-
-{{#draggable-object-target action=(action 'setStatus') status="Needs Revision"}}
-  Needs Revision
 {{/draggable-object-target}}
 ```

@@ -35,7 +35,6 @@ jobs:
     - stage: "Tests"
       name: "Tests"
       script:
-        - yarn lint
         - yarn test:ember
 
     - stage: "Additional Tests"
