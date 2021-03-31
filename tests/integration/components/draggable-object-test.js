@@ -10,14 +10,14 @@ module('Integration | Component | draggable object', function(hooks){
   test('draggable object renders', async function(assert) {
     assert.expect(2);
   
-    await render(hbs`{{draggable-object}}`);
+    await render(hbs`<DraggableObject />`);
 
     assert.equal(this.element.innerText.trim(), '');
   
     await render(hbs`
-      {{#draggable-object}}
+      <DraggableObject>
         template block text
-      {{/draggable-object}}
+      </DraggableObject>
     `);
 
     assert.equal(this.element.innerText.trim(), 'template block text');
@@ -31,10 +31,10 @@ module('Integration | Component | draggable object', function(hooks){
     this.set('dragMoveAction', (event) => assert.ok(event));
   
     await render(hbs`
-      {{#draggable-object content=myObject class='draggable-object' dragMoveAction=(action dragMoveAction)}}
+      <DraggableObject @content={{this.myObject}} class='draggable-object' @dragMoveAction={{fn this.dragMoveAction}}>
         Hi
-        <a class="js-dragHandle dragHandle"></a>
-      {{/draggable-object}}
+        <span class="js-dragHandle dragHandle"></span>
+        </DraggableObject>
     `);
   
     let componentSelector = '.draggable-object';
@@ -57,10 +57,10 @@ module('Integration | Component | draggable object', function(hooks){
     let event = new MockEvent();
   
     await render(hbs`
-      {{#draggable-object content=myObject class='draggable-object' dragHandle='.js-dragHandle'}}
+      <DraggableObject @content={{this.myObject}} class='draggable-object' @dragHandle='.js-dragHandle'>
         Main Component
-        <a class="js-dragHandle dragHandle"></a>
-      {{/draggable-object}}
+        <span class="js-dragHandle dragHandle"></span>
+      </DraggableObject>
     `);
   
     let componentSelector = '.draggable-object';
@@ -103,8 +103,8 @@ module('Integration | Component | draggable object', function(hooks){
     this.set('dragEndAction', (event) => assert.ok(event));
   
     await render(hbs`
-      {{#draggable-object class='draggable-object' dragStartHook=(action dragStartAction) dragEndHook=(action dragEndAction)}}
-      {{/draggable-object}}
+      <DraggableObject class='draggable-object' @dragStartHook={{fn this.dragStartAction}} @dragEndHook={{fn this.dragEndAction}}>
+      </DraggableObject>
     `);
   
     let componentSelector = '.draggable-object';
