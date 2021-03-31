@@ -20,7 +20,7 @@ env:
 
 branches:
   only:
-    - master
+    - upgrade-ember-3.26
     # npm version tags
     - /^v\d+\.\d+\.\d+/
 
