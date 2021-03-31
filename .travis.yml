@@ -3,7 +3,7 @@ language: node_js
 node_js:
   # we recommend testing addons with the same minimum supported node version as Ember CLI
   # so that your addon works for all apps
-  - "10"
+  - "12"
 
 dist: xenial
 
@@ -17,19 +17,6 @@ env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
-
-  matrix:
-     # we recommend new addons test the current and previous LTS
-    # as well as latest stable release (bonus points to beta/canary)
-    - env: EMBER_TRY_SCENARIO=ember-lts-3.12
-    - env: EMBER_TRY_SCENARIO=ember-lts-3.16
-    - env: EMBER_TRY_SCENARIO=ember-lts-3.20
-    - env: EMBER_TRY_SCENARIO=ember-lts-3.24
-    - env: EMBER_TRY_SCENARIO=ember-release
-    - env: EMBER_TRY_SCENARIO=ember-beta
-    - env: EMBER_TRY_SCENARIO=ember-canary
-    - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
-    - env: EMBER_TRY_SCENARIO=ember-classic
 
 branches:
   only:
