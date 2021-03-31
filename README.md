@@ -310,7 +310,7 @@ For both `draggable-object` and `draggable-object-target` you can override the d
 An Example:
 
 ```handlebars
-<DraggableObject-target @overrideClass='my-new-class-name'>
+<DraggableObjectTarget @overrideClass={{'my-new-class-name'}}>
 
-{{/draggable-object-target}}
+</DraggableObjectTarget>
 ```
