@@ -1,3 +1,4 @@
+import { getOwner } from '@ember/application';
 import Component from '@ember/component';
 import { inject as service} from '@ember/service';
 import { alias } from '@ember/object/computed';
@@ -16,6 +17,18 @@ export default Component.extend({
   isSortable: false,
   sortingScope: 'drag-objects',
   title: alias('content.title'),
+
+  // idea taken from https://github.com/emberjs/rfcs/blob/master/text/0680-implicit-injection-deprecation.md#stage-1
+  get coordinator() {
+    if (this._coordinator === undefined) {
+      this._coordinator = getOwner(this).lookup('drag:coordinator');
+    }
+
+    return this._coordinator;
+  },
+  set coordinator(value) {
+    this._coordinator = value;
+  },
 
   draggable: computed('isDraggable', function() {
     let isDraggable = this.get('isDraggable');

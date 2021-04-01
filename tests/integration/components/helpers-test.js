@@ -10,12 +10,13 @@ module('Integration | Helpers', function(hooks) {
 
   const collection = ['hiphop', 'jazz', 'funk'];
   const template = hbs`
-    {{#each collection as |genre index|}}
-      {{#draggable-object classNames=genre coordinator=coordinator content=genre}}
-        <div class="item">{{genre}}</div>
-      {{/draggable-object}}
+    {{#each this.collection as |genre index|}}
+    
+      <DraggableObject class={{genre}} @coordinator={{this.coordinator}} @content={{genre}}>
+        <div class="item">{{this.genre}}</div>
+      </DraggableObject>
 
-      {{draggable-object-target classNames=genre class='drop-target' action=(action dropAction) destination=index coordinator=coordinator}}
+      <DraggableObjectTarget class="drop-target {{genre}}" @action={{fn this.dropAction}} @destination={{index}} @coordinator={{this.coordinator}} />
     {{/each}}
   `;
 

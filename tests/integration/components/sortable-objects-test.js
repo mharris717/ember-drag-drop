@@ -36,27 +36,27 @@ module('Integration | Component | sortable objects', function(hooks) {
   test('sortable object renders', async function(assert) {
     assert.expect(3);
   
-    await render(hbs`{{sortable-objects}}`);
+    await render(hbs`<SortableObjects />`);
   
     assert.equal(this.element.textContent.trim(), '');
   
     await render(hbs`
-      {{#sortable-objects}}
+        <SortableObjects>
         template block text
-      {{/sortable-objects}}
+        </SortableObjects>
     `);
   
     assert.equal(this.element.textContent.trim(), 'template block text');
   
     await render(hbs`
-      {{#sortable-objects}}
-       {{#draggable-object class='draggable-object'}}
+      <SortableObjects>
+       <DraggableObject class='draggable-object'>
         Object 1
-       {{/draggable-object}}
-       {{#draggable-object class='draggable-object'}}
+        </DraggableObject>
+       <DraggableObject class='draggable-object'>
         Object 2
-       {{/draggable-object}}
-      {{/sortable-objects}}
+        </DraggableObject>
+       </SortableObjects>
     `);
     assert.equal(findAll('.draggable-object').length, 2);
   });
@@ -73,13 +73,13 @@ module('Integration | Component | sortable objects', function(hooks) {
     });
   
     await render(hbs`
-      {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action sortEndAction) class='sortContainer' sortingScope='sortable-objects'}}
-        {{#each pojoData as |item|}}
-          {{#draggable-object content=item overrideClass='sortObject' isSortable=true sortingScope='sortable-objects'}}
+      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @sortingScope='sortable-objects'>
+        {{#each this.pojoData as |item|}}
+          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}} @sortingScope='sortable-objects'>
             {{item.title}}
-          {{/draggable-object}}
+          </DraggableObject>
         {{/each}}
-      {{/sortable-objects}}
+        </SortableObjects>
     `);
   
     assert.equal(findAll('.sortObject').length, 4, 'shows 4 sortable elements');
@@ -121,13 +121,13 @@ module('Integration | Component | sortable objects', function(hooks) {
     });
   
     await render(hbs`
-      {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action sortEndAction) class='sortContainer' useSwap=false}}
-        {{#each pojoData as |item|}}
-          {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
+      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @useSwap={{false}}>
+        {{#each this.pojoData as |item|}}
+          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}}>
             {{item.title}}
-          {{/draggable-object}}
+          </DraggableObject>
         {{/each}}
-      {{/sortable-objects}}
+        </SortableObjects>
     `);
   
     assert.equal(findAll('.sortObject').length, 4);
@@ -166,13 +166,13 @@ module('Integration | Component | sortable objects', function(hooks) {
     });
   
     await render(hbs`
-      {{#sortable-objects sortableObjectList=pojoData sortEndAction=(action sortEndAction) class='sortContainer' enableSort=false}}
-        {{#each pojoData as |item|}}
-          {{#draggable-object content=item overrideClass='sortObject' isSortable=false}}
-            {{item.title}}
-          {{/draggable-object}}
+      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @enableSort={{false}}>
+      {{#each this.pojoData as |item|}}
+        <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{false}}>
+          {{item.title}}
+        </DraggableObject>
         {{/each}}
-      {{/sortable-objects}}
+      </SortableObjects>
     `);
   
     assert.equal(findAll('.sortObject').length, 4);
@@ -210,13 +210,13 @@ module('Integration | Component | sortable objects', function(hooks) {
     this.set('pojoData', mutableData);
   
     await render(hbs`
-      {{#sortable-objects sortableObjectList=pojoData class='sortContainer' useSwap=false inPlace=true}}
-        {{#each pojoData as |item|}}
-          {{#draggable-object content=item overrideClass='sortObject' isSortable=true}}
+      <SortableObjects @sortableObjectList={{this.pojoData}} @useSwap={{false}} @inPlace={{true}}>
+        {{#each this.pojoData as |item|}}
+          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}}>
             {{item.title}}
-          {{/draggable-object}}
+          </DraggableObject>
         {{/each}}
-      {{/sortable-objects}}
+      </SortableObjects> 
     `);
   
     assert.equal(findAll('.sortObject').length, 4);

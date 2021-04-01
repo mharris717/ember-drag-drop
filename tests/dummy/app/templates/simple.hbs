@@ -1,26 +1,35 @@
 <h3>A simple example of one drag and one drop</h3>
 
-{{#draggable-object-target action=(action 'dragResult') resultText='Drag is Complete' dragOverAction=(action 'draggingOverTarget') dragOutAction=(action 'leftDragTarget') overrideClass='dropTarget'}}
-  {{#if dragFinishText}}
-    {{dragFinishText}}
+<DraggableObjectTarget 
+  @action={{fn this.dragResult}} 
+  @resultText="Drag is Complete" 
+  @dragOverAction={{fn this.draggingOverTarget}} 
+  @dragOutAction={{fn this.leftDragTarget}} 
+  @overrideClass="dropTarget">
+  {{#if this.dragFinishText}}
+    {{this.dragFinishText}}
   {{else}}
     Drag here to complete Action
   {{/if}}
-{{/draggable-object-target}}
+</DraggableObjectTarget>
 
-{{#draggable-object content=myObject  dragStartAction=(action 'dragStart') dragEndAction=(action 'dragEnd') overrideClass='dragObject'}}
+<DraggableObject 
+  @content={{this.myObject}} 
+  @dragStartAction={{fn this.dragStart}} 
+  @dragEndAction={{fn this.dragEnd}}
+   @overrideClass="dragObject">
 
-  {{#if dragStartedText}}
-    {{dragStartedText}}
-  {{else if dragEndedText}}
-    {{dragEndedText}}
+  {{#if this.dragStartedText}}
+    {{this.dragStartedText}}
+  {{else if this.dragEndedText}}
+    {{this.dragEndedText}}
   {{else}}
     Drag Me
   {{/if}}
 
-{{/draggable-object}}
+</DraggableObject>
 <br><br>
 <div class="u-fullBlock">
-  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/simple.hbs" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/simple.hbs</a>
-  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/simple.js" target="_blank">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/simple.js</a>
+  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/simple.hbs" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/templates/simple.hbs</a>
+  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/simple.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/simple.js</a>
 </div>
