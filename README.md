@@ -173,7 +173,7 @@ You can check out an example of this is action [here](https://mharris717.github.
 
 ## Sorting of objects
 
-We now have a basic sorting capabilities in this library. If you wrap the `{{#sortable-objects}}` component around your `<DraggableObject}}` components you can get an array of sorted elements returned.
+We now have a basic sorting capabilities in this library. If you wrap the `<SortableObjects>` component around your `<DraggableObject>` components you can get an array of sorted elements returned.
 
 **Important Note on Ember Versions:
 If you use Ember version 1.13.2 and above you must user at least addon version 0.3 if you use sorting
