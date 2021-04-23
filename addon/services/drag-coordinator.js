@@ -5,9 +5,13 @@ import { isEqual } from '@ember/utils';
 
 
 function indexOf(items, a) {
-  return items.findIndex(function (element) {
-    return isEqual(element, a);
+  var returnIndex=null;
+  items.forEach(function(element, index) {
+    if (isEqual(element, a)) {
+      returnIndex=index;
+    }
   });
+  return returnIndex;
 }
 
 function swapInPlace(items, a, b) {
