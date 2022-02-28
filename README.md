@@ -185,7 +185,7 @@ An Example:
 ```handlebars
 <SortableObjects @sortableObjectList={{this.sortableObjectList}} @sortEndAction={{fn this.sortEndAction}} @enableSort={{true}} @useSwap={{true}} @inPlace={{false}} @sortingScope={{"sortingGroup"}}>
   {{#each sortableObjectList as |item|}}
-    <DraggableObject content=item isSortable=true sortingScope="sortingGroup">
+    <DraggableObject @content={{item}} @isSortable={{true}} @sortingScope="sortingGroup">
       {{item.name}}
     </DraggableObject>
   {{/each}}
