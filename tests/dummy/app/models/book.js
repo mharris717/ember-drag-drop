@@ -1,8 +1,6 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 
-var Book = Model.extend({
-  title: attr('string'),
-  pages: hasMany('page', { async: true }),
-});
-
-export default Book;
+export default class Book extends Model {
+  @attr('string') title;
+  @hasMany('page', { async: true }) pages;
+}

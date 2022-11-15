@@ -1,7 +1,5 @@
 import Model, { attr } from '@ember-data/model';
 
-var Page = Model.extend({
-  title: attr('string'),
-});
-
-export default Page;
+export default class Page extends Model {
+  @attr('string') title;
+}

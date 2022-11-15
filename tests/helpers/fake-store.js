@@ -7,8 +7,8 @@ var isNumber = function (obj) {
   return b - a === 2;
 };
 
-var FakeStore = EmberObject.extend({
-  findSingle: function (name, id) {
+class FakeStore extends EmberObject {
+  findSingle(name, id) {
     var me = this;
     return new Promise(function (success) {
       var all = me.get('all');
@@ -21,20 +21,20 @@ var FakeStore = EmberObject.extend({
 
       success(res);
     });
-  },
+  }
 
-  find: function (name, ops) {
+  find(name, ops) {
     ops = ops || {};
     if (isNumber(ops)) {
       return this.findSingle(name, ops);
     } else {
       return this.findMultiple(name, ops);
     }
-  },
-});
+  }
+}
 
 FakeStore.reopenClass({
-  makeNumberStore: function (max) {
+  makeNumberStore(max) {
     var all = [];
     for (var i = 1; i <= max; i++) {
       all.push(Object.create({ id: i }));
