@@ -1,5 +1,14 @@
 'use strict';
 
 module.exports = {
-  extends: 'octane',
+  extends: 'recommended',
+
+  overrides: [
+    {
+      files: ['./app/templates/components/sortable-objects.hbs'],
+      rules: {
+        'no-yield-only': 'warn',
+      },
+    },
+  ],
 };

@@ -8,10 +8,7 @@ import Mixin from '@ember/object/mixin';
 
 var Droppable = Mixin.create({
   _currentDrag: null,
-  classNameBindings: [
-    'accepts-drag',
-    'self-drop'
-  ],
+  classNameBindings: ['accepts-drag', 'self-drop'],
 
   /**
    * Read-only className property that is set to true when the component is
@@ -34,7 +31,7 @@ var Droppable = Mixin.create({
 
   'self-drop': false,
 
- /**
+  /**
    * Validates drag events. Override this to restrict which data types your
    * component accepts.
    *
@@ -145,9 +142,10 @@ var Droppable = Mixin.create({
    */
 
   _droppableIsDraggable(event) {
-    return Droppable._currentDrag && (
-      Droppable._currentDrag === event.target ||
-      Droppable._currentDrag.contains(event.target)
+    return (
+      Droppable._currentDrag &&
+      (Droppable._currentDrag === event.target ||
+        Droppable._currentDrag.contains(event.target))
     );
   },
 
@@ -163,15 +161,14 @@ var Droppable = Mixin.create({
   },
 
   dragLeave() {
-   this._resetDroppability();
+    this._resetDroppability();
   },
 
   // Need to track this so we can determine `self-drop`.
   // It's on `Droppable` so we can test :\
   dragStart(event) {
     this.set('_currentDrag', event.target);
-  }
-
+  },
 });
 
 export default Droppable;

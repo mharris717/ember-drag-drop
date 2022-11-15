@@ -11,7 +11,7 @@
     In this template the sortable-objects passes in 'useSwap'
   </p>
   <p>
-    <Input @type="checkbox" @checked={{this.useSwap}} />
+    <Input @type="checkbox" @checked={{this.useSwap}} aria-label="Toggle swap" />
     useSwap=
     {{#if this.useSwap}}
       true
@@ -29,7 +29,7 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList}}
-      @sortEndAction={{fn this.sortEndAction}}
+      @sortEndAction={{this.sortEndAction}}
       @useSwap={{this.useSwap}}
     >
       {{#each this.sortableObjectList as |item|}}

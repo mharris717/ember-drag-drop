@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
 export default class SortExample extends Controller {
-
   sortFinishText = null;
 
   @action
@@ -10,8 +9,7 @@ export default class SortExample extends Controller {
     console.log('Drag Start', object);
   }
   @action
-  sortEndAction() {
-    console.log('Sort Ended', this.get('model.pages'));
+  async sortEndAction() {
+    console.log('Sort Ended', await this.model.pages);
   }
 }
-

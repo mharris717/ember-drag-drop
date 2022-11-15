@@ -6,7 +6,9 @@ function drop($dragHandle, dropCssPath, dragEvent) {
   let dropTarget = document.querySelector(dropCssPath);
 
   if (dropTarget.length === 0) {
-    throw new Error(`There are no drop targets by the given selector: '${dropCssPath}'`);
+    throw new Error(
+      `There are no drop targets by the given selector: '${dropCssPath}'`
+    );
   }
 
   run(() => {
@@ -14,7 +16,11 @@ function drop($dragHandle, dropCssPath, dragEvent) {
   });
 
   run(() => {
-    triggerEvent(dropTarget, 'drop', MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload')));
+    triggerEvent(
+      dropTarget,
+      'drop',
+      MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload'))
+    );
   });
 
   run(() => {
@@ -22,7 +28,7 @@ function drop($dragHandle, dropCssPath, dragEvent) {
   });
 }
 
-export function drag(cssPath, options={}) {
+export function drag(cssPath, options = {}) {
   let dragEvent = MockDataTransfer.makeMockEvent();
   let dragHandle = document.querySelector(cssPath);
 
@@ -34,13 +40,13 @@ export function drag(cssPath, options={}) {
     triggerEvent(dragHandle, 'dragstart', dragEvent);
   });
 
-  andThen(function() {
+  andThen(function () {
     if (options.beforeDrop) {
       options.beforeDrop.call();
     }
   });
 
-  andThen(function() {
+  andThen(function () {
     if (options.drop) {
       drop(dragHandle, options.drop, dragEvent);
     }

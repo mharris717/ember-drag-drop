@@ -20,14 +20,16 @@ export default Component.extend(Droppable, {
   },
 
   handlePayload(payload, event) {
-    let obj = this.get('coordinator').getObject(payload,{target: this});
-    this.get('action')(obj, { target: this, event: event });
+    let obj = this.coordinator.getObject(payload, { target: this });
+    this.action(obj, { target: this, event: event });
   },
 
   handleDrop(event) {
     let dataTransfer = event.dataTransfer;
-    let payload = dataTransfer.getData("Text");
-    if (payload === '') { return; }
+    let payload = dataTransfer.getData('Text');
+    if (payload === '') {
+      return;
+    }
     this.handlePayload(payload, event);
   },
 
@@ -38,63 +40,63 @@ export default Component.extend(Droppable, {
   },
 
   handleDragOver(event) {
-    if (!this.get('isOver')) {
+    if (!this.isOver) {
       //only send once per hover event
       this.set('isOver', true);
-      if(this.get('dragOverAction')) {
-        this.get('dragOverAction')(event);
+      if (this.dragOverAction) {
+        this.dragOverAction(event);
       }
     }
   },
 
   handleDragOut(event) {
     this.set('isOver', false);
-    if(this.get('dragOutAction')) {
-      this.get('dragOutAction')(event);
+    if (this.dragOutAction) {
+      this.dragOutAction(event);
     }
   },
 
   click(e) {
-    let onClick = this.get('onClick');
+    let onClick = this.onClick;
     if (onClick) {
       onClick(e);
     }
   },
 
   mouseDown(e) {
-    let mouseDown = this.get('onMouseDown');
+    let mouseDown = this.onMouseDown;
     if (mouseDown) {
       mouseDown(e);
     }
   },
 
   handleMouseEnter(e) {
-    let mouseEnter = this.get('onMouseEnter');
+    let mouseEnter = this.onMouseEnter;
     if (mouseEnter) {
       mouseEnter(e);
     }
   },
 
   didInsertElement() {
-      this._super(...arguments);
-      this.element.addEventListener('mouseenter', this.boundHandleMouseEnter);
+    this._super(...arguments);
+    this.element.addEventListener('mouseenter', this.boundHandleMouseEnter);
   },
 
   willDestroyElement() {
-      this._super(...arguments);
-      this.element.removeEventListener('mouseenter', this.boundHandleMouseEnter);
+    this._super(...arguments);
+    this.element.removeEventListener('mouseenter', this.boundHandleMouseEnter);
   },
 
   actions: {
     acceptForDrop() {
       let hashId = this.get('coordinator.clickedId');
       this.handlePayload(hashId);
-    }
+    },
   },
 
   init() {
     this._super(...arguments);
 
     this.set('boundHandleMouseEnter', this.handleMouseEnter.bind(this));
-  }
+  },
 });
