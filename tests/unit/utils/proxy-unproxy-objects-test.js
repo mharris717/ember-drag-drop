@@ -8,10 +8,10 @@ import { guidFor } from '@ember/object/internals';
 
 module(
   'Unit | Util | ember-drag-drop/utils/proxy-unproxy-objects',
-  function(hooks) {
+  function (hooks) {
     setupTest(hooks);
 
-    hooks.beforeEach(function() {
+    hooks.beforeEach(function () {
       this.testObject = {
         value: true,
         id: 123,
@@ -21,13 +21,13 @@ module(
 
     test('wrapper returns a new object containing content and ID feilds', function testProxyObjAction(assert) {
       assert.expect(2);
-      assert.equal(
+      assert.strictEqual(
         wrapper(this.testObject)[this.testObjectGuid],
         this.testObject,
         'Wrapped object contains corresponding guid field containing the original object content'
       );
 
-      assert.equal(
+      assert.strictEqual(
         wrapper(this.testObject).id,
         this.testObject.id,
         'Object contains ID field'

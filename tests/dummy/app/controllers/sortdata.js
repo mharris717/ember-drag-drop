@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
 export default class SortExample extends Controller {
-
   sortFinishText = null;
 
   @action
@@ -14,4 +13,3 @@ export default class SortExample extends Controller {
     console.log('Sort Ended', this.get('model.pages'));
   }
 }
-

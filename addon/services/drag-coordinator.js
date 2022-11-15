@@ -3,7 +3,6 @@ import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 
-
 function indexOf(items, a) {
   return items.findIndex(function (element) {
     return isEqual(element, a);
@@ -14,8 +13,8 @@ function swapInPlace(items, a, b) {
   const aPos = indexOf(items, a);
   const bPos = indexOf(items, b);
 
-  items.replace(aPos, 1, [ b ]);
-  items.replace(bPos, 1, [ a ]);
+  items.replace(aPos, 1, [b]);
+  items.replace(bPos, 1, [a]);
 }
 
 function shiftInPlace(items, a, b) {
@@ -48,15 +47,15 @@ export default Service.extend({
 
   pushSortComponent(component) {
     const sortingScope = component.get('sortingScope');
-    if (!this.get('sortComponents')[sortingScope]) {
-      this.get('sortComponents')[sortingScope] = A();
+    if (!this.sortComponents[sortingScope]) {
+      this.sortComponents[sortingScope] = A();
     }
-    this.get('sortComponents')[sortingScope].pushObject(component);
+    this.sortComponents[sortingScope].pushObject(component);
   },
 
   removeSortComponent(component) {
     const sortingScope = component.get('sortingScope');
-    this.get('sortComponents')[sortingScope].removeObject(component);
+    this.sortComponents[sortingScope].removeObject(component);
   },
 
   dragStarted(object, event, emberObject) {
@@ -74,41 +73,48 @@ export default Service.extend({
   },
 
   draggingOver(event, emberObject) {
-    const currentOffsetItem = this.get('currentOffsetItem');
+    const currentOffsetItem = this.currentOffsetItem;
     const pos = this.relativeClientPosition(emberObject.element, event);
-    const hasSameSortingScope = this.get('currentDragItem.sortingScope') === emberObject.get('sortingScope');
+    const hasSameSortingScope =
+      this.get('currentDragItem.sortingScope') ===
+      emberObject.get('sortingScope');
     let moveDirections = [];
 
-    if (!this.get('lastEvent')) {
+    if (!this.lastEvent) {
       this.set('lastEvent', event);
     }
 
-    if (event.clientY < this.get('lastEvent').clientY) {
+    if (event.clientY < this.lastEvent.clientY) {
       moveDirections.push('up');
     }
 
-    if (event.clientY > this.get('lastEvent').clientY) {
+    if (event.clientY > this.lastEvent.clientY) {
       moveDirections.push('down');
     }
 
-    if (event.clientX < this.get('lastEvent').clientX) {
+    if (event.clientX < this.lastEvent.clientX) {
       moveDirections.push('left');
     }
 
-    if (event.clientX > this.get('lastEvent').clientX) {
+    if (event.clientX > this.lastEvent.clientX) {
       moveDirections.push('right');
     }
 
     this.set('lastEvent', event);
 
-    if (!this.get('isMoving') && this.get('currentDragEvent')) {
-      if (event.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
+    if (!this.isMoving && this.currentDragEvent) {
+      if (
+        event.target !== this.currentDragEvent.target &&
+        hasSameSortingScope
+      ) {
+        //if not dragging over self
         if (currentOffsetItem !== emberObject) {
-          if (pos.py < 0.67 && moveDirections.indexOf('up') >= 0 ||
-              pos.py > 0.33 && moveDirections.indexOf('down') >= 0 ||
-              pos.px < 0.67 && moveDirections.indexOf('left') >= 0 ||
-              pos.px > 0.33 && moveDirections.indexOf('right') >= 0) {
-
+          if (
+            (pos.py < 0.67 && moveDirections.indexOf('up') >= 0) ||
+            (pos.py > 0.33 && moveDirections.indexOf('down') >= 0) ||
+            (pos.px < 0.67 && moveDirections.indexOf('left') >= 0) ||
+            (pos.px > 0.33 && moveDirections.indexOf('right') >= 0)
+          ) {
             this.moveElements(emberObject);
             this.set('currentOffsetItem', emberObject);
           }
@@ -134,22 +140,20 @@ export default Service.extend({
     const swap = aSortable === bSortable;
 
     if (swap) {
-
       let list = aSortable.get('sortableObjectList');
-      if (!this.get('inPlace')) {
+      if (!this.inPlace) {
         list = A(list.toArray());
       }
 
-      if (this.get('useSwap')) {
+      if (this.useSwap) {
         swapInPlace(list, a, b);
       } else {
         shiftInPlace(list, a, b);
       }
 
-      if (!this.get('inPlace')) {
+      if (!this.inPlace) {
         aSortable.set('sortableObjectList', list);
       }
-
     } else {
       // Move if items are in different sortable-objects component
       const aList = aSortable.get('sortableObjectList');
@@ -162,15 +166,20 @@ export default Service.extend({
   },
 
   moveElements(overElement) {
-    const isEnabled = Object.keys(this.get('sortComponents')).length;
-    const draggingItem = this.get('currentDragItem');
-    const sortComponents = this.get('sortComponents')[draggingItem.get('sortingScope')];
+    const isEnabled = Object.keys(this.sortComponents).length;
+    const draggingItem = this.currentDragItem;
+    const sortComponents =
+      this.sortComponents[draggingItem.get('sortingScope')];
 
     if (!isEnabled) {
       return;
     }
 
-    this.moveObjectPositions(draggingItem.get('content'), overElement.get('content'), sortComponents);
+    this.moveObjectPositions(
+      draggingItem.get('content'),
+      overElement.get('content'),
+      sortComponents
+    );
 
     sortComponents.forEach((component) => {
       component.rerender();
@@ -186,7 +195,7 @@ export default Service.extend({
       x: x,
       y: y,
       px: x / rect.width,
-      py: y / rect.height
+      py: y / rect.height,
     };
-  }
+  },
 });

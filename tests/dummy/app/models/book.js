@@ -1,8 +1,8 @@
-import DS from 'ember-data';
+import Model, { attr, hasMany } from '@ember-data/model';
 
-var Book = DS.Model.extend({
-  title:  DS.attr('string'),
-  pages: DS.hasMany('page', {async: true})
+var Book = Model.extend({
+  title: attr('string'),
+  pages: hasMany('page', { async: true }),
 });
 
 export default Book;

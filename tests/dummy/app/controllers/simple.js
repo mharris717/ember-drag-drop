@@ -6,24 +6,24 @@ export default class SimpleExample extends Controller {
   @tracked dragFinishText = false;
   @tracked dragStartedText = false;
   @tracked dragEndedText = false;
-  @tracked myObject = {id: 1, name: 'objectName'};
-  
+  @tracked myObject = { id: 1, name: 'objectName' };
+
   @action
-  dragResult(obj,ops) {
+  dragResult(obj, ops) {
     this.dragFinishText = ops.target.resultText;
-    console.log('Content of draggable-object :',obj);
+    console.log('Content of draggable-object :', obj);
   }
 
   @action
-  dragStart(){
-      this.dragEndedText = false;
-      this.dragStartedText = 'Drag Has Started';
-    }
+  dragStart() {
+    this.dragEndedText = false;
+    this.dragStartedText = 'Drag Has Started';
+  }
   @action
-    dragEnd() {
-      this.dragStartedText = false;
-      this.dragEndedText = 'Drag Has Ended';
-    }
+  dragEnd() {
+    this.dragStartedText = false;
+    this.dragEndedText = 'Drag Has Ended';
+  }
 
   @action
   draggingOverTarget() {
@@ -34,4 +34,4 @@ export default class SimpleExample extends Controller {
   leftDragTarget() {
     console.log('Off target');
   }
-};
+}

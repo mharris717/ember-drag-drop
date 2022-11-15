@@ -8,19 +8,18 @@ class DataTransfer {
     return this;
   }
 
-  getData(type = "Text") {
+  getData(type = 'Text') {
     return this.data[type];
   }
 
-  setDragImage() {
-  }
+  setDragImage() {}
 }
 
 export default class MockEvent {
   constructor(options = {}) {
     this.dataTransfer = new DataTransfer();
     this.dataTransfer.setData('Text', options.dataTransferData);
-    this.setProperties(options)
+    this.setProperties(options);
   }
 
   useDataTransferData(otherEvent) {
@@ -35,15 +34,13 @@ export default class MockEvent {
     return this;
   }
 
-  preventDefault() {
-  }
+  preventDefault() {}
 
-  stopPropagation() {
-  }
+  stopPropagation() {}
 }
 
 export function createDomEvent(type) {
-  let event = document.createEvent("CustomEvent");
+  let event = document.createEvent('CustomEvent');
   event.initCustomEvent(type, true, true, null);
   event.dataTransfer = new DataTransfer();
   return event;
