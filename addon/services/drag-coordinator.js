@@ -76,7 +76,7 @@ export default Service.extend({
   draggingOver(event, emberObject) {
     const currentOffsetItem = this.get('currentOffsetItem');
     const pos = this.relativeClientPosition(emberObject.element, event);
-    const hasSameSortingScope = this.get('currentDragItem.sortingScope') === emberObject.get('sortingScope');
+    const hasSameSortingScope = this.get('currentDragItem').sortingScope === emberObject.get('sortingScope');
     let moveDirections = [];
 
     if (!this.get('lastEvent')) {
@@ -102,7 +102,7 @@ export default Service.extend({
     this.set('lastEvent', event);
 
     if (!this.get('isMoving') && this.get('currentDragEvent')) {
-      if (event.target !== this.get('currentDragEvent').target) { //if not dragging over self
+      if (event.target !== this.get('currentDragEvent').target && hasSameSortingScope) { //if not dragging over self
         if (currentOffsetItem !== emberObject) {
           if (pos.py < 0.67 && moveDirections.indexOf('up') >= 0 ||
               pos.py > 0.33 && moveDirections.indexOf('down') >= 0 ||
