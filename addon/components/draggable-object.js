@@ -136,9 +136,11 @@ export default Component.extend({
     if(this.get('dragEndAction')) {
       this.get('dragEndAction')(obj, event);
     }
-    if (this.get('dragHandle')) {
+    // ceci empêche le fait que lorsqu'on lâche un élément et que le curseur de la souris est toujours dans le DOM qui déclenche le fait que l'item
+    // soit déplaçable, on puisse déplacer à nouveau l'item sans avoir à faire sortir puis re-rentrer la souris sur l'item
+    /*if (this.get('dragHandle')) {
       this.set('dragReady', false);
-    }
+    }*/
   },
 
   drag(event) {
