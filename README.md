@@ -103,10 +103,10 @@ Ember.Controller.extend({
   // your regular controller code
 
   actions: {
-    myStartAction: function(content) {
+    dragStartAction: function(content) {
      //Content is the same as the content parameter set above
     },
-    myEndAction: function(content) {
+    dragEndAction: function(content) {
       //Content is the same as the content parameter set above
     },
   }
