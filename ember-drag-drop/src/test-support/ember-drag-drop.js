@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* global triggerEvent , andThen */
 import { run } from '@ember/runloop';
 import MockDataTransfer from './helpers/data-transfer.js';

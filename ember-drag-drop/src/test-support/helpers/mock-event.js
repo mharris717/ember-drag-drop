@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 class DataTransfer {
   constructor() {
     this.data = {};

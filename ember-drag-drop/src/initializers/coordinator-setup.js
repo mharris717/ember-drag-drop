@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import Coordinator from '../models/coordinator.js';
 
 export default {

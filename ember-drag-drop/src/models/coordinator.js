@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes, ember/no-get, import/extensions, prettier/prettier */
 import EmberObject from '@ember/object';
 import Evented from '@ember/object/evented';
 import { computed } from '@ember/object';

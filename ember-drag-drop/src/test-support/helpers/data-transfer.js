@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes, ember/no-get, prettier/prettier */
 import EmberObject from '@ember/object';
 
 var c = EmberObject.extend({

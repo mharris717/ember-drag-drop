@@ -4,7 +4,7 @@
 <div class="u-pullLeft">
   <SortableObjects
     @sortableObjectList={{this.pages}}
-    @sortEndAction={{fn this.sortEndAction}}
+    @sortEndAction={{this.sortEndAction}}
     @enableSort={{true}}
   >
     {{#each this.pages as |item|}}

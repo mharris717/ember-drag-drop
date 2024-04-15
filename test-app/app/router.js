@@ -7,11 +7,11 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route("posts");
-  this.route("simple");
-  this.route("sort");
-  this.route("sortdata");
-  this.route("handle");
-  this.route("horizontal");
-  this.route("multiple");
+  this.route('posts');
+  this.route('simple');
+  this.route('sort');
+  this.route('sortdata');
+  this.route('handle');
+  this.route('horizontal');
+  this.route('multiple');
 });

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { isNone } from '@ember/utils';
 import { guidFor } from '@ember/object/internals';
 

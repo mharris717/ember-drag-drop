@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get, ember/no-new-mixins, prettier/prettier */
 import Mixin from '@ember/object/mixin';
 
 /**

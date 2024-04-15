@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-actions-hash, ember/no-classic-classes, ember/no-classic-components, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-mixins, ember/require-tagless-components, prettier/prettier */
 import { getOwner } from '@ember/application';
 import Component from '@ember/component';
 import Droppable from '../mixins/droppable.js';

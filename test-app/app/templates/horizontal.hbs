@@ -1,3 +1,4 @@
+{{! template-lint-disable require-input-label }}
 <h3>
   A Horizontal sorting example
 </h3>
@@ -29,7 +30,7 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList}}
-      @sortEndAction={{fn this.sortEndAction}}
+      @sortEndAction={{this.sortEndAction}}
       @useSwap={{this.useSwap}}
     >
       {{#each this.sortableObjectList as |item|}}

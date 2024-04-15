@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-classes, ember/no-get, prettier/prettier */
 import Service from '@ember/service';
 import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';

@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions, prettier/prettier */
 import {find, triggerEvent} from '@ember/test-helpers';
 import MockEvent from './mock-event';
 
