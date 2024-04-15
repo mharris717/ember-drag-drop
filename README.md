@@ -16,9 +16,10 @@ When using this addon, you get to work with objects in your domain layer, just l
 
 ## Compatibility
 
-- Ember.js v3.12 or above
+- Ember.js v3.16 or above
 - Embroider or ember-auto-import v2
 
+- Use 0.9.0-beta.0 if you need to support Ember 3.12
 - Use 0.8.2 if you need to support a Ember 2.X or version less than Ember 3.12
 
 ## Installation
