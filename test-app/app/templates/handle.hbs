@@ -1,0 +1,39 @@
+<h3>Drag and Drop With a handle</h3>
+
+<DraggableObjectTarget
+  @action={{fn this.dragResult}}
+  @resultText="Drag is Complete"
+  @dragOverAction={{fn this.draggingOverTarget}}
+  @dragOutAction={{fn this.leftDragTarget}}
+  @overrideClass="dropTarget">
+  {{#if this.dragFinishText}}
+    {{this.dragFinishText}}
+  {{else}}
+    Drag here to complete Action
+  {{/if}}
+</DraggableObjectTarget>
+
+<DraggableObject
+  @content={{this.myObject}}
+  @dragStartAction={{fn this.dragStart}}
+  @dragEndAction={{fn this.dragEnd}}
+  @overrideClass="dragObject"
+  @dragHandle=".js-dragHandle">
+
+  {{#if this.dragStartedText}}
+    {{this.dragStartedText}}
+  {{else if this.dragEndedText}}
+    {{this.dragEndedText}}
+  {{else}}
+    Only the handle starts drag
+  {{/if}}
+
+  <span class="js-dragHandle dragHandle"></span>
+
+</DraggableObject>
+
+<br><br>
+<div class="u-fullBlock">
+  Template is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/test-app/app/templates/handle.hbs" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/test-app/app/templates/handle.hbs</a>
+  <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/test-app/app/controllers/handle.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/test-app/app/controllers/handle.js</a>
+</div>

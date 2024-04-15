@@ -14,8 +14,11 @@ To use this addon, you don't need to:
 
 When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember. The only two things you need to use are (as you might expect) [Draggable Object](#draggable-object) and [Draggable Object Target](#draggable-object-target)
 
-## Requirements
-- As of version 0.9 and up it works with Ember 3.12 and higher.
+## Compatibility
+
+- Ember.js v3.12 or above
+- Embroider or ember-auto-import v2
+
 - Use 0.8.2 if you need to support a Ember 2.X or version less than Ember 3.12
 
 ## Installation
@@ -27,6 +30,14 @@ ember install ember-drag-drop
 ## Thanks
 
 Huge thanks to [ic-droppable](https://github.com/instructure/ic-droppable), from which I shamelessly stole as promised.
+
+## Contributing
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
 
 <!--- START GENERATED DOCS -->
 
@@ -264,7 +275,7 @@ When writing tests, there is a `drag` helper you can use to help facilitate drag
 
 ```js
 // new async helper
-import { drag } from 'your-app/tests/helpers/drag-drop';
+import { drag } from 'ember-drag-drop/test-support/drag-drop';
 ```
 
 You can pass the CSS selector for the `draggable-object-target` and pass a `beforeDrop` callback.
@@ -299,7 +310,7 @@ For a fuller example check out this integration [test](https://github.com/mharri
 
   ```javascript
   // old drag helper
-  import { drag } from 'your-app/tests/helpers/ember-drag-drop';
+  import { drag } from 'ember-drag-drop/test-support/ember-drag-drop';
   ```
 
 
@@ -314,3 +325,4 @@ An Example:
 
 </DraggableObjectTarget>
 ```
+
