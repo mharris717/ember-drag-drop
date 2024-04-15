@@ -34,6 +34,14 @@
     "@embroider/addon-shim": "^1.8.7",
     "decorator-transforms": "^1.0.1"
   },
+  "peerDependencies": {
+    "@ember/test-helpers": "*"
+  },
+  "peerDependenciesMeta": {
+    "@ember/test-helpers": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/eslint-parser": "^7.23.3",
