@@ -3,6 +3,12 @@
 [![Build Status](https://travis-ci.org/mharris717/ember-drag-drop.svg?branch=master)](https://travis-ci.org/mharris717/ember-drag-drop)
 [![Download Total](https://img.shields.io/npm/dt/ember-drag-drop.svg)](http://badge.fury.io/js/ember-drag-drop)
 
+## !! Warning !! This addon has moved locations
+
+Please add any issues or PR's to it's new location [https://github.com/adopted-ember-addons/ember-drag-drop](https://github.com/adopted-ember-addons/ember-drag-drop)
+
+---
+
 Simple drag and drop addon for your Ember CLI app.
 
 The goal is to allow you to add drag and drop to your app without having to become an expert in the browser's low level D&D API.
