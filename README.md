@@ -1,4 +1,4 @@
-# Ember Drag Drop
+# ember-drag-drop
 
 [![Build Status](https://travis-ci.org/mharris717/ember-drag-drop.svg?branch=master)](https://travis-ci.org/mharris717/ember-drag-drop)
 [![Download Total](https://img.shields.io/npm/dt/ember-drag-drop.svg)](http://badge.fury.io/js/ember-drag-drop)
@@ -20,8 +20,13 @@ To use this addon, you don't need to:
 
 When using this addon, you get to work with objects in your domain layer, just like everywhere else in Ember. The only two things you need to use are (as you might expect) [Draggable Object](#draggable-object) and [Draggable Object Target](#draggable-object-target)
 
-## Requirements
-- As of version 0.9 and up it works with Ember 3.12 and higher.
+## Compatibility
+
+* Ember.js v3.24 or above
+* Ember CLI v3.24 or above
+* Node.js v12 or above
+
+- Use 0.9 if you need to support a Ember 3.12 or version less than Ember 4
 - Use 0.8.2 if you need to support a Ember 2.X or version less than Ember 3.12
 
 ## Installation

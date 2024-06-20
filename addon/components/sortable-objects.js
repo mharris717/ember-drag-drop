@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 
-export default Component.extend( {
+export default Component.extend({
   dragCoordinator: service('drag-coordinator'),
   overrideClass: 'sortable-objects',
   classNameBindings: ['overrideClass'],
@@ -14,20 +14,21 @@ export default Component.extend( {
 
   init() {
     this._super(...arguments);
-    if (this.get('enableSort')) {
-      this.get('dragCoordinator').pushSortComponent(this);
+    if (this.enableSort) {
+      this.dragCoordinator.pushSortComponent(this);
     }
   },
 
   willDestroyElement() {
-    if (this.get('enableSort')) {
-      this.get('dragCoordinator').removeSortComponent(this);
+    this._super(...arguments);
+    if (this.enableSort) {
+      this.dragCoordinator.removeSortComponent(this);
     }
   },
 
   dragStart(event) {
     event.stopPropagation();
-    if (!this.get('enableSort')) {
+    if (!this.enableSort) {
       return false;
     }
     this.set('dragCoordinator.sortComponentController', this);
@@ -49,8 +50,8 @@ export default Component.extend( {
     event.stopPropagation();
     event.preventDefault();
     this.set('dragCoordinator.sortComponentController', undefined);
-    if (this.get('enableSort') && this.get('sortEndAction')) {
-      this.get('sortEndAction')(event);
+    if (this.enableSort && this.sortEndAction) {
+      this.sortEndAction(event);
     }
-  }
+  },
 });

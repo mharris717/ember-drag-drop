@@ -6,36 +6,36 @@ export default EmberObject.extend({
   contentLength: 0,
   length: alias('contentLength'),
 
-  init: function() {
+  init: function () {
     this._super();
     this.content = {};
   },
 
-  add: function(obj) {
+  add: function (obj) {
     var id = this.generateId();
-    this.get('content')[id] = obj;
-    this.incrementProperty("contentLength");
+    this.content[id] = obj;
+    this.incrementProperty('contentLength');
     return id;
   },
 
-  getObj: function(key) {
-    var res = this.get('content')[key];
+  getObj: function (key) {
+    var res = this.content[key];
     if (!res) {
-      throw new Error("no obj for key "+key);
+      throw new Error('no obj for key ' + key);
     }
     return res;
   },
 
-  generateId: function() {
+  generateId: function () {
     var num = Math.random() * 1000000000000.0;
     num = parseInt(num);
-    num = ""+num;
+    num = '' + num;
     return num;
   },
 
-  keys: function() {
+  keys: function () {
     var res = [];
-    for (var key in this.get('content')) {
+    for (var key in this.content) {
       res.push(key);
     }
     return A(res);
