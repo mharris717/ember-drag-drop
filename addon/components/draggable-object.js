@@ -76,6 +76,9 @@ export default Component.extend({
       this.element.querySelector(dragHandle).removeEventListener('mouseover', this.mouseOverHandler);
       this.element.querySelector(dragHandle).removeEventListener('mouseout', this.mouseOutHandler);
     }
+    if (this.get('isDraggingObject')) {
+      this.get('dragCoordinator').dragEnded();
+    }
   },
 
 
